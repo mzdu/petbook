@@ -105,9 +105,14 @@
 
          return {
              // GET: /status/:userID
-             // returns a specific pet
-             get: function(userID) {
-                 return Restangular.all('status').one('', userID).customGET();
+             // returns all posts from current user
+             getAll: function(userID) {
+                 return Restangular.all('status').one('', userID).get();
+             },
+              // Post: /status/:userID
+             // creates a status for user
+             add: function(id, status){
+                return Restangular.all('status').one('', id).customPOST(status);
              }
 
          }; //end of return

@@ -61,14 +61,17 @@ exports.getMyPosts = function(req, res) {
 
 exports.makeNewPost = function(req, res) {
     var userID = req.params.userID;
-
+    console.log('user is: ', userID);
     //assigns the user as the donor
     var updateObj = req.body;
     updateObj._Owner = userID;
+    console.log('b4 create');
     Status.create(updateObj, function(err, results) {
         if (err) {
+            console.log('in err', err);
             return utility.handleError(res, err);
         } else {
+            console.log('in else');
             return res.send(results);
         }
     });
