@@ -4,6 +4,8 @@ var mongoose = require('mongoose'),
     Schema = mongoose.Schema;
 
 
+
+
 var UserSchema = new Schema({
     username: {
         type: String
@@ -28,19 +30,18 @@ var UserSchema = new Schema({
     phone: String,
 
     pet: {
-        name: String,
+        name: {
+            type: String,
+            required: true
+        },
         age: Number,
         breed: String,
         bio: String,
         sex: String,
-        Status: {
-            details: String,
-            likes: Number,
-            bio: String,
-            createdDate: {
-                type: Date,
-                default: Date.now
-            }
+        photoUrl: String,
+        createdDate: {
+            type: Date,
+            default: Date.now
         }
     },
 

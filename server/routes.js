@@ -8,11 +8,6 @@ module.exports = function(app) {
     //auth functions
 
 
-
-
-
-    
-
     app.post(PATH + 'register', passport.authenticate('local-register', {
         failureFlash: false,
     }), function(req, res) {
@@ -25,8 +20,8 @@ module.exports = function(app) {
 
 
     
-    var Test = require('./controllers/test');
-    app.get(PATH + 'test', Test.hello);
+    var User = require('./controllers/user');
+    app.post(PATH + 'user/:userID', User.UpdateOrSavePetProfile);
 
 
 };
