@@ -4,7 +4,8 @@
     angular.module('petBook.services', [])
 
     .factory('AuthService', AuthService)
-    .factory('StorageService', StorageService);
+    .factory('StorageService', StorageService)
+    .factory('ProfileService', ProfileService);
 
     function AuthService(Restangular) {
 
@@ -72,5 +73,33 @@
             },
         }; //end of return
     }
+     
+     
+     function ProfileService(Restangular) {
+
+         return {
+             // GET: /pet
+             // returns all pets
+             all: function(form) {
+                 return Restangular.all('pet').getList();
+             },
+
+             // Post: /pet/:petID
+             // updates a single pet
+             update: function(form) {
+                 console.log('form is', form);
+                 return Restangular.all('pet').one('', form._id).customPOST(form);
+             },
+
+             // GET: /user/:petID
+             // returns a specific pet
+             get: function(petID) {
+                 return Restangular.one('pet', petID).get();
+             }
+
+         }; //end of return
+     }     
+     
+     
 
 })();
