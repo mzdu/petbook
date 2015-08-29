@@ -102,10 +102,7 @@ angular.module('petBook.controllers', [])
 
 .controller('LoginCtrl', function($scope, $state, $timeout, $stateParams, StorageService, ionicMaterialInk, AuthService) {
 
-    $scope.user = {
-        username: "testuser",
-        password: "test123"
-    }
+
     $scope.$parent.clearFabs();
     $timeout(function() {
         $scope.$parent.hideHeader();
@@ -201,6 +198,7 @@ angular.module('petBook.controllers', [])
     $scope.isExpanded = false;
     $scope.$parent.setExpanded(false);
     $scope.$parent.setHeaderFab(false);
+    
     $scope.user = StorageService.getCurrentUser().user;
     console.log('scope user is ', $scope.user);
 
