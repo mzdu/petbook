@@ -59,9 +59,9 @@ angular.module('petBook', ['ionic',
             'fabContent': {
                 template: '<button id="fab-Moments" class="button button-fab button-fab-top-right expanded button-energized-900 flap"><i class="icon ion-paper-airplane"></i></button>',
                 controller: function ($timeout) {
-                    $timeout(function () {
+                    /*$timeout(function () {
                         document.getElementById('fab-Moments').classList.toggle('on');
-                    }, 200);
+                    }, 200);*/
                 }
             }
         }
