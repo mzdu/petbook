@@ -32,24 +32,42 @@
 
         <div class="list animate-fade-slide-in-right">
 
-          <div class="item item-divider">
+          <div class="item item-divider mgrey">
             User Info
           </div>
 
-          <a class="item item-thumbnail-right" href="#">
+<!--           <div class="list">
+            <a class="item item-thumbnail-left" href="#" style="padding:25px;">
               <img src="../img/dog2.jpg">
               <h2>User firstname here{{user.firstname}}</h2>
-          </a>
+              <p>Back off, man. I'm a scientist.</p>
+            </a>
+        </div> -->
+<!--    <div class="item card-item"> -->
+    <div class="card">
+        <div class="item item-avatar item-text-wrap">
+            <span class="avatar" style="background-image: url('img/jon-snow.jpg');"></span>
+            <strong>User firstname here{{user.firstname}}</strong>
+           <!--  <div class="card-footer text-right">
+                <i class="icon ion-chatbubbles positive"></i> 6
+                <i class="icon ion-heart assertive"></i> 23
+                <div class="pull-left">
+                    <i class="icon ion-clock"></i> just now
+                </div>
+            </div> -->
+        </div>
+    </div>
+<!--     </div> -->
 
-          <div class="item item-divider">
+          <div class="item item-divider mgrey">
             Pet Info
           </div>
 
           <a class="item" href="#">
-            <h3>Name: {{user.pet.name}}</h3>
+            Name: {{user.pet.name}}
           </a>
           <a class="item" href="#">
-            <h3>Age: {{user.pet.age}}</h3>
+            Age: {{user.pet.age}}
           </a>
           <a class="item" href="#">
             <h3>Sex: {{user.pet.sex}}</h3>
