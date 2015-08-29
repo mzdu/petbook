@@ -39,24 +39,17 @@
             </a>
         </div> -->
 
-        <div class="list animate-fade-slide-in-right">
-            <a ui-sref="app.friends" class="item item-avatar item-icon-right">
-                <img src="img/jon-snow.jpg">
+        <div class="list card animate-fade-slide-in-right">
                 <h2> {{user.firstname}}</h2>
-                <i class="icon ion-chatbubble muted"></i>
-            </a>
-        </div>
-
-        <div class="list animate-fade-slide-in-right">
-            <a ui-sref="app.friends" class="item item-avatar item-icon-right">
-                <img src="img/jon-snow.jpg">
+        
+        <div class="item item-body animate-fade-slide-in-right">
                 <h3>Name: {{user.pet.name}}</h3>
                 <h3>Age: {{user.pet.age}}</h3>
                 <h3>Sex: {{user.pet.sex}}</h3>
                 <h3>Breed: {{user.pet.breed}}</h3>
                 <p>Bio: {{user.pet.bio}}</p>
-                <i class="icon ion-chatbubble muted"></i>
-            </a>
+        </div>
+
         </div>
     </ion-content>
 </ion-view>
