@@ -46,15 +46,15 @@
                     // console.log('needs to login');
                     $localStorage.user = '';
                     // $state.go('login');
-                    if (goToRegister) {
-                        $state.go('register', {}, {
-                            reload: true
-                        });
-                    } else {
-                        $state.go('login', {}, {
-                            reload: true
-                        });
-                    }
+//                    if (goToRegister) {
+//                        $state.go('app.register', {}, {
+//                            reload: true
+//                        });
+//                    } else {
+//                        $state.go('app.login', {}, {
+//                            reload: true
+//                        });
+//                    }
                     // console.log('after logged in');
                     return null;
                 }
