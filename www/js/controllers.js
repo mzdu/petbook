@@ -274,15 +274,16 @@ angular.module('petBook.controllers', [])
 
 })
 
-.controller('MyPostsCtrl', function($scope, $stateParams, $timeout, ionicMaterialMotion, ionicMaterialInk, StorageService) {
+.controller('MyPostsCtrl', function($scope, $stateParams, $timeout, ionicMaterialMotion, ionicMaterialInk, StorageService, PostService) {
     // Set Header
     $scope.$parent.showHeader();
     $scope.$parent.clearFabs();
     $scope.isExpanded = false;
     $scope.$parent.setExpanded(false);
     $scope.$parent.setHeaderFab(false);
-    $scope.posts = 
-        [{description: 'wishing my dad were home',
+
+    
+    /*    [{description: 'wishing my dad were home',
            likes: 10,
            createdDate: '8/29/15',
            location: [51.5033630,-0.1276250]},
@@ -293,8 +294,29 @@ angular.module('petBook.controllers', [])
         {description: 'need someone to walk me',
            likes: 10,
            createdDate: '8/31/15',
-           location: [51.5033630,-0.1276250]}];
-    $scope.user = StorageService.getCurrentUser().user;
+           location: [51.5033630,-0.1276250]}];*/
+    if(!StorageService.getCurrentUser()){
+        return;
+    }
+    else {
+        $scope.user = StorageService.getCurrentUser().user;
+        var promise = PostService.get($scope.user._id);
+        // console.log(promise);
+        // $scope.posts
+
+        promise.then(function(results, err){
+            if(!err){
+                $scope.sth = results;
+                console.log('likes is', $scope.sth);
+            }
+            else{
+                $scope.log('error is', err);
+            }
+        })
+
+
+    }
+
 
     // Set Motion
     $timeout(function() {

@@ -5,7 +5,8 @@
 
     .factory('AuthService', AuthService)
     .factory('StorageService', StorageService)
-    .factory('ProfileService', ProfileService);
+    .factory('ProfileService', ProfileService)
+    .factory('PostService', PostService);
 
     function AuthService(Restangular) {
 
@@ -72,7 +73,7 @@
                 console.log('current user is ', $localStorage.user);
             },
         }; //end of return
-    }
+    };
      
      
      function ProfileService(Restangular) {
@@ -98,8 +99,18 @@
              }
 
          }; //end of return
-     }     
+     };  
      
-     
+     function PostService(Restangular) {
+
+         return {
+             // GET: /status/:userID
+             // returns a specific pet
+             get: function(userID) {
+                 return Restangular.all('status').one('', userID).customGET();
+             }
+
+         }; //end of return
+     };  
 
 })();
