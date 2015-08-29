@@ -273,7 +273,7 @@ angular.module('petBook.controllers', [])
 
 })
 
-.controller('MyPostsCtrl', function($scope, $stateParams, $timeout, ionicMaterialMotion, ionicMaterialInk, StorageService, PostService) {
+.controller('MyPostsCtrl', function($scope, $stateParams, $timeout, ionicMaterialMotion, ionicMaterialInk, StorageService, StatusService) {
     // Set Header
     $scope.$parent.showHeader();
     $scope.$parent.clearFabs();
@@ -298,7 +298,7 @@ angular.module('petBook.controllers', [])
         return;
     } else {
         $scope.user = StorageService.getCurrentUser().user;
-        var promise = PostService.getAll($scope.user._id);
+        var promise = StatusService.getAll($scope.user._id);
         // console.log(promise);
         // $scope.posts
 
@@ -332,7 +332,7 @@ angular.module('petBook.controllers', [])
     ionicMaterialInk.displayEffect();
 })
 
-.controller('AddPostsCtrl', function($scope, $stateParams, $timeout, ionicMaterialMotion, ionicMaterialInk, StorageService, $ionicPopup, PostService) {
+.controller('AddPostsCtrl', function($scope, $stateParams, $timeout, ionicMaterialMotion, ionicMaterialInk, StorageService, $ionicPopup, StatusService) {
     // Set Header
     $scope.$parent.showHeader();
     $scope.$parent.clearFabs();
@@ -426,7 +426,7 @@ angular.module('petBook.controllers', [])
                     likes: 5,
                     location: [51.5033630, -0.1276250] //hard coded
                 }
-                var promise = PostService.add($scope.user._id, status);
+                var promise = StatusService.add($scope.user._id, status);
 
                 promise.then(function(data, error) {
                     if (!error) {

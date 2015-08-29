@@ -6,7 +6,7 @@
     .factory('AuthService', AuthService)
     .factory('StorageService', StorageService)
     .factory('ProfileService', ProfileService)
-    .factory('PostService', PostService);
+    .factory('StatusService', StatusService);
 
     function AuthService(Restangular) {
 
@@ -101,7 +101,7 @@
          }; //end of return
      };  
      
-     function PostService(Restangular) {
+     function StatusService(Restangular) {
 
          return {
              // GET: /status/:userID
