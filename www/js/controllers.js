@@ -123,9 +123,7 @@ angular.module('petBook.controllers', [])
             console.log('user is: ', user);
             if (!err && user.token) {
                 StorageService.setCurrentUser(user);
-                $state.go('app.profile', {}, {
-                    reload: true
-                });
+                $state.go('app.profile');
             } else {
                 console.log('error is: ', err);
                 $scope.error = err;
@@ -297,7 +295,7 @@ angular.module('petBook.controllers', [])
         "rad": 10
     };
     
-    
+
         var promise = StatusService.getMoments(moment);
     promise.then(function(results, err) {
         if (!err) {
