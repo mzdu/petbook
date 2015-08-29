@@ -1,5 +1,8 @@
 var mongoose = require('mongoose'),
+    bcrypt = require('bcrypt-nodejs'),
+    cryptoUtil = require('../services/auth/cryptoUtil'),
     Schema = mongoose.Schema;
+
 
 var UserSchema = new Schema({
     username: {
@@ -24,7 +27,22 @@ var UserSchema = new Schema({
 
     phone: String,
 
-    pet: PetSchema,
+    pet: {
+        name: String,
+        age: Number,
+        breed: String,
+        bio: String,
+        sex: String,
+        Status: {
+            details: String,
+            likes: Number,
+            bio: String,
+            createdDate: {
+                type: Date,
+                default: Date.now
+            }
+        }
+    },
 
     createdDate: {
         type: Date,
@@ -32,23 +50,31 @@ var UserSchema = new Schema({
     }
 });
 
-var PetSchema = new Schema({
-    name: String,
-    age: Number,
-    breed: String,
-    bio: String,
-    sex: String,
-    Status: StatusSchema
-});
 
-var StatusSchema = new Schema({
-    details: String,
-    likes: Number,
-    bio: String,
-    createdDate: {
-        type: Date,
-        default: Date.now
-    }
+
+UserSchema.methods.toJSON = function() {
+    var user = this.toObject();
+    delete user.password;
+    return user;
+};
+
+UserSchema.methods.comparePasswords = function(password, callback) {
+    bcrypt.compare(password, this.password, callback);
+};
+
+UserSchema.pre('save', function(next) {
+    var user = this;
+
+    if (!user.isModified()) return next();
+
+    cryptoUtil.hashPassword(user.password).then(function(data, err) {
+        if (err) {
+            return next(err);
+        } else {
+            user.password = data;
+            next();
+        }
+    });
 });
 
 

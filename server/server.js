@@ -29,6 +29,7 @@ app.use(bodyParser.json());
 
 app.use(morgan('combined'));
 
+app.use(passport.initialize());
 
 //allow cross origin requests
 app.use(function(req, res, next) {
@@ -39,6 +40,17 @@ app.use(function(req, res, next) {
     next();
 });
 
+
+passport.serializeUser(function(user, done) {
+    done(null, user.id);
+});
+
+require('./models/user');
+
+
+var localStrategy = require('./services/auth/localAuth');
+passport.use('local-register', localStrategy.register);
+passport.use('local-login', localStrategy.login);
 
 
 app.set('port', portNumber);
