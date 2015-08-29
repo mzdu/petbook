@@ -91,13 +91,48 @@ angular.module('petBook.controllers', [])
     };
 })
 
-.controller('LoginCtrl', function($scope, $timeout, $stateParams, ionicMaterialInk) {
+.controller('LoginCtrl', function($scope, $state, $timeout, $stateParams, ionicMaterialInk, AuthService) {
     $scope.$parent.clearFabs();
     $timeout(function() {
         $scope.$parent.hideHeader();
     }, 0);
     ionicMaterialInk.displayEffect();
-})
+    
+    $scope.user = {};
+    $scope.login = function() {
+  	  
+  	  var user = {};
+  	  user = $scope.user;
+  	  console.log('user', user);
+  	  
+        var promise = AuthService.login($scope.user);
+        promise.then(function(user, err) {
+            // console.log('user is: ', user);
+            // returns a list of users
+            if (!err && user.token) {
+//                StorageService.setCurrentUser(user);
+                $state.go('app.profile', {}, {
+                    reload: true
+                });
+            } else {
+                console.log('error is: ', err);
+                $scope.error = err;
+            }
+            return;
+        }, function(response) {
+            console.log('error login!');
+            $scope.error = 'invalid credentials';
+        }); //end of then
+        
+//        $state.go('app.home');
+
+    };
+
+    $scope.register = function() {
+        $state.go('app.register');
+    };
+
+  })
 
 .controller('FriendsCtrl', function($scope, $stateParams, $timeout, ionicMaterialInk, ionicMaterialMotion) {
     // Set Header
