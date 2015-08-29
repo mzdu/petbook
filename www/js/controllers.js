@@ -9,7 +9,13 @@ angular.module('petBook.controllers', [])
     $scope.isExpanded = false;
     $scope.hasHeaderFabLeft = false;
     $scope.hasHeaderFabRight = false;
-    $scope.user = StorageService.getCurrentUser().user;
+    
+    if(!StorageService.getCurrentUser()){
+    	return;
+    }
+    else {
+    	$scope.user = StorageService.getCurrentUser().user;
+    }
 
 
     var navIcons = document.getElementsByClassName('ion-navicon');
@@ -89,7 +95,9 @@ angular.module('petBook.controllers', [])
     };
     
     $scope.logout=function(){
-
+//    	console.log("in logout func");
+//    	StorageService.resetCurrentUser();
+//        $state.go('app.login');
     };
 })
 
