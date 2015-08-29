@@ -101,16 +101,13 @@ angular.module('petBook.controllers', [])
     $scope.user = {};
     $scope.login = function() {
   	  
-  	  var user = {};
-  	  user = $scope.user;
-  	  console.log('user', user);
-  	  
         var promise = AuthService.login($scope.user);
         promise.then(function(user, err) {
             // console.log('user is: ', user);
             // returns a list of users
+                console.log('user is: ', user);
             if (!err && user.token) {
-//                StorageService.setCurrentUser(user);
+               StorageService.setCurrentUser(user);
                 $state.go('app.profile', {}, {
                     reload: true
                 });
@@ -152,7 +149,7 @@ angular.module('petBook.controllers', [])
             // returns a list of users
             if (!err) {
                 console.log('user is: ', user);
-//                StorageService.setCurrentUser(user);
+               StorageService.setCurrentUser(user);
                 $state.go('app.profile', {}, {
                     reload: true
                 });

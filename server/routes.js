@@ -19,8 +19,9 @@ module.exports = function(app) {
     });
 
 
-    
     var User = require('./controllers/user');
+    app.get(PATH + 'user/:userID', User.getProfile);
+
     app.post(PATH + 'user/:userID', User.UpdateOrSavePetProfile);
 
 

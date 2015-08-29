@@ -34,11 +34,14 @@
             </div>
             <form name="loginForm" ng-submit="login()" novalidate>
             <div class="list">
-                <label class="item item-input item-md-label" placeholder="Username" highlight-color="balanced" type="text"><input type="text" ng-model="user.username"><span class="input-label">Username</span><div class="highlight highlight-balanced"></div></label>
-                <label class="item item-input item-md-label" placeholder="Password" highlight-color="energized" type="password"><input type="password" ng-model="user.password"><span class="input-label">Password</span><div class="highlight highlight-energized"></div></label>
+                <label class="item item-input item-md-label" placeholder="Username" highlight-color="balanced" type="text"><input type="text" ng-model="user.username" required><span class="input-label">Username</span><div class="highlight highlight-balanced"></div></label>
+                <label class="item item-input item-md-label" placeholder="Password" highlight-color="energized" type="password"><input type="password" ng-model="user.password" required><span class="input-label">Password</span><div class="highlight highlight-energized"></div></label>
+            </div>
+            <div class="list error" ng-if="error">
+                <span>Invalid Credentials</span>
             </div>
             <div class="padding">
-                <button type="submit" class="button button-block button-positive waves-effect waves-button waves-light">Login</button>
+                <button type="submit" class="button button-block button-positive waves-effect waves-button waves-light" ng-disabled="loginForm.$invalid">Login</button>
 				<button type="button" class="button button-clear button-calm" ng-click="register()">
 				<u>New here? Sign up.</u>
 				</button>                

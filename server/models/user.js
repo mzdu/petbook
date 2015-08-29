@@ -30,10 +30,7 @@ var UserSchema = new Schema({
     phone: String,
 
     pet: {
-        name: {
-            type: String,
-            required: true
-        },
+        name: String,
         age: Number,
         breed: String,
         bio: String,
