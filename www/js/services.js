@@ -107,7 +107,7 @@
              // GET: /status/:userID
              // returns a specific pet
              get: function(userID) {
-                 return Restangular.all('status').one('', userID).customGET();
+                 return Restangular.all('status').one('', userID).get();
              }
 
          }; //end of return

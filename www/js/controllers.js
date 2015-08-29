@@ -306,8 +306,8 @@ angular.module('petBook.controllers', [])
 
         promise.then(function(results, err){
             if(!err){
-                $scope.sth = results;
-                console.log('likes is', $scope.sth);
+                $scope.posts = results;
+                // console.log('likes is', $scope.sth);
             }
             else{
                 $scope.log('error is', err);
