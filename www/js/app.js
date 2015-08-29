@@ -37,18 +37,18 @@ angular.module('petBook', ['ionic', 'petBook.controllers', 'ionic-material', 'io
         controller: 'AppCtrl'
     })
 
-    .state('app.activity', {
-        url: '/activity',
+    .state('app.moments', {
+        url: '/moments',
         views: {
             'menuContent': {
-                templateUrl: 'templates/activity.html',
-                controller: 'ActivityCtrl'
+                templateUrl: 'templates/moments.html',
+                controller: 'MomentsCtrl'
             },
             'fabContent': {
-                template: '<button id="fab-activity" class="button button-fab button-fab-top-right expanded button-energized-900 flap"><i class="icon ion-paper-airplane"></i></button>',
+                template: '<button id="fab-Moments" class="button button-fab button-fab-top-right expanded button-energized-900 flap"><i class="icon ion-paper-airplane"></i></button>',
                 controller: function ($timeout) {
                     $timeout(function () {
-                        document.getElementById('fab-activity').classList.toggle('on');
+                        document.getElementById('fab-Moments').classList.toggle('on');
                     }, 200);
                 }
             }
@@ -118,6 +118,54 @@ angular.module('petBook', ['ionic', 'petBook.controllers', 'ionic-material', 'io
                         document.getElementById('fab-profile').classList.toggle('on');
                     }, 800);*/
                 }
+            }
+        }
+    })
+    .state('app.myposts', {
+        url: '/myposts',
+        views: {
+            'menuContent': {
+                templateUrl: 'templates/myposts.html',
+                controller: 'MyPostsCtrl'
+            },
+            'fabContent': {
+                template: ''
+            }
+        }
+    })
+    .state('app.dogsnearby', {
+        url: '/dogsnearby',
+        views: {
+            'menuContent': {
+                templateUrl: 'templates/dogsnearby.html',
+                controller: 'DogsNearbyCtrl'
+            },
+            'fabContent': {
+                template: ''
+            }
+        }
+    })
+    .state('app.about', {
+        url: '/about',
+        views: {
+            'menuContent': {
+                templateUrl: 'templates/about.html',
+                controller: 'AboutCtrl'
+            },
+            'fabContent': {
+                template: ''
+            }
+        }
+    })
+    .state('app.logout', {
+        url: '/logout',
+        views: {
+            'menuContent': {
+                templateUrl: 'templates/logout.html',
+                controller: 'LogoutCtrl'
+            },
+            'fabContent': {
+                template: ''
             }
         }
     })
