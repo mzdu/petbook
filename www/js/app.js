@@ -133,12 +133,12 @@ angular.module('petBook', ['ionic', 'petBook.controllers', 'ionic-material', 'io
             }
         }
     })
-    .state('app.dogsnearby', {
-        url: '/dogsnearby',
+    .state('app.petsnearby', {
+        url: '/petsnearby',
         views: {
             'menuContent': {
-                templateUrl: 'templates/dogsnearby.html',
-                controller: 'DogsNearbyCtrl'
+                templateUrl: 'templates/petsnearby.html',
+                controller: 'PetsnearbyCtrl'
             },
             'fabContent': {
                 template: ''
@@ -151,18 +151,6 @@ angular.module('petBook', ['ionic', 'petBook.controllers', 'ionic-material', 'io
             'menuContent': {
                 templateUrl: 'templates/about.html',
                 controller: 'AboutCtrl'
-            },
-            'fabContent': {
-                template: ''
-            }
-        }
-    })
-    .state('app.logout', {
-        url: '/logout',
-        views: {
-            'menuContent': {
-                templateUrl: 'templates/logout.html',
-                controller: 'LogoutCtrl'
             },
             'fabContent': {
                 template: ''

@@ -14,7 +14,7 @@
     <ion-side-menu side="left">
         <ion-header-bar class="dark-bg expanded">
             <span class="avatar" style="background: url('img/crown.jpg'); background-size: cover;"></span>
-            <h2>Username Here{{user.email}}</h2>
+            <h2>Username Here{{user.firstname}}</h2>
         </ion-header-bar>
         <ion-content class="stable-bg has-expanded-header">
             <ion-list>
@@ -24,24 +24,24 @@
                 <ion-item nav-clear menu-close ui-sref="app.myposts">
                     My Posts
                 </ion-item>
-                <ion-item nav-clear menu-close ui-sref="app.dogsnearby">
-                    Dogs Nearby
-                </ion-item>
                 <ion-item nav-clear menu-close ui-sref="app.profile">
                     Profile
                 </ion-item>
                 <ion-item nav-clear menu-close ui-sref="app.about">
                     About
                 </ion-item>
-                <ion-item nav-clear menu-close ui-sref="app.logout">
-                    Logout
+                <ion-item nav-clear menu-close>
+                <button class="button button-block" ng-click="logout()">
+                  Logout
+                </button>
                 </ion-item>
 
-
+                <ion-item nav-clear menu-close ui-sref="app.petsnearby">
+                    Pets Nearby
+                </ion-item>
                 <ion-item nav-clear menu-close ui-sref="app.login">
                     Login
                 </ion-item>
-                
                 <ion-item nav-clear menu-close ui-sref="app.friends">
                     Friends
                 </ion-item>

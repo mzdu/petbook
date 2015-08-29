@@ -85,6 +85,10 @@ angular.module('petBook.controllers', [])
             fabs[0].remove();
         }
     };
+    
+    $scope.logout=function(){
+
+    };
 })
 
 .controller('LoginCtrl', function($scope, $timeout, $stateParams, ionicMaterialInk) {
@@ -179,7 +183,7 @@ angular.module('petBook.controllers', [])
     
 }])
 
-.controller('DogsNearbyCtrl', ['$scope', function ($scope) {
+.controller('PetsNearbyCtrl', ['$scope', function ($scope) {
     
 }])
 
