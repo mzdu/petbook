@@ -423,9 +423,9 @@ angular.module('petBook.controllers', [])
 /*.controller('PetsNearbyCtrl', ['$scope', function ($scope) {
     
 }])
-
+*/
 .controller('AboutCtrl', ['$scope', function ($scope) {
     
 }])
-*/
+
 ;
