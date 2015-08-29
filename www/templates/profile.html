@@ -1,22 +1,12 @@
 <ion-view view-title="Profile">
     <ion-content ng-class="{expanded:$scope.isExpanded}">
-        <div class="hero slide-up" style="background-image: url('img/profile-bg.jpg');">
+        <!-- <div class="hero slide-up" style="background-image: url('img/profile-bg.jpg');">
             <div class="content">
                 <div class="avatar" style="background-image: url('img/daenerys.jpg');"></div>
                 <h3><a class="light">Username Here{{user.username}}</a></h3>
             </div>
-        </div>
-        <div class="tabs tabs-dark tabs-icon-top static">
-            <a ui-sref="app.myposts" class="tab-item">
-                <i class="icon ion-arrow-graph-up-right"></i> My Posts
-            </a>
-<!--             <a ui-sref="app.friends" class="tab-item">
-                <i class="icon ion-android-people"></i> Friends
-            </a>
-            <a ui-sref="app.gallery" class="tab-item">
-                <i class="icon ion-images"></i> Photos
-            </a> -->
-        </div>
+        </div> -->
+
 <!--         <h4 class="content padding double-padding-x">Following</h4>
         <div class="list animate-fade-slide-in-right">
             <a ui-sref="app.friends" class="item item-avatar item-icon-right">
@@ -39,16 +29,36 @@
             </a>
         </div> -->
 
-        <div class="list card animate-fade-slide-in-right">
-                <h2> {{user.firstname}}</h2>
-        
-        <div class="item item-body animate-fade-slide-in-right">
-                <h3>Name: {{user.pet.name}}</h3>
-                <h3>Age: {{user.pet.age}}</h3>
-                <h3>Sex: {{user.pet.sex}}</h3>
-                <h3>Breed: {{user.pet.breed}}</h3>
-                <p>Bio: {{user.pet.bio}}</p>
-        </div>
+
+        <div class="list animate-fade-slide-in-right">
+
+          <div class="item item-divider">
+            User Info
+          </div>
+
+          <a class="item" href="#">
+          <h2> {{user.firstname}}</h2>
+          </a>
+
+          <div class="item item-divider">
+            Pet Info
+          </div>
+
+          <a class="item" href="#">
+            <h3>Name: {{user.pet.name}}</h3>
+          </a>
+          <a class="item" href="#">
+            <h3>Age: {{user.pet.age}}</h3>
+          </a>
+          <a class="item" href="#">
+            <h3>Sex: {{user.pet.sex}}</h3>
+          </a>
+          <a class="item" href="#">
+            <h3>Breed: {{user.pet.breed}}</h3>
+          </a>
+          <a class="item" href="#">
+            <p>Bio: {{user.pet.bio}}</p>
+          </a>
 
         </div>
     </ion-content>
