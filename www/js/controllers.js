@@ -190,6 +190,7 @@ angular.module('petBook.controllers', [])
     $scope.$parent.setExpanded(false);
     $scope.$parent.setHeaderFab(false);
     $scope.user = StorageService.getCurrentUser().user;
+    console.log('scope user is ', $scope.user);
 
     // Set Motion
     $timeout(function() {
