@@ -3,7 +3,7 @@
 
 angular.module('petBook.controllers', [])
 
-.controller('AppCtrl', function($scope, $ionicModal, $ionicPopover, $timeout, StorageService) {
+.controller('AppCtrl', function($rootScope, $scope, $ionicModal, $ionicPopover, $timeout, StorageService) {
     // Form data for the login modal
     $scope.loginData = {};
     $scope.isExpanded = false;
@@ -102,17 +102,18 @@ angular.module('petBook.controllers', [])
 
 .controller('LoginCtrl', function($scope, $state, $timeout, $stateParams, StorageService, ionicMaterialInk, AuthService) {
 
-    $scope.user = {
-        username: "testuser",
-        password: "test123"
-    }
+
     $scope.$parent.clearFabs();
     $timeout(function() {
         $scope.$parent.hideHeader();
     }, 0);
     ionicMaterialInk.displayEffect();
 
-    // $scope.user = {};
+    $scope.user = {
+        username: "testuser",
+        password: "test123"
+    }
+  
     $scope.login = function() {
 
         var promise = AuthService.login($scope.user);
@@ -198,9 +199,9 @@ angular.module('petBook.controllers', [])
     // Set Header
     $scope.$parent.showHeader();
     $scope.$parent.clearFabs();
-    $scope.isExpanded = false;
-    $scope.$parent.setExpanded(false);
-    $scope.$parent.setHeaderFab(false);
+    // $scope.isExpanded = false;
+    // $scope.$parent.setExpanded(false);
+    // $scope.$parent.setHeaderFab(false);
     $scope.user = StorageService.getCurrentUser().user;
     //console.log('scope user is ', $scope.user);
 
@@ -269,8 +270,10 @@ angular.module('petBook.controllers', [])
 })
 
 
-.controller('MomentsCtrl', function($scope, $stateParams, $timeout, ionicMaterialMotion, ionicMaterialInk) {
-    $scope.$parent.showHeader();
+
+.controller('MomentsCtrl', function($scope, $stateParams, $timeout, StorageService, ionicMaterialMotion, ionicMaterialInk, StatusService) {
+    
+       $scope.$parent.showHeader();
     $scope.$parent.clearFabs();
     $scope.isExpanded = false;
     $scope.$parent.setExpanded(false);
@@ -284,6 +287,34 @@ angular.module('petBook.controllers', [])
 
     // Activate ink for controller
     ionicMaterialInk.displayEffect();
+
+
+    var user = StorageService.getCurrentUser().user;
+
+    var moment = {
+        "userID": user._id,
+        "location": [51.5033630, -0.1276250],
+        "rad": 10
+    };
+    
+    
+        var promise = StatusService.getMoments(moment);
+    promise.then(function(results, err) {
+        if (!err) {
+            $scope.posts = results;
+            console.log('success', results);
+        } else {
+            $scope.log('error is', err);
+        }
+    });
+
+
+    // console.log(promise);
+    // $scope.posts
+
+    
+
+
 })
 
 .controller('GalleryCtrl', function($scope, $stateParams, $timeout, ionicMaterialInk, ionicMaterialMotion) {
