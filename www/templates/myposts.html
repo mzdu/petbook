@@ -1,4 +1,16 @@
-<ion-view view-title="">
-  <ion-content>
-  </ion-content>
+<ion-view view-title="My Posts">
+    <ion-content ng-class="{expanded:$scope.isExpanded}">
+        <div class="hero slide-up" style="background-image: url('img/profile-bg.jpg');">
+            <div class="content">
+                <div class="avatar" style="background-image: url('img/daenerys.jpg');"></div>
+                <h3><a class="light">Username Here{{user.username}}</a></h3>
+            </div>
+        </div>
+
+        <ul class="list animate-fade-slide-in-right">
+            <li class="item">
+              sample posts
+            </li>
+        </ul>
+    </ion-content>
 </ion-view>
