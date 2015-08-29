@@ -6,8 +6,7 @@
                 <h3><a class="light">Username Here{{user.username}}</a></h3>
             </div>
         </div> -->
-
-<!--         <h4 class="content padding double-padding-x">Following</h4>
+        <!--         <h4 class="content padding double-padding-x">Following</h4>
         <div class="list animate-fade-slide-in-right">
             <a ui-sref="app.friends" class="item item-avatar item-icon-right">
                 <img src="img/jon-snow.jpg">
@@ -28,62 +27,72 @@
                 <i class="icon ion-chatbubble muted"></i>
             </a>
         </div> -->
-
-
         <div class="list animate-fade-slide-in-right">
-
-          <div class="item item-divider mgrey">
-            User Info
-          </div>
-
-<!--           <div class="list">
+            <div class="item item-divider mgrey">
+                User Info
+            </div>
+            <!--           <div class="list">
             <a class="item item-thumbnail-left" href="#" style="padding:25px;">
               <img src="../img/dog2.jpg">
               <h2>User firstname here{{user.firstname}}</h2>
               <p>Back off, man. I'm a scientist.</p>
             </a>
         </div> -->
-<!--    <div class="item card-item"> -->
-    <div class="card">
-        <div class="item item-avatar item-text-wrap">
-            <span class="avatar" style="background-image: url('img/jon-snow.jpg');"></span>
-            <strong>User firstname here{{user.firstname}}</strong>
-           <!--  <div class="card-footer text-right">
+            <!--    <div class="item card-item"> -->
+            <div class="card">
+                <div class="item item-avatar item-text-wrap">
+                    <span class="avatar" style="background-image: url('img/jon-snow.jpg');"></span>
+                    <strong>User firstname here{{user.firstname}}</strong>
+                    <!--  <div class="card-footer text-right">
                 <i class="icon ion-chatbubbles positive"></i> 6
                 <i class="icon ion-heart assertive"></i> 23
                 <div class="pull-left">
                     <i class="icon ion-clock"></i> just now
                 </div>
             </div> -->
-        </div>
-    </div>
-    </div class="list">
-
-          <div class="item item-divider mgrey">
+                </div>
+            </div>
+        </div class="list">
+        <div class="item item-divider mgrey">
             Pet Info
-          </div>
-
-          <a class="item" href="#">
+        </div>
+        <a ng-if="!editMode" class="item" href="#">
             Name: {{user.pet.name}}
           </a>
-          <a class="item" href="#">
+        <div class="item" ng-if='editMode'>
+            <label>Name: </label>
+            <input type="text" ng-model="user.pet.name" />
+        </div>
+        <a class="item" ng-if="!editMode" href="#">
             Age: {{user.pet.age}}
           </a>
-          <a class="item" href="#">
+           <div class="item" ng-if='editMode'>
+            <label>Age: </label>
+            <input type="text" ng-model="user.pet.age" />
+        </div>
+        <a class="item" ng-if="!editMode" href="#">
             <h3>Sex: {{user.pet.sex}}</h3>
-          </a>
-          <a class="item" href="#">
+        </a>
+         <div class="item" ng-if='editMode'>
+            <label>Sex: </label>
+            <input type="text" ng-model="user.pet.sex" />
+        </div>
+        <a class="item" ng-if="!editMode" href="#">
             <h3>Breed: {{user.pet.breed}}</h3>
-          </a>
-          <a class="item" href="#">
+        </a>
+         <div class="item" ng-if='editMode'>
+            <label>Breed: </label>
+            <input type="text" ng-model="user.pet.breed" />
+        </div>
+        <a class="item" ng-if="!editMode" href="#">
             <p>Bio: {{user.pet.bio}}</p>
-          </a>
-
+        </a>
+         <div class="item" ng-if='editMode'>
+            <label>Bio: </label>
+            <input type="text" ng-model="user.pet.bio" />
+        </div>
         </div>
     </ion-content>
 </ion-view>
-
-
-
-</div>
-
+<div>
+    <input type="text" ng-if='user.admin' ng-model="myModel" /> <span ng-if='!user.admin'>{{ myModel }}</span> </div>

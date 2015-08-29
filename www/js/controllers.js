@@ -203,7 +203,14 @@ angular.module('petBook.controllers', [])
 
     // Set Ink
     ionicMaterialInk.displayEffect();
+
+    $scope.$on('toggleEdit', function(event, data) {
+        console.log('test received', data);
+        $scope.editMode = data;
+        // do what you want to do
+    });
 })
+
 
 .controller('MomentsCtrl', function($scope, $stateParams, $timeout, ionicMaterialMotion, ionicMaterialInk) {
     $scope.$parent.showHeader();

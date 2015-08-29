@@ -137,9 +137,14 @@ angular.module('petBook', ['ionic',
                 controller: 'ProfileCtrl'
             },
             'fabContent': {
-                template: '<button id="fab-profile" class="button button-fab button-fab-bottom-right button-energized-900"><i class="icon ion-edit"></i></button>',
-                controller: function ($timeout) {
-                    /*$timeout(function () {
+                template: '<button id="fab-profile" class="button button-fab button-fab-bottom-right button-energized-900" ng-click="toggleEdit()"><i ng-if="!editMode" class="icon ion-edit"></i><i ng-if="editMode" class="icon ion-checkmark"></i></button>',
+                controller: function ($scope, $rootScope, $timeout) {
+                    $scope.editMode = false;
+                    $scope.toggleEdit = function(){
+                        $scope.editMode = !$scope.editMode;
+                        $rootScope.$broadcast('toggleEdit', $scope.editMode);
+                    }
+                    /*$timeout(function () {   
                         document.getElementById('fab-profile').classList.toggle('on');
                     }, 800);*/
                 }
