@@ -85,6 +85,10 @@ angular.module('petBook.controllers', [])
             fabs[0].remove();
         }
     };
+    
+    $scope.logout=function(){
+
+    };
 })
 
 .controller('LoginCtrl', function($scope, $timeout, $stateParams, ionicMaterialInk) {
@@ -139,7 +143,7 @@ angular.module('petBook.controllers', [])
     ionicMaterialInk.displayEffect();
 })
 
-.controller('ActivityCtrl', function($scope, $stateParams, $timeout, ionicMaterialMotion, ionicMaterialInk) {
+.controller('MomentsCtrl', function($scope, $stateParams, $timeout, ionicMaterialMotion, ionicMaterialInk) {
     $scope.$parent.showHeader();
     $scope.$parent.clearFabs();
     $scope.isExpanded = true;
@@ -175,4 +179,19 @@ angular.module('petBook.controllers', [])
 
 })
 
+.controller('MyPostsCtrl', ['$scope', function ($scope) {
+    
+}])
+
+.controller('PetsNearbyCtrl', ['$scope', function ($scope) {
+    
+}])
+
+.controller('AboutCtrl', ['$scope', function ($scope) {
+    
+}])
+
+.controller('LogoutCtrl', ['$scope', function ($scope) {
+    
+}])
 ;
