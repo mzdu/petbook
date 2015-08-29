@@ -191,7 +191,7 @@ angular.module('petBook.controllers', [])
     ionicMaterialInk.displayEffect();
 })
 
-.controller('ProfileCtrl', function($scope, $stateParams, $timeout, ionicMaterialMotion, ionicMaterialInk, StorageService, ProfileService) {
+.controller('ProfileCtrl', function($scope, $stateParams, $timeout, ionicMaterialMotion, ionicMaterialInk, StorageService, ProfileService, $ionicPopup) {
     // Set Header
     $scope.$parent.showHeader();
     $scope.$parent.clearFabs();
@@ -200,7 +200,7 @@ angular.module('petBook.controllers', [])
     $scope.$parent.setHeaderFab(false);
     
     $scope.user = StorageService.getCurrentUser().user;
-    console.log('scope user is ', $scope.user);
+    //console.log('scope user is ', $scope.user);
 
     // Set Motion
     $timeout(function() {
@@ -219,19 +219,51 @@ angular.module('petBook.controllers', [])
     ionicMaterialInk.displayEffect();
 
     $scope.$on('toggleEdit', function(event, data) {
-        console.log('test received', data);
+        //console.log('test received', data);
         $scope.editMode = data;
+
+        //console.log('editmode is', $scope.editMode);
+
+        if (!$scope.editMode) {
+            var confirmPopup = $ionicPopup.confirm({
+             title: 'Confirmation',
+             template: 'Are you sure you want to save it?',
+             okText: '<i class="icon ion-checkmark-round"></i>',
+             cancelText: '<i class="icon ion-close-round"></i>'
+           });
+           confirmPopup.then(function(res) {
+             if(res) {
+                $scope.user.pet._id = $scope.user._id;
+                var feedback = ProfileService.update($scope.user.pet);
+              } 
+            });
+        }
+
         // do what you want to do
-
-        console.log('scope editMode', $scope.editMode);
-
+        
+        /*console.log('scope editMode', $scope.editMode);
         console.log('user obj is', $scope.user);
-        console.log('pet obj is', $scope.user.pet);
-        $scope.user.pet._id = $scope.user._id;
-        var feedback = ProfileService.update($scope.user.pet);
+        console.log('pet obj is', $scope.user.pet);*/
+        
+        
+        // $timeout(function() {console.log('hahahaha')}, 100);       
     });
 
 
+    // A confirm dialog
+/*         $scope.showConfirm = function() {
+           var confirmPopup = $ionicPopup.confirm({
+             title: 'Confirmation',
+             template: 'Are you sure you want to save it?'
+           });
+           confirmPopup.then(function(res) {
+             if(res) {
+               
+             } else {
+               
+             }
+           });
+         };  */   
 })
 
 
@@ -247,8 +279,8 @@ angular.module('petBook.controllers', [])
     });
     $scope.$parent.showHeader();
     $scope.$parent.clearFabs();
-    $scope.isExpanded = true;
-    $scope.$parent.setExpanded(true);
+    $scope.isExpanded = false;
+    $scope.$parent.setExpanded(false);
     $scope.$parent.setHeaderFab('right');
 
     $timeout(function() {
@@ -278,7 +310,7 @@ angular.module('petBook.controllers', [])
 .controller('GalleryCtrl', function($scope, $stateParams, $timeout, ionicMaterialInk, ionicMaterialMotion) {
     $scope.$parent.showHeader();
     $scope.$parent.clearFabs();
-    $scope.isExpanded = true;
+    $scope.isExpanded = false;
     $scope.$parent.setExpanded(true);
     $scope.$parent.setHeaderFab(false);
 
@@ -315,6 +347,7 @@ angular.module('petBook.controllers', [])
            likes: 10,
            createdDate: '8/31/15',
            location: [51.5033630,-0.1276250]}];*/
+
     if (!StorageService.getCurrentUser()) {
         return;
     } else {
@@ -331,8 +364,6 @@ angular.module('petBook.controllers', [])
                 $scope.log('error is', err);
             }
         })
-
-
     }
 
 
@@ -395,35 +426,33 @@ angular.module('petBook.controllers', [])
         ionicMaterialInk.displayEffect();
 
 
+    //data ={choice: one of the fixed option, t1: addtional text entered}, so the status should be the contatenation of them (add space between them).
+    //if a user select other, notice choice=" "; need to remove it before store it.
 
-        //data ={choice: one of the fixed option, t1: addtional text entered}, so the status should be the contatenation of them (add space between them).
-        //if a user select other, notice choice=" "; need to remove it before store it.
-        $scope.data = {};
-        $scope.formtemplate = '<strong>My dog needs (select below) *</strong> <ion-radio ng-model="data.choice" ng-value="\'My dog needs playmates!\'">playmates!</ion-radio><ion-radio ng-model="data.choice" ng-value="\'My dog needs medical advice.\'">medical advice.</ion-radio><ion-radio ng-model="data.choice" ng-value="\'My dog needs to take a shower.\'">to take a shower.</ion-radio><ion-radio ng-model="data.choice" ng-value="\'My dog needs a walk.\'">a walk.</ion-radio><ion-radio ng-model="data.choice" ng-value="\'My dog needs dog sitting/boarding.\'">dog sitting/boarding.</ion-radio><ion-radio ng-model="data.choice" ng-value="\' \'">other.</ion-radio><strong>Enter extra text below:</strong><br/><input type="text" ng-model="data.t1">';
-
-        //this is the status the customer will send!!!
-        $scope.userInput = "";
-
-        // Triggered on a button click, or some other target
-        $scope.showPopup = function() {
-            // An elaborate, custom popup
-            var myPopup = $ionicPopup.show({
-                template: $scope.formtemplate,
-                title: 'New Post',
-                //subTitle: 'Please use normal things',
-                scope: $scope,
-                buttons: [{
-                    text: 'Cancel'
-                }, {
-                    text: '<b>Save</b>',
-                    type: 'button-assertive',
-                    onTap: function(e) {
-                        if (!$scope.data.choice) {
-                            //don't allow the user to close unless he enters wifi password
-                            e.preventDefault();
-                        } else {
-                            return $scope.data;
-                        }
+    $scope.data={};
+    $scope.formtemplate = '<ion-radio ng-model="data.choice" ng-value="\'My dog needs playmates!\'">playmates!</ion-radio><ion-radio ng-model="data.choice" ng-value="\'My dog needs medical advice.\'">medical advice.</ion-radio><ion-radio ng-model="data.choice" ng-value="\'My dog needs to take a shower.\'">to take a shower.</ion-radio><ion-radio ng-model="data.choice" ng-value="\'My dog needs a walk.\'">a walk.</ion-radio><ion-radio ng-model="data.choice" ng-value="\'My dog needs dog sitting/boarding.\'">dog sitting/boarding.</ion-radio><ion-radio ng-model="data.choice" ng-value="\' \'">other.</ion-radio><strong>Enter extra text below:</strong><br/><input type="text" ng-model="data.t1">';
+    
+    //this is the status the customer will send!!!
+    $scope.userInput = "";
+  
+    $scope.showPopup = function() {
+        // An elaborate, custom popup
+        var myPopup = $ionicPopup.show({
+            template: $scope.formtemplate,
+            title: 'My Dog Needs',
+            //subTitle: 'Please use normal things',
+            scope: $scope,
+            buttons: [{
+                text: '<i class="icon ion-close-round"></i>'
+            }, {
+                text: '<i class="icon ion-checkmark-round"></i>',
+                type: 'button-assertive',
+                onTap: function(e) {
+                    if (!$scope.data.choice) {
+                        //don't allow the user to close unless he enters wifi password
+                        e.preventDefault();
+                    } else {
+                        return $scope.data;
                     }
                 }]
             });

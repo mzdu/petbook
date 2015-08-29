@@ -1,5 +1,8 @@
 <ion-view view-title="Moments">
-    <ion-content ng-class="{expanded:isExpanded}" class="animate-fade-slide-in">
+    <ion-content ng-class="{expanded:$scope.isExpanded}" class="animate-fade-slide-in">
+    
+        <div class="item card-item">
+
 <!--         <div class="item card-item">
             <div ui-sref="app.gallery" class="card stable-bg ink ink-dark">
                 <div class="item item-avatar item-text-wrap">
@@ -25,6 +28,7 @@
                     <div class="card-footer text-right">
                         <i class="icon ion-heart assertive"></i> {{post.likes}}
                         <div class="pull-left">
+                            <i class="icon ion-chatbubble positive"></i> 2
                             <i class="icon ion-clock"></i> {{post.createdDate}}
                         </div>
                     </div>

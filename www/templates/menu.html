@@ -11,23 +11,27 @@
         <ion-nav-view name="fabContent"></ion-nav-view>
         <ion-nav-view name="menuContent" ng-class="{expanded: isExpanded}" ></ion-nav-view>
     </ion-side-menu-content>
-    <ion-side-menu side="left">
-        <ion-header-bar class="dark-bg expanded">
+    <ion-side-menu side="left" width="220">
+        <ion-header-bar class="mthemecolor expanded">
             <span class="avatar" style="background: url('img/dogavatar.jpg'); background-size: cover;"></span>
             <h2 class="mthemecolor">{{user.username}}</h2>
         </ion-header-bar>
         <ion-content class="stable-bg has-expanded-header">
             <ion-list>
                 <ion-item nav-clear menu-close ui-sref="app.moments">
+                <i class="icon ion-aperture mthemecolor"></i>
                     Moments
                 </ion-item>
                 <ion-item nav-clear menu-close ui-sref="app.myposts">
+                <i class="icon ion-image mthemecolor"></i>
                     My Posts
                 </ion-item>
                 <ion-item nav-clear menu-close ui-sref="app.profile">
+                <i class="icon ion-ios-paw mthemecolor"></i>
                     Profile
                 </ion-item>
                 <ion-item nav-clear menu-close ui-sref="app.about">
+                <i class="icon ion-ios-home mthemecolor"></i>
                     About
                 </ion-item>
                 <ion-item nav-clear menu-close>
