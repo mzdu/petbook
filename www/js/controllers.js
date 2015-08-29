@@ -3,12 +3,14 @@
 
 angular.module('petBook.controllers', [])
 
-.controller('AppCtrl', function($scope, $ionicModal, $ionicPopover, $timeout) {
+.controller('AppCtrl', function($scope, $ionicModal, $ionicPopover, $timeout,StorageService) {
     // Form data for the login modal
     $scope.loginData = {};
     $scope.isExpanded = false;
     $scope.hasHeaderFabLeft = false;
     $scope.hasHeaderFabRight = false;
+    $scope.user = StorageService.getCurrentUser().user;
+
 
     var navIcons = document.getElementsByClassName('ion-navicon');
     for (var i = 0; i < navIcons.length; i++) {
@@ -180,13 +182,14 @@ angular.module('petBook.controllers', [])
     ionicMaterialInk.displayEffect();
 })
 
-.controller('ProfileCtrl', function($scope, $stateParams, $timeout, ionicMaterialMotion, ionicMaterialInk) {
+.controller('ProfileCtrl', function($scope, $stateParams, $timeout, ionicMaterialMotion, ionicMaterialInk, StorageService) {
     // Set Header
     $scope.$parent.showHeader();
     $scope.$parent.clearFabs();
     $scope.isExpanded = false;
     $scope.$parent.setExpanded(false);
     $scope.$parent.setHeaderFab(false);
+    $scope.user = StorageService.getCurrentUser().user;
 
     // Set Motion
     $timeout(function() {
@@ -248,13 +251,27 @@ angular.module('petBook.controllers', [])
 
 })
 
-.controller('MyPostsCtrl', function($scope, $stateParams, $timeout, ionicMaterialMotion, ionicMaterialInk) {
+.controller('MyPostsCtrl', function($scope, $stateParams, $timeout, ionicMaterialMotion, ionicMaterialInk, StorageService) {
     // Set Header
     $scope.$parent.showHeader();
     $scope.$parent.clearFabs();
     $scope.isExpanded = false;
     $scope.$parent.setExpanded(false);
     $scope.$parent.setHeaderFab(false);
+    $scope.posts = 
+        [{description: 'wishing my dad were home',
+           likes: 10,
+           createdDate: '8/29/15',
+           location: [51.5033630,-0.1276250]},
+        {description: 'that really itches',
+           likes: 10,
+           createdDate: '8/30/15',
+           location: [51.5033630,-0.1276250]},
+        {description: 'need someone to walk me',
+           likes: 10,
+           createdDate: '8/31/15',
+           location: [51.5033630,-0.1276250]}];
+    $scope.user = StorageService.getCurrentUser().user;
 
     // Set Motion
     $timeout(function() {
@@ -273,15 +290,12 @@ angular.module('petBook.controllers', [])
     ionicMaterialInk.displayEffect();
 })
 
-.controller('PetsNearbyCtrl', ['$scope', function ($scope) {
+/*.controller('PetsNearbyCtrl', ['$scope', function ($scope) {
     
-}])
+}])*/
 
 .controller('AboutCtrl', ['$scope', function ($scope) {
     
 }])
 
-.controller('LogoutCtrl', ['$scope', function ($scope) {
-    
-}])
 ;
