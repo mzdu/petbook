@@ -1,6 +1,7 @@
 var mongoose = require('mongoose'),
     User = mongoose.model('User'),
-    Status = mongoose.model('Status');
+    Status = mongoose.model('Status'),
+    moment = require('moment');
 
 exports.getProfile = function(req, res) {
     var userID = req.params.userID;
@@ -73,4 +74,50 @@ exports.makeNewPost = function(req, res) {
     });
 }
 
+exports.getMoments = function(req, res) {
 
+	var userID = req.body.userID;
+    var query = Status.find({
+        _Owner: {
+            '$ne': userID
+        }
+    });
+
+    //get statuses in the last 4 hours
+
+// created >= now - 4 hours
+    // query.where('createdDate').gte(moment().subtract(4, 'hours'));
+
+
+    var location = req.headers.location;
+    var rad = req.headers.radius;
+    //use 4/1/2015 as default date
+
+    //if the location is set, find all wishes that are within (rad) miles within (location)
+    if (location && rad) {
+        console.log('got location and rad');
+        console.log('loc is: ', location);
+        //convert location to number array
+        var locArray = location.split(',').map(function(item) {
+            return parseFloat(item);
+        });
+
+        console.log('locArray is: ', locArray);
+        var area = {
+            center: locArray,
+            radius: utility.milesToRadians(rad),
+            unique: true,
+            spherical: true
+        };
+        query.where('location').within().circle(area);
+
+    }
+
+    query.exec(function(err, data) {
+        if (err) {
+            return utility.handleError(res, err);
+        } else {
+            return res.send(data);
+        }
+    });
+}

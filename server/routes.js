@@ -27,10 +27,10 @@ module.exports = function(app) {
     //get my posts (my wishes)
     app.get(PATH + 'status/:userID', User.getMyPosts);
 
-    // //make new post 
+    //make new post 
     app.post(PATH + 'status/:userID', User.makeNewPost);
 
     //get other people's status updates (fulfill a wish)
-    // app.post(PATH + 'status', User.getMoments);
+    app.post(PATH + 'status', User.getMoments);
 
 };
