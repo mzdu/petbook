@@ -24,7 +24,7 @@
 
  <ion-view view-title="Home">
     <div class="ionic login " style="background-image: url('img/landing-dogs.jpg'); background-size: 320px 568px;background-repeat: no-repeat; ng-app="login">
-            <div class="hero no-header flat">
+            <div class="hero no-header flat" style="height:32%">
                 <div class="content">
                 <!-- 
                     <i class="ion-map icon hero-icon royal-bg"></i>
@@ -38,6 +38,9 @@
             </div>
             <div class="padding">
                 <button class="button button-block button-positive waves-effect waves-button waves-light" ui-sref="app.profile">Login</button>
+				<button type="button" class="button button-clear button-calm" ng-click="register()">
+				<u>New here? Sign up.</u>
+				</button>                
             </div>
             <div class="button-bar">
                 <button class="button button-small button-border icon-left ion-social-google button-assertive-900">Google+</button>
