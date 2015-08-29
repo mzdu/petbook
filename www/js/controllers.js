@@ -300,12 +300,124 @@ angular.module('petBook.controllers', [])
     ionicMaterialInk.displayEffect();
 })
 
+.controller('AddPostsCtrl', function($scope, $stateParams, $timeout, ionicMaterialMotion, ionicMaterialInk, StorageService,$ionicPopup) {
+    // Set Header
+    $scope.$parent.showHeader();
+    $scope.$parent.clearFabs();
+    $scope.isExpanded = false;
+    $scope.$parent.setExpanded(false);
+    $scope.$parent.setHeaderFab(false);
+    $scope.posts = 
+        [{description: 'wishing my dad were home',
+           likes: 10,
+           createdDate: '8/29/15',
+           location: [51.5033630,-0.1276250]},
+        {description: 'that really itches',
+           likes: 10,
+           createdDate: '8/30/15',
+           location: [51.5033630,-0.1276250]},
+        {description: 'need someone to walk me',
+           likes: 10,
+           createdDate: '8/31/15',
+           location: [51.5033630,-0.1276250]}];
+    $scope.user = StorageService.getCurrentUser().user;
+
+    // Set Motion
+    $timeout(function() {
+        ionicMaterialMotion.slideUp({
+            selector: '.slide-up'
+        });
+    }, 300);
+
+    $timeout(function() {
+        ionicMaterialMotion.fadeSlideInRight({
+            startVelocity: 3000
+        });
+    }, 700);
+
+    // Set Ink
+    ionicMaterialInk.displayEffect();
+
+ /*   $scope.formtemplate = '<div class="list">
+              <label class="item item-radio">
+                <input type="radio" name="group">
+                <div class="item-content">
+                  Go
+                </div>
+                <i class="radio-icon ion-checkmark"></i>
+              </label>
+
+              <label class="item item-radio">
+                <input type="radio" name="group">
+                <div class="item-content">
+                  Not
+                </div>
+                <i class="radio-icon ion-checkmark"></i>
+              </label>
+            </div>
+            <input type="text" ng-model="data.t1"> <br /> 
+            <input type="text" ng-model="data.t2">';*/
+
+    //data ={choice: one of the fixed option, t1: addtional text entered}, so the status should be the contatenation of them (add space between them).
+    //if a user select other, notice choice=" "; need to remove it before store it.
+    $scope.data={};
+    $scope.formtemplate = '<strong>My dog needs (select below) *</strong> <ion-radio ng-model="data.choice" ng-value="\'My dog needs playmates!\'">playmates!</ion-radio><ion-radio ng-model="data.choice" ng-value="\'My dog needs medical advice.\'">medical advice.</ion-radio><ion-radio ng-model="data.choice" ng-value="\'My dog needs to take a shower.\'">to take a shower.</ion-radio><ion-radio ng-model="data.choice" ng-value="\'My dog needs a walk.\'">a walk.</ion-radio><ion-radio ng-model="data.choice" ng-value="\'My dog needs dog sitting/boarding.\'">dog sitting/boarding.</ion-radio><ion-radio ng-model="data.choice" ng-value="\' \'">other.</ion-radio><strong>Enter extra text below:</strong><br/><input type="text" ng-model="data.t1">';
+    
+    //this is the status the customer will send!!!
+    $scope.userInput = "";
+
+    // Triggered on a button click, or some other target
+    $scope.showPopup = function() {  
+      // An elaborate, custom popup
+      var myPopup = $ionicPopup.show({
+        template: $scope.formtemplate,
+        title: 'New Post',
+        //subTitle: 'Please use normal things',
+        scope: $scope,
+        buttons: [
+          { text: 'Cancel' },
+          {
+            text: '<b>Save</b>',
+            type: 'button-assertive',
+            onTap: function(e) {
+              if (!$scope.data.choice) {
+                //don't allow the user to close unless he enters wifi password
+                e.preventDefault();
+              } else {
+                return $scope.data;
+              }
+            }
+          }
+        ]
+      });
+
+      myPopup.then(function(res) {
+        console.log('Tapped!', res);
+        $scope.userInput="";
+        if($scope.data.choice==" "){
+            $scope.data.choice="";
+        }
+        if($scope.data.choice!=""){
+        $scope.userInput = $scope.data.choice+ " ";
+        }
+        if($scope.data.t1!=undefined){
+            $scope.userInput =$scope.userInput + $scope.data.t1;
+         }
+        console.log("result=",$scope.userInput);
+      });
+      /*$timeout(function() {
+         myPopup.close(); //close the popup after 3 seconds for some reason
+      }, 8000);*/
+     };
+
+
+})
 /*.controller('PetsNearbyCtrl', ['$scope', function ($scope) {
     
-}])*/
+}])
 
 .controller('AboutCtrl', ['$scope', function ($scope) {
     
 }])
-
+*/
 ;

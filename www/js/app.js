@@ -159,12 +159,12 @@ angular.module('petBook', ['ionic',
                 controller: 'MyPostsCtrl'
             },
              'fabContent': {
-                template: '<button id="fab-myposts" class="button button-fab button-fab-bottom-right button-energized-900"><i class="icon ion-plus"></i></button>',
-                controller: function ($timeout) {
-                    /*$timeout(function () {
+                template: '<button id="fab-myposts" class="button button-fab button-fab-bottom-right button-energized-900" ng-click="showPopup()"><i class="icon ion-plus"></i></button>',
+                controller: 'AddPostsCtrl'/*function ($timeout) {
+                    $timeout(function () {
                         document.getElementById('fab-profile').classList.toggle('on');
-                    }, 800);*/
-                }
+                    }, 800);
+                }*/
             }
         }
     })
