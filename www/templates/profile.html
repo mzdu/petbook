@@ -3,22 +3,21 @@
         <div class="hero slide-up" style="background-image: url('img/profile-bg.jpg');">
             <div class="content">
                 <div class="avatar" style="background-image: url('img/daenerys.jpg');"></div>
-                <h3><a class="light">Daenerys Targaryen</a></h3>
-                <h4>dragon_mommy</h4>
+                <h3><a class="light">Username Here{{user.username}}</a></h3>
             </div>
         </div>
         <div class="tabs tabs-dark tabs-icon-top static">
-            <a ui-sref="app.activity" class="tab-item">
-                <i class="icon ion-arrow-graph-up-right"></i> Activity
+            <a ui-sref="app.myposts" class="tab-item">
+                <i class="icon ion-arrow-graph-up-right"></i> My Posts
             </a>
-            <a ui-sref="app.friends" class="tab-item">
+<!--             <a ui-sref="app.friends" class="tab-item">
                 <i class="icon ion-android-people"></i> Friends
             </a>
             <a ui-sref="app.gallery" class="tab-item">
                 <i class="icon ion-images"></i> Photos
-            </a>
+            </a> -->
         </div>
-        <h4 class="content padding double-padding-x">Following</h4>
+<!--         <h4 class="content padding double-padding-x">Following</h4>
         <div class="list animate-fade-slide-in-right">
             <a ui-sref="app.friends" class="item item-avatar item-icon-right">
                 <img src="img/jon-snow.jpg">
@@ -36,6 +35,26 @@
                 <img src="img/tyrion.jpg">
                 <h2>Tyrion Lannister</h2>
                 <p>B.A.M.F. imp</p>
+                <i class="icon ion-chatbubble muted"></i>
+            </a>
+        </div> -->
+
+        <div class="list animate-fade-slide-in-right">
+            <a ui-sref="app.friends" class="item item-avatar item-icon-right">
+                <img src="img/jon-snow.jpg">
+                <h2> {{user.firstname}}</h2>
+                <i class="icon ion-chatbubble muted"></i>
+            </a>
+        </div>
+
+        <div class="list animate-fade-slide-in-right">
+            <a ui-sref="app.friends" class="item item-avatar item-icon-right">
+                <img src="img/jon-snow.jpg">
+                <h3>Name: {{user.pet.name}}</h3>
+                <h3>Age: {{user.pet.age}}</h3>
+                <h3>Sex: {{user.pet.sex}}</h3>
+                <h3>Breed: {{user.pet.breed}}</h3>
+                <p>Bio: {{user.pet.bio}}</p>
                 <i class="icon ion-chatbubble muted"></i>
             </a>
         </div>
