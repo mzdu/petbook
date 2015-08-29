@@ -5,6 +5,7 @@ lib/
 node_modules/
 platforms/
 plugins/
+.project
 .tmp
 .sass-cache
 <%= appPath %>/bower_components
