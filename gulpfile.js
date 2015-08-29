@@ -7,6 +7,13 @@ var minifyCss = require('gulp-minify-css');
 var rename = require('gulp-rename');
 var sh = require('shelljs');
 
+var args = require('yargs').argv;
+var config = require('./gulp.config')();
+var del = require('del');
+var $ = require('gulp-load-plugins')({
+    lazy: true
+});
+
 var paths = {
   sass: ['./scss/**/*.scss']
 };
@@ -24,6 +31,38 @@ gulp.task('sass', function(done) {
     .pipe(gulp.dest('./www/css/'))
     .on('end', done);
 });
+
+gulp.task('wiredep', function() {
+    // log('Wire up the bower css js and our app js into the html');
+    var wiredepOptions = config.getWiredepDefaultOptions();
+    var gulpInjectDefaultOptions = config.getGulpInjectDefaultOptions();
+    var wiredep = require('wiredep').stream;
+
+    return gulp
+        .src(config.index)
+        .pipe(wiredep(wiredepOptions))
+        .pipe($.inject(gulp.src(config.css, {
+            read: false
+        }), gulpInjectDefaultOptions))
+        .pipe($.inject(gulp.src(config.js, {
+            read: false
+        }), gulpInjectDefaultOptions))
+        .pipe(gulp.dest(config.client));
+});
+
+gulp.task('inject', ['wiredep'], function() {
+    // log('Wire up the app css into the html, and call wiredep ');
+
+    var gulpInjectDefaultOptions = config.getGulpInjectDefaultOptions();
+
+    return gulp
+        .src(config.index)
+        .pipe($.inject(gulp.src(config.css, {
+            read: false
+        }), gulpInjectDefaultOptions))
+        .pipe(gulp.dest(config.client));
+});
+
 
 gulp.task('watch', function() {
   gulp.watch(paths.sass, ['sass']);

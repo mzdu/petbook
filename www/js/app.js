@@ -4,7 +4,14 @@
 // 'petBook' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
 // 'petBook.controllers' is found in controllers.js
-angular.module('petBook', ['ionic', 'restangular', 'ngStorage', 'petBook.controllers', 'petBook.services', 'ionic-material', 'ionMdInput'])
+
+angular.module('petBook', ['ionic', 
+    'petBook.controllers',
+    'petBook.services',
+    'restangular',
+    'ngStorage', 
+    'ionic-material', 
+    'ionMdInput'])
 
 .run(function($ionicPlatform) {
     $ionicPlatform.ready(function() {
