@@ -23,7 +23,7 @@
  -->
 
  <ion-view view-title="Home">
-    <div class="ionic login " style="background-image: url('img/landing-dogs.jpg'); background-size: 320px 568px;background-repeat: no-repeat; ng-app="login">
+    <div class="ionic login " style="background-image: url('img/landing-dogs.jpg'); background-size: 320px 568px; background-repeat: no-repeat;">
             <div class="hero no-header flat" style="height:32%">
                 <div class="content">
                 <!-- 
@@ -32,12 +32,13 @@
                     <h1>Petbook</h1>
                 </div>
             </div>
+            <form name="loginForm" ng-submit="login()" novalidate>
             <div class="list">
-                <label class="item item-input item-md-label" placeholder="Username" highlight-color="balanced" type="text"><input type="text"><span class="input-label">Username</span><div class="highlight highlight-balanced"></div></label>
-                <label class="item item-input item-md-label" placeholder="Password" highlight-color="energized" type="password"><input type="password"><span class="input-label">Password</span><div class="highlight highlight-energized"></div></label>
+                <label class="item item-input item-md-label" placeholder="Username" highlight-color="balanced" type="text"><input type="text" ng-model="user.username"><span class="input-label">Username</span><div class="highlight highlight-balanced"></div></label>
+                <label class="item item-input item-md-label" placeholder="Password" highlight-color="energized" type="password"><input type="password" ng-model="user.password"><span class="input-label">Password</span><div class="highlight highlight-energized"></div></label>
             </div>
             <div class="padding">
-                <button class="button button-block button-positive waves-effect waves-button waves-light" ui-sref="app.profile">Login</button>
+                <button type="submit" class="button button-block button-positive waves-effect waves-button waves-light">Login</button>
 				<button type="button" class="button button-clear button-calm" ng-click="register()">
 				<u>New here? Sign up.</u>
 				</button>                
@@ -46,6 +47,7 @@
                 <button class="button button-small button-border icon-left ion-social-google button-assertive-900">Google+</button>
                 <button class="button button-small button-border icon-left ion-social-facebook button-positive-900">Facebook</button>
             </div>
+            </form>
         </div>
   
 </ion-view>

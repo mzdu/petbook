@@ -134,6 +134,36 @@ angular.module('petBook.controllers', [])
 
   })
 
+.controller('RegisterCtrl', function($scope, $state, $timeout, $stateParams, ionicMaterialInk, AuthService) {
+
+    $scope.$parent.clearFabs();
+    $timeout(function() {
+        $scope.$parent.hideHeader();
+    }, 0);
+    ionicMaterialInk.displayEffect();
+    
+    $scope.user = {};
+
+    $scope.Register = function() {
+
+        console.log('scope user is: ', $scope.user);
+        var promise = AuthService.register($scope.user);
+        promise.then(function(user, err) {
+            // returns a list of users
+            if (!err) {
+                console.log('user is: ', user);
+//                StorageService.setCurrentUser(user);
+                $state.go('app.profile', {}, {
+                    reload: true
+                });
+            } else {
+                console.log('error is: ', err);
+                $scope.error = 'unable to sign up at this time';
+            }
+        }); //end of then
+    }; // end of sign up		
+})  
+  
 .controller('FriendsCtrl', function($scope, $stateParams, $timeout, ionicMaterialInk, ionicMaterialMotion) {
     // Set Header
     $scope.$parent.showHeader();
