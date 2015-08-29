@@ -102,7 +102,10 @@ angular.module('petBook.controllers', [])
 
 .controller('LoginCtrl', function($scope, $state, $timeout, $stateParams, StorageService, ionicMaterialInk, AuthService) {
 
-
+    $scope.user = {
+        username: "testuser",
+        password: "test123"
+    }
     $scope.$parent.clearFabs();
     $timeout(function() {
         $scope.$parent.hideHeader();
@@ -198,7 +201,6 @@ angular.module('petBook.controllers', [])
     $scope.isExpanded = false;
     $scope.$parent.setExpanded(false);
     $scope.$parent.setHeaderFab(false);
-    
     $scope.user = StorageService.getCurrentUser().user;
     //console.log('scope user is ', $scope.user);
 
@@ -267,16 +269,7 @@ angular.module('petBook.controllers', [])
 })
 
 
-.controller('MomentsCtrl', function($scope, $stateParams, $timeout, StorageService, ionicMaterialMotion, ionicMaterialInk, StatusService) {
-    
-    promise.then(function(results, err) {
-        if (!err) {
-            $scope.posts = results;
-            console.log('success', results);
-        } else {
-            $scope.log('error is', err);
-        }
-    });
+.controller('MomentsCtrl', function($scope, $stateParams, $timeout, ionicMaterialMotion, ionicMaterialInk) {
     $scope.$parent.showHeader();
     $scope.$parent.clearFabs();
     $scope.isExpanded = false;
@@ -291,20 +284,6 @@ angular.module('petBook.controllers', [])
 
     // Activate ink for controller
     ionicMaterialInk.displayEffect();
-
-    var user = StorageService.getCurrentUser().user;
-
-    var moment = {
-        "userID": user._id,
-        "location": [51.5033630, -0.1276250],
-        "rad": 10
-    };
-    var promise = StatusService.getMoments(moment);
-    // console.log(promise);
-    // $scope.posts
-
-    
-
 })
 
 .controller('GalleryCtrl', function($scope, $stateParams, $timeout, ionicMaterialInk, ionicMaterialMotion) {
@@ -385,45 +364,46 @@ angular.module('petBook.controllers', [])
 })
 
 .controller('AddPostsCtrl', function($scope, $stateParams, $timeout, ionicMaterialMotion, ionicMaterialInk, StorageService, $ionicPopup, StatusService) {
-        // Set Header
-        $scope.$parent.showHeader();
-        $scope.$parent.clearFabs();
-        $scope.isExpanded = false;
-        $scope.$parent.setExpanded(false);
-        $scope.$parent.setHeaderFab(false);
-        $scope.posts = [{
-            description: 'wishing my dad were home',
-            likes: 10,
-            createdDate: '8/29/15',
-            location: [51.5033630, -0.1276250]
-        }, {
-            description: 'that really itches',
-            likes: 10,
-            createdDate: '8/30/15',
-            location: [51.5033630, -0.1276250]
-        }, {
-            description: 'need someone to walk me',
-            likes: 10,
-            createdDate: '8/31/15',
-            location: [51.5033630, -0.1276250]
-        }];
-        $scope.user = StorageService.getCurrentUser().user;
+    // Set Header
+    $scope.$parent.showHeader();
+    $scope.$parent.clearFabs();
+    $scope.isExpanded = false;
+    $scope.$parent.setExpanded(false);
+    $scope.$parent.setHeaderFab(false);
+    $scope.posts = [{
+        description: 'wishing my dad were home',
+        likes: 10,
+        createdDate: '8/29/15',
+        location: [51.5033630, -0.1276250]
+    }, {
+        description: 'that really itches',
+        likes: 10,
+        createdDate: '8/30/15',
+        location: [51.5033630, -0.1276250]
+    }, {
+        description: 'need someone to walk me',
+        likes: 10,
+        createdDate: '8/31/15',
+        location: [51.5033630, -0.1276250]
+    }];
+    $scope.user = StorageService.getCurrentUser().user;
 
-        // Set Motion
-        $timeout(function() {
-            ionicMaterialMotion.slideUp({
-                selector: '.slide-up'
-            });
-        }, 300);
+    // Set Motion
+    $timeout(function() {
+        ionicMaterialMotion.slideUp({
+            selector: '.slide-up'
+        });
+    }, 300);
 
-        $timeout(function() {
-            ionicMaterialMotion.fadeSlideInRight({
-                startVelocity: 3000
-            });
-        }, 700);
+    $timeout(function() {
+        ionicMaterialMotion.fadeSlideInRight({
+            startVelocity: 3000
+        });
+    }, 700);
 
-        // Set Ink
-        ionicMaterialInk.displayEffect();
+    // Set Ink
+    ionicMaterialInk.displayEffect();
+
 
 
     //data ={choice: one of the fixed option, t1: addtional text entered}, so the status should be the contatenation of them (add space between them).
@@ -454,10 +434,11 @@ angular.module('petBook.controllers', [])
                     } else {
                         return $scope.data;
                     }
-                }]
-            });
+                }
+            }]
+        });
 
-            myPopup.then(function(res) {
+        myPopup.then(function(res) {
                 console.log('Tapped!', res);
                 $scope.userInput = "";
                 if ($scope.data.choice == " ") {
@@ -491,19 +472,19 @@ angular.module('petBook.controllers', [])
             });
 
 
-            /*$timeout(function() {
-               myPopup.close(); //close the popup after 3 seconds for some reason
-            }, 8000);*/
-        };
+    /*$timeout(function() {
+       myPopup.close(); //close the popup after 3 seconds for some reason
+    }, 8000);*/
+};
 
 
-    })
-    /*.controller('PetsNearbyCtrl', ['$scope', function ($scope) {
-        
-    }])
-    */
-    .controller('AboutCtrl', ['$scope', function($scope) {
+})
+/*.controller('PetsNearbyCtrl', ['$scope', function ($scope) {
+    
+}])
+*/
+.controller('AboutCtrl', ['$scope', function($scope) {
 
-    }])
+}])
 
 ;
