@@ -3,18 +3,17 @@
 
 angular.module('petBook.controllers', [])
 
-.controller('AppCtrl', function($scope, $ionicModal, $ionicPopover, $timeout,StorageService) {
+.controller('AppCtrl', function($scope, $ionicModal, $ionicPopover, $timeout, StorageService) {
     // Form data for the login modal
     $scope.loginData = {};
     $scope.isExpanded = false;
     $scope.hasHeaderFabLeft = false;
     $scope.hasHeaderFabRight = false;
-    
-    if(!StorageService.getCurrentUser()){
-    	return;
-    }
-    else {
-    	$scope.user = StorageService.getCurrentUser().user;
+
+    if (!StorageService.getCurrentUser()) {
+        return;
+    } else {
+        $scope.user = StorageService.getCurrentUser().user;
     }
 
 
@@ -93,11 +92,11 @@ angular.module('petBook.controllers', [])
             fabs[0].remove();
         }
     };
-    
-    $scope.logout=function(){
-//    	console.log("in logout func");
-//    	StorageService.resetCurrentUser();
-//        $state.go('app.login');
+
+    $scope.logout = function() {
+        //      console.log("in logout func");
+        //      StorageService.resetCurrentUser();
+        //        $state.go('app.login');
     };
 })
 
@@ -112,17 +111,17 @@ angular.module('petBook.controllers', [])
         $scope.$parent.hideHeader();
     }, 0);
     ionicMaterialInk.displayEffect();
-    
+
     // $scope.user = {};
     $scope.login = function() {
-  	  
+
         var promise = AuthService.login($scope.user);
         promise.then(function(user, err) {
             // console.log('user is: ', user);
             // returns a list of users
-                console.log('user is: ', user);
+            console.log('user is: ', user);
             if (!err && user.token) {
-               StorageService.setCurrentUser(user);
+                StorageService.setCurrentUser(user);
                 $state.go('app.profile', {}, {
                     reload: true
                 });
@@ -135,8 +134,8 @@ angular.module('petBook.controllers', [])
             console.log('error login!');
             $scope.error = 'invalid credentials';
         }); //end of then
-        
-//        $state.go('app.home');
+
+        //        $state.go('app.home');
 
     };
 
@@ -144,7 +143,7 @@ angular.module('petBook.controllers', [])
         $state.go('app.register');
     };
 
-  })
+})
 
 .controller('RegisterCtrl', function($scope, $state, $timeout, $stateParams, StorageService, ionicMaterialInk, AuthService) {
 
@@ -153,7 +152,7 @@ angular.module('petBook.controllers', [])
         $scope.$parent.hideHeader();
     }, 0);
     ionicMaterialInk.displayEffect();
-    
+
     $scope.user = {};
 
     $scope.Register = function() {
@@ -164,7 +163,7 @@ angular.module('petBook.controllers', [])
             // returns a list of users
             if (!err) {
                 console.log('user is: ', user);
-               StorageService.setCurrentUser(user);
+                StorageService.setCurrentUser(user);
                 $state.go('app.profile', {}, {
                     reload: true
                 });
@@ -173,9 +172,9 @@ angular.module('petBook.controllers', [])
                 $scope.error = 'unable to sign up at this time';
             }
         }); //end of then
-    }; // end of sign up		
-})  
-  
+    }; // end of sign up        
+})
+
 .controller('FriendsCtrl', function($scope, $stateParams, $timeout, ionicMaterialInk, ionicMaterialMotion) {
     // Set Header
     $scope.$parent.showHeader();
@@ -225,16 +224,16 @@ angular.module('petBook.controllers', [])
         console.log('test received', data);
         $scope.editMode = data;
         // do what you want to do
-        
+
         console.log('scope editMode', $scope.editMode);
-        
+
         console.log('user obj is', $scope.user);
         console.log('pet obj is', $scope.user.pet);
         $scope.user.pet._id = $scope.user._id;
         var feedback = ProfileService.update($scope.user.pet);
     });
-    
-    
+
+
 })
 
 
@@ -282,7 +281,7 @@ angular.module('petBook.controllers', [])
     $scope.$parent.setExpanded(false);
     $scope.$parent.setHeaderFab(false);
 
-    
+
     /*    [{description: 'wishing my dad were home',
            likes: 10,
            createdDate: '8/29/15',
@@ -295,21 +294,19 @@ angular.module('petBook.controllers', [])
            likes: 10,
            createdDate: '8/31/15',
            location: [51.5033630,-0.1276250]}];*/
-    if(!StorageService.getCurrentUser()){
+    if (!StorageService.getCurrentUser()) {
         return;
-    }
-    else {
+    } else {
         $scope.user = StorageService.getCurrentUser().user;
-        var promise = PostService.get($scope.user._id);
+        var promise = PostService.getAll($scope.user._id);
         // console.log(promise);
         // $scope.posts
 
-        promise.then(function(results, err){
-            if(!err){
+        promise.then(function(results, err) {
+            if (!err) {
                 $scope.posts = results;
                 // console.log('likes is', $scope.sth);
-            }
-            else{
+            } else {
                 $scope.log('error is', err);
             }
         })
@@ -335,26 +332,29 @@ angular.module('petBook.controllers', [])
     ionicMaterialInk.displayEffect();
 })
 
-.controller('AddPostsCtrl', function($scope, $stateParams, $timeout, ionicMaterialMotion, ionicMaterialInk, StorageService,$ionicPopup) {
+.controller('AddPostsCtrl', function($scope, $stateParams, $timeout, ionicMaterialMotion, ionicMaterialInk, StorageService, $ionicPopup, PostService) {
     // Set Header
     $scope.$parent.showHeader();
     $scope.$parent.clearFabs();
     $scope.isExpanded = false;
     $scope.$parent.setExpanded(false);
     $scope.$parent.setHeaderFab(false);
-    $scope.posts = 
-        [{description: 'wishing my dad were home',
-           likes: 10,
-           createdDate: '8/29/15',
-           location: [51.5033630,-0.1276250]},
-        {description: 'that really itches',
-           likes: 10,
-           createdDate: '8/30/15',
-           location: [51.5033630,-0.1276250]},
-        {description: 'need someone to walk me',
-           likes: 10,
-           createdDate: '8/31/15',
-           location: [51.5033630,-0.1276250]}];
+    $scope.posts = [{
+        description: 'wishing my dad were home',
+        likes: 10,
+        createdDate: '8/29/15',
+        location: [51.5033630, -0.1276250]
+    }, {
+        description: 'that really itches',
+        likes: 10,
+        createdDate: '8/30/15',
+        location: [51.5033630, -0.1276250]
+    }, {
+        description: 'need someone to walk me',
+        likes: 10,
+        createdDate: '8/31/15',
+        location: [51.5033630, -0.1276250]
+    }];
     $scope.user = StorageService.getCurrentUser().user;
 
     // Set Motion
@@ -373,77 +373,78 @@ angular.module('petBook.controllers', [])
     // Set Ink
     ionicMaterialInk.displayEffect();
 
- /*   $scope.formtemplate = '<div class="list">
-              <label class="item item-radio">
-                <input type="radio" name="group">
-                <div class="item-content">
-                  Go
-                </div>
-                <i class="radio-icon ion-checkmark"></i>
-              </label>
 
-              <label class="item item-radio">
-                <input type="radio" name="group">
-                <div class="item-content">
-                  Not
-                </div>
-                <i class="radio-icon ion-checkmark"></i>
-              </label>
-            </div>
-            <input type="text" ng-model="data.t1"> <br /> 
-            <input type="text" ng-model="data.t2">';*/
 
     //data ={choice: one of the fixed option, t1: addtional text entered}, so the status should be the contatenation of them (add space between them).
     //if a user select other, notice choice=" "; need to remove it before store it.
-    $scope.data={};
+    $scope.data = {};
     $scope.formtemplate = '<strong>My dog needs (select below) *</strong> <ion-radio ng-model="data.choice" ng-value="\'My dog needs playmates!\'">playmates!</ion-radio><ion-radio ng-model="data.choice" ng-value="\'My dog needs medical advice.\'">medical advice.</ion-radio><ion-radio ng-model="data.choice" ng-value="\'My dog needs to take a shower.\'">to take a shower.</ion-radio><ion-radio ng-model="data.choice" ng-value="\'My dog needs a walk.\'">a walk.</ion-radio><ion-radio ng-model="data.choice" ng-value="\'My dog needs dog sitting/boarding.\'">dog sitting/boarding.</ion-radio><ion-radio ng-model="data.choice" ng-value="\' \'">other.</ion-radio><strong>Enter extra text below:</strong><br/><input type="text" ng-model="data.t1">';
-    
+
     //this is the status the customer will send!!!
     $scope.userInput = "";
 
     // Triggered on a button click, or some other target
-    $scope.showPopup = function() {  
-      // An elaborate, custom popup
-      var myPopup = $ionicPopup.show({
-        template: $scope.formtemplate,
-        title: 'New Post',
-        //subTitle: 'Please use normal things',
-        scope: $scope,
-        buttons: [
-          { text: 'Cancel' },
-          {
-            text: '<b>Save</b>',
-            type: 'button-assertive',
-            onTap: function(e) {
-              if (!$scope.data.choice) {
-                //don't allow the user to close unless he enters wifi password
-                e.preventDefault();
-              } else {
-                return $scope.data;
-              }
-            }
-          }
-        ]
-      });
+    $scope.showPopup = function() {
+        // An elaborate, custom popup
+        var myPopup = $ionicPopup.show({
+            template: $scope.formtemplate,
+            title: 'New Post',
+            //subTitle: 'Please use normal things',
+            scope: $scope,
+            buttons: [{
+                text: 'Cancel'
+            }, {
+                text: '<b>Save</b>',
+                type: 'button-assertive',
+                onTap: function(e) {
+                    if (!$scope.data.choice) {
+                        //don't allow the user to close unless he enters wifi password
+                        e.preventDefault();
+                    } else {
+                        return $scope.data;
+                    }
+                }
+            }]
+        });
 
-      myPopup.then(function(res) {
-        console.log('Tapped!', res);
-        $scope.userInput="";
-        if($scope.data.choice==" "){
-            $scope.data.choice="";
-        }
-        if($scope.data.choice!=""){
-        $scope.userInput = $scope.data.choice+ " ";
-        }
-        if($scope.data.t1!=undefined){
-            $scope.userInput =$scope.userInput + $scope.data.t1;
-         }
-        console.log("result=",$scope.userInput);
-      });
-      /*$timeout(function() {
-         myPopup.close(); //close the popup after 3 seconds for some reason
-      }, 8000);*/
-     };
+        myPopup.then(function(res) {
+                console.log('Tapped!', res);
+                $scope.userInput = "";
+                if ($scope.data.choice == " ") {
+                    $scope.data.choice = "";
+                }
+                if ($scope.data.choice != "") {
+                    $scope.userInput = $scope.data.choice + " ";
+                }
+                if ($scope.data.t1 != undefined) {
+                    $scope.userInput = $scope.userInput + $scope.data.t1;
+                }
+
+                console.log("result=", $scope.userInput);
+                var status = {
+                    description: $scope.userInput,
+                    likes: 5,
+                    location: [51.5033630, -0.1276250] //hard coded
+                }
+                var promise = PostService.add($scope.user._id, status);
+
+                promise.then(function(data, error) {
+                    if (!error) {
+                        console.log('wish successfully added');
+                    } else {
+                        console.log('error adding wish');
+                    }
+                }, function(response) {
+                    console.log('response error ', response);
+                });
+
+            });
+
+
+    /*$timeout(function() {
+       myPopup.close(); //close the popup after 3 seconds for some reason
+    }, 8000);*/
+};
 
 
 })
@@ -451,8 +452,8 @@ angular.module('petBook.controllers', [])
     
 }])
 */
-.controller('AboutCtrl', ['$scope', function ($scope) {
-    
+.controller('AboutCtrl', ['$scope', function($scope) {
+
 }])
 
 ;
