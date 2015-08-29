@@ -9,9 +9,8 @@ module.exports = function(app) {
 
 
 
-    // var User = require('./controllers/user');
-    // app.get(PATH + 'user/auth', User.getUserID); //return the userID based on access token - testing only
-
+    var User = require('./controllers/user');
+    
     var Test = require('./controllers/test');
     app.get(PATH + 'test', Test.hello);
 

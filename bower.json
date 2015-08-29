@@ -22,6 +22,9 @@
     },
     "ion-md-input": {
       "main": "js/ion-md-input.min.js"
+    },
+    "anglar": {
+      "main": ""
     }
   }
 }
