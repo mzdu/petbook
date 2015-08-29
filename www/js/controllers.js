@@ -91,7 +91,7 @@ angular.module('petBook.controllers', [])
     };
 })
 
-.controller('LoginCtrl', function($scope, $state, $timeout, $stateParams, ionicMaterialInk, AuthService) {
+.controller('LoginCtrl', function($scope, $state, $timeout, $stateParams, StorageService, ionicMaterialInk, AuthService) {
     $scope.$parent.clearFabs();
     $timeout(function() {
         $scope.$parent.hideHeader();
@@ -101,16 +101,13 @@ angular.module('petBook.controllers', [])
     $scope.user = {};
     $scope.login = function() {
   	  
-  	  var user = {};
-  	  user = $scope.user;
-  	  console.log('user', user);
-  	  
         var promise = AuthService.login($scope.user);
         promise.then(function(user, err) {
             // console.log('user is: ', user);
             // returns a list of users
+                console.log('user is: ', user);
             if (!err && user.token) {
-//                StorageService.setCurrentUser(user);
+               StorageService.setCurrentUser(user);
                 $state.go('app.profile', {}, {
                     reload: true
                 });
@@ -134,7 +131,7 @@ angular.module('petBook.controllers', [])
 
   })
 
-.controller('RegisterCtrl', function($scope, $state, $timeout, $stateParams, ionicMaterialInk, AuthService) {
+.controller('RegisterCtrl', function($scope, $state, $timeout, $stateParams, StorageService, ionicMaterialInk, AuthService) {
 
     $scope.$parent.clearFabs();
     $timeout(function() {
@@ -152,7 +149,7 @@ angular.module('petBook.controllers', [])
             // returns a list of users
             if (!err) {
                 console.log('user is: ', user);
-//                StorageService.setCurrentUser(user);
+               StorageService.setCurrentUser(user);
                 $state.go('app.profile', {}, {
                     reload: true
                 });

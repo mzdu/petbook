@@ -10,12 +10,15 @@
             </div>
             <form name="register" ng-submit="Register()" novalidate>
             <div class="list">
-                <label class="item item-input item-md-label" placeholder="Username" highlight-color="balanced" type="text"><input type="text" ng-model="user.username"><span class="input-label">Username</span><div class="highlight highlight-balanced"></div></label>
-                <label class="item item-input item-md-label" placeholder="Password" highlight-color="energized" type="password"><input type="password" ng-model="user.password"><span class="input-label">Password</span><div class="highlight highlight-energized"></div></label>
-                <label class="item item-input item-md-label" placeholder="Email" highlight-color="positive" type="text"><input type="text" ng-model="user.email"><span class="input-label">Email</span><div class="highlight highlight-positive"></div></label>
+                <label class="item item-input item-md-label" placeholder="Username" highlight-color="balanced" type="text"><input type="text" ng-model="user.username" required><span class="input-label">Username</span><div class="highlight highlight-balanced"></div></label>
+                <label class="item item-input item-md-label" placeholder="Password" highlight-color="energized" type="password"><input type="password" ng-model="user.password" required><span class="input-label">Password</span><div class="highlight highlight-energized"></div></label>
+                <label class="item item-input item-md-label" placeholder="Email" highlight-color="positive" type="text"><input type="text" ng-model="user.email" required><span class="input-label">Email</span><div class="highlight highlight-positive"></div></label>
+            </div>
+              <div class="list error" ng-if="error">
+                <span>Invalid Credentials</span>
             </div>
             <div class="padding">
-                <button type="submit" class="button button-block button-positive waves-effect waves-button waves-light">Signup</button>
+                <button type="submit" class="button button-block button-positive waves-effect waves-button waves-light" ng-disabled="register.$invalid">Signup</button>
               
             </div>
             </form>

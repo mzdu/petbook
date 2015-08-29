@@ -78,6 +78,10 @@ p {
     bottom: 0;
 }
 
+
 .mgrey {
     background-color: #F0F0F5;
+}
+.error {
+    color: red;
 }

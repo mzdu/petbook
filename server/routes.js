@@ -13,15 +13,15 @@ module.exports = function(app) {
     }), function(req, res) {
         createSendToken(req.user, res);
     });
-
     app.post(PATH + 'login', passport.authenticate('local-login'), function(req, res) {
         createSendToken(req.user, res);
     });
 
 
-    
     var User = require('./controllers/user');
-    app.post(PATH + 'user/:userID', User.UpdateOrSavePetProfile);
+    app.get(PATH + 'pet/:userID', User.getProfile);
+
+    app.post(PATH + 'pet/:userID', User.UpdateOrSavePetProfile);
 
 
 };
