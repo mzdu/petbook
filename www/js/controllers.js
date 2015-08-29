@@ -248,6 +248,19 @@ angular.module('petBook.controllers', [])
     $scope.isExpanded = false;
     $scope.$parent.setExpanded(false);
     $scope.$parent.setHeaderFab(false);
+    $scope.posts = 
+        [{description: 'wishing my dad were home',
+           likes: 10,
+           createdDate: '8/29/15',
+           location: [51.5033630,-0.1276250]},
+        {description: 'that really itches',
+           likes: 10,
+           createdDate: '8/30/15',
+           location: [51.5033630,-0.1276250]},
+        {description: 'need someone to walk me',
+           likes: 10,
+           createdDate: '8/31/15',
+           location: [51.5033630,-0.1276250]}];
 
     // Set Motion
     $timeout(function() {
