@@ -102,13 +102,18 @@ angular.module('petBook.controllers', [])
 })
 
 .controller('LoginCtrl', function($scope, $state, $timeout, $stateParams, StorageService, ionicMaterialInk, AuthService) {
+
+    $scope.user = {
+        username: "testuser",
+        password: "test123"
+    }
     $scope.$parent.clearFabs();
     $timeout(function() {
         $scope.$parent.hideHeader();
     }, 0);
     ionicMaterialInk.displayEffect();
     
-    $scope.user = {};
+    // $scope.user = {};
     $scope.login = function() {
   	  
         var promise = AuthService.login($scope.user);
