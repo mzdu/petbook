@@ -91,7 +91,7 @@ angular.module('petBook.controllers', [])
     };
 })
 
-.controller('LoginCtrl', function($scope, $state, $timeout, $stateParams, ionicMaterialInk, AuthService) {
+.controller('LoginCtrl', function($scope, $state, $timeout, $stateParams, StorageService, ionicMaterialInk, AuthService) {
     $scope.$parent.clearFabs();
     $timeout(function() {
         $scope.$parent.hideHeader();
@@ -131,7 +131,7 @@ angular.module('petBook.controllers', [])
 
   })
 
-.controller('RegisterCtrl', function($scope, $state, $timeout, $stateParams, ionicMaterialInk, AuthService) {
+.controller('RegisterCtrl', function($scope, $state, $timeout, $stateParams, StorageService, ionicMaterialInk, AuthService) {
 
     $scope.$parent.clearFabs();
     $timeout(function() {
