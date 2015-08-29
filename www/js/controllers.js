@@ -182,7 +182,7 @@ angular.module('petBook.controllers', [])
     ionicMaterialInk.displayEffect();
 })
 
-.controller('ProfileCtrl', function($scope, $stateParams, $timeout, ionicMaterialMotion, ionicMaterialInk, StorageService) {
+.controller('ProfileCtrl', function($scope, $stateParams, $timeout, ionicMaterialMotion, ionicMaterialInk, StorageService, ProfileService) {
     // Set Header
     $scope.$parent.showHeader();
     $scope.$parent.clearFabs();
@@ -190,6 +190,7 @@ angular.module('petBook.controllers', [])
     $scope.$parent.setExpanded(false);
     $scope.$parent.setHeaderFab(false);
     $scope.user = StorageService.getCurrentUser().user;
+    console.log('scope user is ', $scope.user);
 
     // Set Motion
     $timeout(function() {
@@ -211,7 +212,16 @@ angular.module('petBook.controllers', [])
         console.log('test received', data);
         $scope.editMode = data;
         // do what you want to do
+        
+        console.log('scope editMode', $scope.editMode);
+        
+        console.log('user obj is', $scope.user);
+        console.log('pet obj is', $scope.user.pet);
+        $scope.user.pet._id = $scope.user._id;
+        var feedback = ProfileService.update($scope.user.pet);
     });
+    
+    
 })
 
 
