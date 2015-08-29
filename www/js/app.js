@@ -4,7 +4,7 @@
 // 'petBook' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
 // 'petBook.controllers' is found in controllers.js
-angular.module('petBook', ['ionic', 'petBook.controllers', 'ionic-material', 'ionMdInput'])
+angular.module('petBook', ['ionic', 'restangular', 'ngStorage', 'petBook.controllers', 'petBook.services', 'ionic-material', 'ionMdInput'])
 
 .run(function($ionicPlatform) {
     $ionicPlatform.ready(function() {
@@ -20,7 +20,7 @@ angular.module('petBook', ['ionic', 'petBook.controllers', 'ionic-material', 'io
     });
 })
 
-.config(function($stateProvider, $urlRouterProvider, $ionicConfigProvider) {
+.config(function($stateProvider, $urlRouterProvider, $ionicConfigProvider, RestangularProvider) {
 
     // Turn off caching for demo simplicity's sake
     $ionicConfigProvider.views.maxCache(0);
@@ -29,7 +29,12 @@ angular.module('petBook', ['ionic', 'petBook.controllers', 'ionic-material', 'io
     // Turn off back button text
     $ionicConfigProvider.backButton.previousTitleText(false);
     */
-
+    RestangularProvider.setDefaultHeaders({
+        'Content-Type': 'application/json'
+    });
+    RestangularProvider.setBaseUrl('http://localhost:8080/api');	
+    
+    
     $stateProvider.state('app', {
         url: '/app',
         abstract: true,
