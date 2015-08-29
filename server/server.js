@@ -46,6 +46,7 @@ passport.serializeUser(function(user, done) {
 });
 
 require('./models/user');
+require('./models/status');
 
 
 var localStrategy = require('./services/auth/localAuth');

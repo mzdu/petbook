@@ -8,7 +8,10 @@ var StatusSchema = new Schema({
         ref: 'User',
         required: true
     },
-    description: String,
+    description: {
+        type: String,
+        required: true
+    },
     likes: Number,
     createdDate: {
         type: Date,

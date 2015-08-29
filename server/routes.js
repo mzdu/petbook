@@ -25,10 +25,10 @@ module.exports = function(app) {
     app.post(PATH + 'pet/:userID', User.UpdateOrSavePetProfile);
 
     //get my posts (my wishes)
-    // app.get(PATH + 'status/:userID', User.getMyPosts);
+    app.get(PATH + 'status/:userID', User.getMyPosts);
 
     // //make new post 
-    // app.post(PATH + 'status/:userID', User.getMyPosts);
+    app.post(PATH + 'status/:userID', User.makeNewPost);
 
     //get other people's status updates (fulfill a wish)
     // app.post(PATH + 'status', User.getMoments);
