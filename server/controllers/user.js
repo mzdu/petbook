@@ -80,11 +80,11 @@ exports.makeNewPost = function(req, res) {
 exports.getMoments = function(req, res) {
 
 	var userID = req.body.userID;
-    var query = Status.find({
-        _Owner: {
-            '$ne': userID
-        }
-    });
+    var query = Status.find({});
+    //     _Owner: {
+    //         '$ne': userID
+    //     }
+    // });
 
     //get statuses in the last 4 hours
 

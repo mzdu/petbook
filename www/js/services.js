@@ -6,7 +6,8 @@
     .factory('AuthService', AuthService)
     .factory('StorageService', StorageService)
     .factory('ProfileService', ProfileService)
-    .factory('StatusService', StatusService);
+    .factory('StatusService', StatusService)
+    .factory('LocationService', LocationService);
 
     function AuthService(Restangular) {
 
@@ -113,9 +114,45 @@
              // creates a status for user
              add: function(id, status){
                 return Restangular.all('status').one('', id).customPOST(status);
+             },
+
+             getMoments: function(form){
+                return Restangular.all('status').post(form);
              }
 
          }; //end of return
      };  
+
+
+
+function LocationService($q, $localStorage) {
+    return {
+        getCurrentLocation: function() {
+            var deferred = $q.defer();
+
+            if ($localStorage.location) {
+                deferred.resolve($localStorage.location);
+            } else {
+                var geoLoc = [];
+
+                var onSuccess = function(position) {
+                    geoLoc.push(position.coords.latitude);
+                    geoLoc.push(position.coords.longitude);
+                    $localStorage.location = geoLoc;
+                    deferred.resolve(geoLoc);
+                };
+
+                var onError = function(error) {
+                    deferred.reject(error);
+                };
+
+                navigator.geolocation.getCurrentPosition(onSuccess, onError);
+
+            }
+
+            return deferred.promise;
+        }
+    }; //end of return
+}
 
 })();
