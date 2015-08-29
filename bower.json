@@ -4,21 +4,24 @@
   "dependencies": {
     "ionic": "driftyco/ionic-bower#1.1.0",
     "restangular": "~1.5.1",
-    "ionic-material": "~0.4.2",
+    "ionic-material": "0.4.2",
     "ngstorage": "~0.3.9",
-    "ionic-material": "0.4.2"
+    "angular-animate": "~1.4.5"
   },
   "devDependencies": {
     "ionic": "driftyco/ionic-bower#1.0.0-rc.2",
     "ion-md-input": "0.0.2"
   },
-   "overrides": {
+  "overrides": {
     "ionic": {
       "main": [
         "css/ionic.css",
         "fonts/*",
         "js/ionic.bundle.js"
       ]
+    },
+    "ion-md-input": {
+      "main": "js/ion-md-input.min.js"
     }
   }
 }
