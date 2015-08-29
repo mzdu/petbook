@@ -1,89 +1,66 @@
 <ion-view view-title="Profile">
     <ion-content ng-class="{expanded:$scope.isExpanded}">
-        <!-- <div class="hero slide-up" style="background-image: url('img/profile-bg.jpg');">
-            <div class="content">
-                <div class="avatar" style="background-image: url('img/daenerys.jpg');"></div>
-                <h3><a class="light">Username Here{{user.username}}</a></h3>
-            </div>
-        </div> -->
-
-<!--         <h4 class="content padding double-padding-x">Following</h4>
-        <div class="list animate-fade-slide-in-right">
-            <a ui-sref="app.friends" class="item item-avatar item-icon-right">
-                <img src="img/jon-snow.jpg">
-                <h2>Jon Snow</h2>
-                <p>Da illest illegitimate</p>
-                <i class="icon ion-chatbubble muted"></i>
-            </a>
-            <a ui-sref="app.friends" class="item item-avatar item-icon-right">
-                <img src="img/sansa.jpg">
-                <h2>Sansa Stark</h2>
-                <p>&amp; Joffrey <strike>sitting</strike> sat in a tree</p>
-                <i class="icon ion-chatbubble muted"></i>
-            </a>
-            <a ui-sref="app.friends" class="item item-avatar item-icon-right">
-                <img src="img/tyrion.jpg">
-                <h2>Tyrion Lannister</h2>
-                <p>B.A.M.F. imp</p>
-                <i class="icon ion-chatbubble muted"></i>
-            </a>
-        </div> -->
-
-
+        
         <div class="list animate-fade-slide-in-right">
 
-          <div class="item item-divider mgrey">
-            <center>User Info</center>
-          </div>
 
-<!--           <div class="list">
-            <a class="item item-thumbnail-left" href="#" style="padding:25px;">
-              <img src="../img/dog2.jpg">
-              <h2>User firstname here{{user.firstname}}</h2>
-              <p>Back off, man. I'm a scientist.</p>
-            </a>
-        </div> -->
 <!--    <div class="item card-item"> -->
     <div class="card">
         <div class="item item-avatar item-text-wrap">
             <span class="avatar" style="background-image: url('img/dogavatar.jpg');"></span>
             <strong>{{user.username}} <br />{{user.email}}</strong>
-           <!--  <div class="card-footer text-right">
-                <i class="icon ion-chatbubbles positive"></i> 6
-                <i class="icon ion-heart assertive"></i> 23
-                <div class="pull-left">
-                    <i class="icon ion-clock"></i> just now
+
                 </div>
-            </div> -->
+            </div>
+        </div class="list">
+        <div class="item item-divider mgrey">
+            Pet Info
         </div>
-    </div>
-    </div class="list">
+        <a ng-if="!editMode" class="item pet-profile-item" href="#">
+            <label>Name:</label>
+            <span>{{user.pet.name}}</span>
+          </a>
+        <div class="item pet-profile-item" ng-if='editMode'>
+            <label>Name: </label>
+            <input type="text" ng-model="user.pet.name" />
+        </div>
+        <a class="item pet-profile-item" ng-if="!editMode" href="#">
+            <label>Age: </label>
+            <span>{{user.pet.age}}</span>
+          </a>
+           <div class="item pet-profile-item" ng-if='editMode'>
+            <label>Age: </label>
+            <input type="text" ng-model="user.pet.age" />
+        </div>
+        <a class="item pet-profile-item" ng-if="!editMode" href="#">
+            <label>Sex: </label>
+            <span>{{user.pet.sex}}</span>
+        </a>
+         <div class="item pet-profile-item" ng-if='editMode'>
+            <label>Sex: </label>
+            <input type="text" ng-model="user.pet.sex" />
+        </div>
+        <a class="item pet-profile-item" ng-if="!editMode" href="#">
+            <label>Breed: </label>
+            <span>{{user.pet.breed}}</span>
+        </a>
+         <div class="item pet-profile-item" ng-if='editMode'>
+            <label>Breed: </label>
+            <input type="text" ng-model="user.pet.breed" />
+        </div>
+        <a class="item pet-profile-item" ng-if="!editMode" href="#">
+            <label>Bio: </label>
+            <span>{{user.pet.bio}}</span>
+        </a>
+         <div class="item pet-profile-item" ng-if='editMode'>
+            <label>Bio: </label>
+            <input type="text" ng-model="user.pet.bio" />
+        </div>
+<!-- mthemecolor -->
 
-          <div class="item item-divider mgrey">
-            <center>Pet Info</center>
-          </div>
-
-          <a class="item mthemecolor" href="#">
-            <strong>Name:</strong> {{user.pet.name}}
-          </a>
-          <a class="item mthemecolor" href="#">
-            <strong>Age:</strong> {{user.pet.age}}
-          </a>
-          <a class="item mthemecolor" href="#">
-            <strong>Sex:</strong> {{user.pet.sex}}
-          </a>
-          <a class="item mthemecolor" href="#">
-            <strong>Breed:</strong> {{user.pet.breed}}
-          </a>
-          <a class="item mthemecolor" href="#">
-            <strong>Bio:</strong> {{user.pet.bio}}
-          </a>
 
         </div>
     </ion-content>
 </ion-view>
-
-
-
-</div>
-
+<div>
+    <input type="text" ng-if='user.admin' ng-model="myModel" /> <span ng-if='!user.admin'>{{ myModel }}</span> </div>
