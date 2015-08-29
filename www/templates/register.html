@@ -1,0 +1,25 @@
+<ion-view view-title="Home">
+    <div class="ionic login " style="background-image: url('img/landing-dogs.jpg'); background-size: 320px 568px; background-repeat: no-repeat;">
+            <div class="hero no-header flat" style="height:32%">
+                <div class="content">
+                <!-- 
+                    <i class="ion-map icon hero-icon royal-bg"></i>
+                 -->
+                    <h1>Petbook</h1>
+                </div>
+            </div>
+            <form name="register" ng-submit="Register()" novalidate>
+            <div class="list">
+                <label class="item item-input item-md-label" placeholder="Username" highlight-color="balanced" type="text"><input type="text" ng-model="user.username"><span class="input-label">Username</span><div class="highlight highlight-balanced"></div></label>
+                <label class="item item-input item-md-label" placeholder="Password" highlight-color="energized" type="password"><input type="password" ng-model="user.password"><span class="input-label">Password</span><div class="highlight highlight-energized"></div></label>
+                <label class="item item-input item-md-label" placeholder="Email" highlight-color="positive" type="text"><input type="text" ng-model="user.email"><span class="input-label">Email</span><div class="highlight highlight-positive"></div></label>
+            </div>
+            <div class="padding">
+                <button type="submit" class="button button-block button-positive waves-effect waves-button waves-light">Signup</button>
+              
+            </div>
+            </form>
+
+        </div>
+  
+</ion-view>
