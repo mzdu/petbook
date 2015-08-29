@@ -8,9 +8,8 @@ var StatusSchema = new Schema({
         ref: 'User',
         required: true
     },
-    details: String,
+    description: String,
     likes: Number,
-    bio: String,
     createdDate: {
         type: Date,
         default: Date.now
