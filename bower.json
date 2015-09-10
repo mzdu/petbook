@@ -10,7 +10,7 @@
   },
   "devDependencies": {
     "ionic": "driftyco/ionic-bower#1.0.0-rc.2",
-    "ion-md-input": "0.0.2"
+    "ion-md-input": "1.0.4"
   },
   "overrides": {
     "ionic": {
