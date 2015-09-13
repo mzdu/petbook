@@ -10,13 +10,6 @@ angular.module('petBook.controllers', [])
     $scope.hasHeaderFabLeft = false;
     $scope.hasHeaderFabRight = false;
 
-    if (!StorageService.getCurrentUser()) {
-        return;
-    } else {
-        $scope.user = StorageService.getCurrentUser().user;
-    }
-
-
     var navIcons = document.getElementsByClassName('ion-navicon');
     for (var i = 0; i < navIcons.length; i++) {
         navIcons.addEventListener('click', function() {
@@ -100,19 +93,19 @@ angular.module('petBook.controllers', [])
     };
 })
 
-.controller('LoginCtrl', function($scope, $state, $timeout, $stateParams, StorageService, ionicMaterialInk, AuthService) {
+.controller('LoginCtrl', function($scope, $state, $timeout, $stateParams, StorageService, ionicMaterialInk, AuthService, $ionicSideMenuDelegate) {
 
-
+	$ionicSideMenuDelegate.canDragContent(false)
     $scope.$parent.clearFabs();
     $timeout(function() {
         $scope.$parent.hideHeader();
     }, 0);
     ionicMaterialInk.displayEffect();
 
-    $scope.user = {
-        username: "testuser",
-        password: "test123"
-    }
+    // $scope.user = {
+    //     username: "testuser",
+    //     password: "test123"
+    // }
   
     $scope.login = function() {
 
@@ -144,8 +137,9 @@ angular.module('petBook.controllers', [])
 
 })
 
-.controller('RegisterCtrl', function($scope, $state, $timeout, $stateParams, StorageService, ionicMaterialInk, AuthService) {
+.controller('RegisterCtrl', function($scope, $state, $timeout, $stateParams, StorageService, ionicMaterialInk, AuthService, $ionicSideMenuDelegate) {
 
+	$ionicSideMenuDelegate.canDragContent(false)
     $scope.$parent.clearFabs();
     $timeout(function() {
         $scope.$parent.hideHeader();
@@ -171,7 +165,11 @@ angular.module('petBook.controllers', [])
                 $scope.error = 'unable to sign up at this time';
             }
         }); //end of then
-    }; // end of sign up        
+    }; // end of sign up   
+    
+    $scope.login = function() {
+        $state.go('app.login');
+    }; 
 })
 
 .controller('FriendsCtrl', function($scope, $stateParams, $timeout, ionicMaterialInk, ionicMaterialMotion) {
@@ -289,6 +287,7 @@ angular.module('petBook.controllers', [])
 
     var user = StorageService.getCurrentUser().user;
 
+    
     var moment = {
         "userID": user._id,
         "location": [51.5033630, -0.1276250],

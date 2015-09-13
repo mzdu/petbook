@@ -1,6 +1,6 @@
 {
   "name": "ion-md-input",
-  "version": "0.0.2",
+  "version": "1.0.4",
   "authors": [
     "mhartington <mikehartington@gmail.com>"
   ],
@@ -21,13 +21,14 @@
     "test",
     "tests"
   ],
-  "_release": "0.0.2",
+  "_release": "1.0.4",
   "_resolution": {
     "type": "version",
-    "tag": "v0.0.2",
-    "commit": "fd6c92f63a067cd7b725ad75e9304eb296357dc1"
+    "tag": "v1.0.4",
+    "commit": "6bed0d4819f74bb247820ac38db0dbb908c99bb2"
   },
   "_source": "git://github.com/mhartington/ion-md-input.git",
-  "_target": "0.0.2",
-  "_originalSource": "ion-md-input"
+  "_target": "~1.0.4",
+  "_originalSource": "ion-md-input",
+  "_direct": true
 }

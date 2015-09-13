@@ -1,12 +1,12 @@
 
- <ion-view view-title="Home">
-    <div class="ionic login " style="background-image: url('img/landing-dogs.jpg'); background-size: 320px 568px; background-repeat: no-repeat;">
-            <div class="hero no-header flat" style="height:32%">
+ <ion-view view-title="Login">
+    <div class="ionic login " style="background-image: url('img/landing-dogs.jpg'); background-size: cover; background-repeat: no-repeat;">
+            <div class="hero no-header flat" style="height:30%">
                 <div class="content">
                 <!-- 
                     <i class="ion-map icon hero-icon royal-bg"></i>
                  -->
-                    <h1>Petbook</h1>
+                    <h1 class=""><i class="ion-ios-paw-outline"></i><br />Petbook</h1>
                 </div>
             </div>
             <div class="list">
@@ -21,10 +21,9 @@
             </div>
             <div class="padding">
                 <button type="submit" ui-sref="app.profile" class="button button-block button-positive waves-effect waves-button waves-light" ng-disabled="loginForm.$invalid">Login</button>
-                <button type="button" class="button button-clear button-calm" ng-click="register()">
-                <u>New here? Sign up.</u>
-                </button>                
+                <u class="calm" ng-click="register()"><b>New here? Sign up.</b></u>              
             </div>
+
             <div class="button-bar">
                 <button class="button button-small button-border icon-left ion-social-google button-assertive-900">Google+</button>
                 <button class="button button-small button-border icon-left ion-social-facebook button-positive-900">Facebook</button>

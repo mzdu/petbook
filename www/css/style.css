@@ -1,14 +1,14 @@
 /* General
 ==================================*/
-
 h1 {
     color: #fff;
     text-shadow: 0 1px 0px #000;
     font-size: 42px;
 }
+
+
 /* Utilities
 ==================================*/
-
 .title-bordered {
     border-top: solid 2px #bbb;
     padding-top: 30px;
@@ -22,9 +22,10 @@ p {
 .scroll {
     height: 100%;
 }
+
+
 /* Menu
 ==================================*/
-
 .menu .bar.bar-header.expanded {
     transition: all .5s ease-in-out;
 }
@@ -58,12 +59,13 @@ p {
 .menu-open .ion-navicon:before {
     content: "\f2ca";
 }
+
+
 /* Login
 ==================================*/
-
 .app-icon {
     background-color: #fff;
-    background: url('../img/crown.jpg') center;
+    background: url('../img/landing-dogs.jpg') center;
     background-size: cover;
     border-radius: 50%;
     height: 125px;
@@ -76,30 +78,11 @@ p {
     bottom: 0;
 }
 
-.mgrey {
-    background-color: #F0F0F5;
+
+.logoFont{
+	font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
 }
 
-.error {
-    color: red;
-}
-
-.mthemecolor {
-    font-size: 25px;
-    color: #B51E22 !important;
-}
-
-.pet-profile-item {}
-
-
-.pet-profile-item label {
-    font-weight: bold;
-    font-size: 1em;
-    color: #B51E22;
-    margin-right: 10px;
-    float:left;
-}
-
-.pet-profile-item span {
-    float:left;
+.login-bar{
+	margin-bottom: 10px;
 }

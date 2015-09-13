@@ -12,7 +12,7 @@
     function AuthService(Restangular) {
 
         return {
-
+ 
             // POST: /api/login
             // logs the user in
             login: function(form) {

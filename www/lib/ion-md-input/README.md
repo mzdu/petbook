@@ -5,7 +5,7 @@ A material design inspired text input for Ionic Framework
 
 ## Usage
 ```
-<ion-md-input placeholder="Name" hightlight-color="energized" type="text"></ion-md-input>
+<ion-md-input placeholder="Name" highlight-color="energized" type="text"></ion-md-input>
 ```
 You can use any attribute that angular provides.
 
@@ -23,7 +23,7 @@ You can use any attribute that angular provides.
 
 ## Install
 ```
-bower install ion-md-inputs
+bower install ion-md-input
 ```
 
 Reference both the js and css file.
