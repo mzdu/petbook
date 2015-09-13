@@ -16,7 +16,7 @@ angular.module('petBook.controllers', [])
             this.classList.toggle('active');
         });
     }
-
+ 
     ////////////////////////////////////////
     // Layout Methods
     ////////////////////////////////////////
