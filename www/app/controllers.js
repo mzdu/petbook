@@ -115,7 +115,7 @@ angular.module('petBook.controllers', [])
             console.log('user is: ', user);
             if (!err && user.token) {
                 StorageService.setCurrentUser(user);
-                $state.go('app.profile');
+                $state.go('app.moments');
             } else {
                 console.log('error is: ', err);
                 $scope.error = err;
@@ -404,6 +404,7 @@ angular.module('petBook.controllers', [])
     $scope.isExpanded = false;
     $scope.$parent.setExpanded(false);
     $scope.$parent.setHeaderFab(false);
+    /* //testing data
     $scope.posts = [{
         description: 'wishing my dad were home',
         likes: 10,
@@ -419,6 +420,7 @@ angular.module('petBook.controllers', [])
         likes: 10,
         createdDate: '8/31/15',
         location: [51.5033630, -0.1276250]
+<<<<<<< HEAD
     }];
 
     LocationService.getCurrentLocation().then(function(loc){
@@ -427,6 +429,9 @@ angular.module('petBook.controllers', [])
     });
 
 
+=======
+    }];*/
+>>>>>>> 6b17e81d1e72573bc4f180bab22e508641a88fd6
     $scope.user = StorageService.getCurrentUser().user;
 
     // Set Motion
@@ -504,12 +509,26 @@ angular.module('petBook.controllers', [])
                     if (!error) {
                         console.log('added data is: ', data);
                         console.log('wish successfully added');
+                        $state.go('app.myposts',null, {reload: true});
                     } else {
                         console.log('error adding wish');
                     }
                 }, function(response) {
                     console.log('response error ', response);
                 });
+
+                //get all posts and show in "My Posts" 
+                /*var promise2 = StatusService.getAll($scope.user._id);
+                promise2.then(function(results, err) {
+                    if (!err) {
+                        console.log($scope.posts);
+                        $scope.posts = results;
+                        console.log($scope.posts);
+                        $state.go('app.myposts');
+                    } else {
+                        $scope.log('error is', err);
+                    }
+                });*/
 
             });
 
