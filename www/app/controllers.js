@@ -115,7 +115,7 @@ angular.module('petBook.controllers', [])
             console.log('user is: ', user);
             if (!err && user.token) {
                 StorageService.setCurrentUser(user);
-                $state.go('app.profile');
+                $state.go('app.moments');
             } else {
                 console.log('error is: ', err);
                 $scope.error = err;
