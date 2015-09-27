@@ -431,7 +431,6 @@ angular.module('petBook.controllers', [])
 
 =======
     }];*/
->>>>>>> 6b17e81d1e72573bc4f180bab22e508641a88fd6
     $scope.user = StorageService.getCurrentUser().user;
 
     // Set Motion
