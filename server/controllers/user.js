@@ -29,7 +29,7 @@ exports.UpdateOrSavePetProfile = function(req, res) {
         new: true
     };
 
-    Status.findOneAndUpdate({
+    User.findOneAndUpdate({
             _id: userID
         },
         upsertData,
