@@ -266,7 +266,7 @@ angular.module('petBook.controllers', [])
 
 
 
-.controller('MomentsCtrl', function($scope, $stateParams, $timeout, StorageService, ionicMaterialMotion, ionicMaterialInk, StatusService) {
+.controller('MomentsCtrl', function($scope, $stateParams, $timeout, StorageService, ionicMaterialMotion, ionicMaterialInk, StatusService, LocationService) {
     
        $scope.$parent.showHeader();
     $scope.$parent.clearFabs();
@@ -280,6 +280,12 @@ angular.module('petBook.controllers', [])
         });
     }, 200);
 
+    LocationService.getCurrentLocation().then(function(loc){
+        $scope.location = loc;
+        console.log('location is: ', loc);
+    });
+
+
     // Activate ink for controller
     ionicMaterialInk.displayEffect();
 
@@ -289,7 +295,7 @@ angular.module('petBook.controllers', [])
     
     var moment = {
         "userID": user._id,
-        "location": [51.5033630, -0.1276250],
+        "location": $scope.location,
         "rad": 10
     };
     
@@ -341,6 +347,7 @@ angular.module('petBook.controllers', [])
     $scope.$parent.setHeaderFab(false);
 
 
+  
     /*    [{description: 'wishing my dad were home',
            likes: 10,
            createdDate: '8/29/15',
@@ -390,7 +397,7 @@ angular.module('petBook.controllers', [])
     ionicMaterialInk.displayEffect();
 })
 
-.controller('AddPostsCtrl', function($scope, $stateParams, $timeout, ionicMaterialMotion, ionicMaterialInk, StorageService, $ionicPopup, StatusService) {
+.controller('AddPostsCtrl', function($scope, $stateParams, $timeout, ionicMaterialMotion, ionicMaterialInk, StorageService, $ionicPopup, StatusService, LocationService) {
     // Set Header
     $scope.$parent.showHeader();
     $scope.$parent.clearFabs();
@@ -413,6 +420,13 @@ angular.module('petBook.controllers', [])
         createdDate: '8/31/15',
         location: [51.5033630, -0.1276250]
     }];
+
+    LocationService.getCurrentLocation().then(function(loc){
+        $scope.location = loc;
+        console.log('location is: ', loc);
+    });
+
+
     $scope.user = StorageService.getCurrentUser().user;
 
     // Set Motion
@@ -482,12 +496,13 @@ angular.module('petBook.controllers', [])
                 var status = {
                     description: $scope.userInput,
                     likes: 5,
-                    location: [51.5033630, -0.1276250] //hard coded
+                    location: $scope.location //hard coded
                 }
                 var promise = StatusService.add($scope.user._id, status);
 
                 promise.then(function(data, error) {
                     if (!error) {
+                        console.log('added data is: ', data);
                         console.log('wish successfully added');
                     } else {
                         console.log('error adding wish');
