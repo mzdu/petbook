@@ -71,7 +71,7 @@
             resetCurrentUser: function() {
                 console.log('resetting current user...');
                 $localStorage.user = '';
-                console.log('current user is ', $localStorage.user);
+                //console.log('current user is ', $localStorage.user);
             },
         }; //end of return
     };

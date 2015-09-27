@@ -3,7 +3,7 @@
 
 angular.module('petBook.controllers', [])
 
-.controller('AppCtrl', function($rootScope, $scope, $ionicModal, $ionicPopover, $timeout, StorageService) {
+.controller('AppCtrl', function($rootScope, $scope, $ionicModal, $ionicPopover, $timeout, StorageService,$state) {
     // Form data for the login modal
     $scope.loginData = {};
     $scope.isExpanded = false;
@@ -87,9 +87,8 @@ angular.module('petBook.controllers', [])
     };
 
     $scope.logout = function() {
-        //      console.log("in logout func");
-        //      StorageService.resetCurrentUser();
-        //        $state.go('app.login');
+        StorageService.resetCurrentUser();
+        $state.go('app.login');
     };
 })
 
