@@ -20,7 +20,7 @@
                 <span>Invalid Credentials</span>
             </div>
             <div class="padding">
-                <button type="submit" ui-sref="app.profile" class="button button-block button-positive waves-effect waves-button waves-light" ng-disabled="loginForm.$invalid">Login</button>
+                <button type="submit" ng-click="login()" class="button button-block button-positive waves-effect waves-button waves-light" ng-disabled="loginForm.$invalid">Login</button>
                 <u class="calm" ng-click="register()"><b>New here? Sign up.</b></u>              
             </div>
 
