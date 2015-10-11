@@ -63,3 +63,7 @@ $ ionic build ios
 $ ionic run ios
 ```
 
+### Running the project from Ionic View
+To run the project on Ionic View: 
+* Download and run Ionic View on your mobile device [Link](http://view.ionic.io/)
+* Find the petbook app via id: ec3b247c 
