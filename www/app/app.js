@@ -169,6 +169,15 @@ angular.module('petBook', ['ionic',
             }
         }
     })
+    .state('app.newpost',{
+        url: '/newpost',
+        views:{
+            'menuContent':{
+                templateUrl: 'templates/newpost.html',
+                controller: 'NewPostCtrl'
+            }
+        }
+    })
     .state('app.petsnearby', {
         url: '/petsnearby',
         views: {
