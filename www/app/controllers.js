@@ -116,6 +116,12 @@ angular.module('petBook.controllers', [])
     }, 0);
     ionicMaterialInk.displayEffect();
 
+    //redirects the user to homepage if they are already logged in
+
+    if(StorageService.getCurrentUser()){
+        $state.go('app.moments');
+    }
+
     // $scope.user = {
     //     username: "testuser",
     //     password: "test123"
@@ -538,7 +544,7 @@ angular.module('petBook.controllers', [])
     }, 8000);*/
 })
 
-.controller('NewPostCtrl',function($scope,StorageService,StatusService,$state){
+.controller('NewPostCtrl',function($scope,StorageService,StatusService,$state, $ionicPopup){
     $scope.$parent.showHeader();
     $scope.$parent.clearFabs();
     $scope.isExpanded = false;
@@ -546,27 +552,60 @@ angular.module('petBook.controllers', [])
     $scope.$parent.setHeaderFab(false);
     $scope.data = {};
     $scope.user = StorageService.getCurrentUser().user;
+    
+    $scope.choiceList = [
+    { text: "playmates!", value: "playmates!" },
+    { text: "medical advice.", value: "medical advice." },
+    { text: "to take a shower.", value: "to take a shower." },
+    { text: "a walk.", value: "a walk." },
+    { text: "dog sitting/boarding.", value: "dog sitting/boarding." },
+    { text: "other:", value: "other" }
+    ];
+
+
     $scope.addPost = function(){
-        var status = {
-            description: $scope.data.post,
-            likes: 5,
-            location: $scope.location //hard coded
+        $scope.data.userInput = "";
+        if($scope.data.choice != "other" && $scope.data.choice != undefined){
+            $scope.data.userInput = "My dog needs " + $scope.data.choice;
         }
-        var promise = StatusService.add($scope.user._id, status);
-
-        promise.then(function(data, error) {
-            if (!error) {
-                console.log('added data is: ', data);
-                console.log('wish successfully added');
-                //$state.reload();
-                $state.go('app.myposts');
-
-            } else {
-                console.log('error adding wish');
+        if($scope.data.post != undefined){
+            if($scope.data.userInput != "") {
+                $scope.data.userInput = $scope.data.userInput + " ";
             }
-        }, function(response) {
-            console.log('response error ', response);
-        });
+            $scope.data.userInput = $scope.data.userInput + $scope.data.post;
+        }
+        if( ($scope.data.choice == "other" || $scope.data.choice == undefined) && $scope.data.post == undefined){
+            var alertPopup = $ionicPopup.alert({
+             title: 'Alert',
+             template: 'You need to select a choice or enter some text.'
+            });
+            alertPopup.then(function(res) {
+             console.log('Try select or enter again.');
+            });
+        }else{
+            console.log("data is ",$scope.data);
+
+            var status = {
+                description: $scope.data.userInput,
+                likes: 5,
+                location: $scope.location //hard coded
+            }
+            var promise = StatusService.add($scope.user._id, status);
+
+            promise.then(function(data, error) {
+                if (!error) {
+                    console.log('added data is: ', data);
+                    console.log('wish successfully added');
+                    //$state.reload();
+                    $state.go('app.myposts');
+
+                } else {
+                    console.log('error adding wish');
+                }
+            }, function(response) {
+                console.log('response error ', response);
+            });
+        }
     }
 })
 /*.controller('PetsNearbyCtrl', ['$scope', function ($scope) {

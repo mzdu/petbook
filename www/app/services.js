@@ -39,27 +39,9 @@
      function StorageService($localStorage, $state) {
         // console.log('in storage service');
         return {
-            getCurrentUser: function(goToRegister) {
-                var user = $localStorage.user;
-                if (user && user.exp >= new Date()) {
-                    // console.log('getting current user... ', $localStorage.user);
-                    return user;
-                } else {
-                    // console.log('needs to login');
-                    $localStorage.user = '';
-                    // $state.go('login');
-//                    if (goToRegister) {
-//                        $state.go('app.register', {}, {
-//                            reload: true
-//                        });
-//                    } else {
-//                        $state.go('app.login', {}, {
-//                            reload: true
-//                        });
-//                    }
-                    // console.log('after logged in');
-                    return null;
-                }
+            getCurrentUser: function() {
+                return $localStorage.user;
+                
             },
            
             setCurrentUser: function(user) {

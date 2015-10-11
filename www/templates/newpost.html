@@ -2,15 +2,32 @@
   <ion-content>
 
   	<div class="list">
+
+		<div class="item item-divider">
+          My dog needs <br/>
+  		  (select one below; if you select "other", enter extra text in the text box.)
+        </div>
+
+	  	<ion-radio ng-repeat="item in choiceList"
+               ng-value="item.value"
+               ng-model="data.choice">
+      	{{ item.text }}
+        </ion-radio>
+
+		<div class="item item-divider">
+         Enter extra text below:
+        </div>
+	   
   	  <div class="card">
 	  <label class="item item-input">
-	    <textarea rows="10" ng-model="data.post"></textarea>
+	    <textarea rows="5" ng-model="data.post"></textarea>
 	  </label>
 	  </div>
 	  
 	  <button type="submit" class="button button-block button-assertive" ng-click="addPost()" style="margin:0 auto; width:150px; display:block;">
 	    Submit
 	  </button>
+
 	</div>
 
   </ion-content>
