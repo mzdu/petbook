@@ -3,7 +3,7 @@
 
 angular.module('petBook.controllers', [])
 
-.controller('AppCtrl', function($rootScope, $scope, $ionicModal, $ionicPopover, $timeout, StorageService,$state) {
+.controller('AppCtrl', function($rootScope, $scope, $ionicModal, $ionicPopover, $timeout, StorageService,$state, $ionicPopup) {
     // Form data for the login modal
     $scope.loginData = {};
     $scope.isExpanded = false;
@@ -87,8 +87,23 @@ angular.module('petBook.controllers', [])
     };
 
     $scope.logout = function() {
-        StorageService.resetCurrentUser();
-        $state.go('app.login');
+        /*StorageService.resetCurrentUser();
+        $state.go('app.login');*/
+        var confirmPopup = $ionicPopup.confirm({
+         title: 'Confirmation',
+         template: 'Are you sure you want to log out?',
+         okText: '<i class="icon ion-checkmark-round"></i>',
+         cancelText: '<i class="icon ion-close-round"></i>'
+       });
+       confirmPopup.then(function(res) {
+         if(res) {
+           StorageService.resetCurrentUser();
+           $state.go('app.login');
+           console.log('You are sure');
+         } else {
+           console.log('You are not sure');
+         }
+       }); 
     };
 })
 
