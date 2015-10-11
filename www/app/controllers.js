@@ -280,44 +280,39 @@ angular.module('petBook.controllers', [])
         });
     }, 200);
 
-    LocationService.getCurrentLocation().then(function(loc){
-        $scope.location = loc;
-        console.log('location is: ', loc);
-    });
+    var user = StorageService.getCurrentUser().user;
+
 
 
     // Activate ink for controller
     ionicMaterialInk.displayEffect();
 
+    LocationService.getCurrentLocation().then(function(loc){
+        // $scope.location = loc;
+        console.log('location is: ', loc);
+         var moment = {
+            "userID": user._id,
+            "location": loc,
+            "rad": 10
+        };
 
-    var user = StorageService.getCurrentUser().user;
+            
 
-    
-    var moment = {
-        "userID": user._id,
-        "location": $scope.location,
-        "rad": 10
-    };
-    
 
         var promise = StatusService.getMoments(moment);
-    promise.then(function(results, err) {
-        if (!err) {
-            $scope.posts = results;
-            console.log('success', results);
-        } else {
-            $scope.log('error is', err);
-        }
+        promise.then(function(results, err) {
+            if (!err) {
+                $scope.posts = results;
+                console.log('$scope.posts = ', $scope.posts);
+                console.log('success', results);
+            } else {
+                $scope.log('error is', err);
+            }
+        });
+
     });
-
-
-    // console.log(promise);
-    // $scope.posts
-
-    
-
-
 })
+
 
 .controller('GalleryCtrl', function($scope, $stateParams, $timeout, ionicMaterialInk, ionicMaterialMotion) {
     $scope.$parent.showHeader();
