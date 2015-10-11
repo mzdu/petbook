@@ -397,13 +397,16 @@ angular.module('petBook.controllers', [])
     ionicMaterialInk.displayEffect();
 })
 
-.controller('AddPostsCtrl', function($scope, $stateParams, $timeout, ionicMaterialMotion, ionicMaterialInk, StorageService, $ionicPopup, StatusService, LocationService) {
+.controller('AddPostsCtrl', function($scope, $state){ //, $stateParams, $timeout, ionicMaterialMotion, ionicMaterialInk, StorageService, $ionicPopup, StatusService, LocationService) {
     // Set Header
     $scope.$parent.showHeader();
     $scope.$parent.clearFabs();
     $scope.isExpanded = false;
     $scope.$parent.setExpanded(false);
     $scope.$parent.setHeaderFab(false);
+    $scope.showPopup = function() {
+        $state.go('app.newpost');
+    }
     /* //testing data
     $scope.posts = [{
         description: 'wishing my dad were home',
@@ -431,6 +434,7 @@ angular.module('petBook.controllers', [])
 
 =======
     }];*/
+    /*
     $scope.user = StorageService.getCurrentUser().user;
 
     // Set Motion
@@ -508,7 +512,8 @@ angular.module('petBook.controllers', [])
                     if (!error) {
                         console.log('added data is: ', data);
                         console.log('wish successfully added');
-                        $state.go('app.myposts',null, {reload: true});
+                        //$state.reload();
+
                     } else {
                         console.log('error adding wish');
                     }
@@ -516,35 +521,50 @@ angular.module('petBook.controllers', [])
                     console.log('response error ', response);
                 });
 
-                //get all posts and show in "My Posts" 
-                /*var promise2 = StatusService.getAll($scope.user._id);
-                promise2.then(function(results, err) {
-                    if (!err) {
-                        console.log($scope.posts);
-                        $scope.posts = results;
-                        console.log($scope.posts);
-                        $state.go('app.myposts');
-                    } else {
-                        $scope.log('error is', err);
-                    }
-                });*/
-
             });
-
-
+    */
     /*$timeout(function() {
        myPopup.close(); //close the popup after 3 seconds for some reason
     }, 8000);*/
-};
+})
 
+.controller('NewPostCtrl',function($scope,StorageService,StatusService,$state){
+    $scope.$parent.showHeader();
+    $scope.$parent.clearFabs();
+    $scope.isExpanded = false;
+    $scope.$parent.setExpanded(false);
+    $scope.$parent.setHeaderFab(false);
+    $scope.data = {};
+    $scope.user = StorageService.getCurrentUser().user;
+    $scope.addPost = function(){
+        var status = {
+            description: $scope.data.post,
+            likes: 5,
+            location: $scope.location //hard coded
+        }
+        var promise = StatusService.add($scope.user._id, status);
 
+        promise.then(function(data, error) {
+            if (!error) {
+                console.log('added data is: ', data);
+                console.log('wish successfully added');
+                //$state.reload();
+                $state.go('app.myposts');
+
+            } else {
+                console.log('error adding wish');
+            }
+        }, function(response) {
+            console.log('response error ', response);
+        });
+    }
 })
 /*.controller('PetsNearbyCtrl', ['$scope', function ($scope) {
     
 }])
 */
-.controller('AboutCtrl', ['$scope', function($scope) {
+.controller('AboutCtrl', function($scope){
 
-}])
+})
 
 ;
