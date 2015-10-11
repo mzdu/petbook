@@ -39,16 +39,20 @@ RoboMongo provides a nice user interface for working with MongoDB. It’s simila
 
 ### Installation
 
-After you clone the Helpmonger repository to your desktop, run the command below to install all npm packages. 
+After you clone the petbook repository to your desktop, run the command below to install all npm packages. Bower packages will also be installed with this command.
 ```sh
 $ npm install
 ```
 
-### Running the project (from browser)
+### Running the project (from browser) 
 To run the project for the first time, run the following command: 
 ```sh
 $ ionic serve
 ```
+
+By default, the project is using the backend on heroku at https://petbookapi.herokuapp.com/api. If you need to run the backend on your local, just uncomment "http://localhost:8080/api" in app.js on line 42. 
+
+If you use your local backend, you will need to run your node server. You can clone the repo [here] (https://github.com/beetz12/petbookAPI) and follow the README.
 
 ### Running the project from IOS simulator 
 To run the project on IOS for the first time, run the following commands: 
