@@ -3,7 +3,7 @@
 
 angular.module('petBook.controllers', [])
 
-.controller('AppCtrl', function($rootScope, $scope, $ionicModal, $ionicPopover, $timeout, StorageService,$state) {
+.controller('AppCtrl', function($rootScope, $scope, $ionicModal, $ionicPopover, $timeout, StorageService,$state, $ionicPopup) {
     // Form data for the login modal
     $scope.loginData = {};
     $scope.isExpanded = false;
@@ -87,8 +87,23 @@ angular.module('petBook.controllers', [])
     };
 
     $scope.logout = function() {
-        StorageService.resetCurrentUser();
-        $state.go('app.login');
+        /*StorageService.resetCurrentUser();
+        $state.go('app.login');*/
+        var confirmPopup = $ionicPopup.confirm({
+         title: 'Confirmation',
+         template: 'Are you sure you want to log out?',
+         okText: '<i class="icon ion-checkmark-round"></i>',
+         cancelText: '<i class="icon ion-close-round"></i>'
+       });
+       confirmPopup.then(function(res) {
+         if(res) {
+           StorageService.resetCurrentUser();
+           $state.go('app.login');
+           console.log('You are sure');
+         } else {
+           console.log('You are not sure');
+         }
+       }); 
     };
 })
 
@@ -280,44 +295,39 @@ angular.module('petBook.controllers', [])
         });
     }, 200);
 
-    LocationService.getCurrentLocation().then(function(loc){
-        $scope.location = loc;
-        console.log('location is: ', loc);
-    });
+    var user = StorageService.getCurrentUser().user;
+
 
 
     // Activate ink for controller
     ionicMaterialInk.displayEffect();
 
+    LocationService.getCurrentLocation().then(function(loc){
+        // $scope.location = loc;
+        console.log('location is: ', loc);
+         var moment = {
+            "userID": user._id,
+            "location": loc,
+            "rad": 10
+        };
 
-    var user = StorageService.getCurrentUser().user;
+            
 
-    
-    var moment = {
-        "userID": user._id,
-        "location": $scope.location,
-        "rad": 10
-    };
-    
 
         var promise = StatusService.getMoments(moment);
-    promise.then(function(results, err) {
-        if (!err) {
-            $scope.posts = results;
-            console.log('success', results);
-        } else {
-            $scope.log('error is', err);
-        }
+        promise.then(function(results, err) {
+            if (!err) {
+                $scope.posts = results;
+                console.log('$scope.posts = ', $scope.posts);
+                console.log('success', results);
+            } else {
+                $scope.log('error is', err);
+            }
+        });
+
     });
-
-
-    // console.log(promise);
-    // $scope.posts
-
-    
-
-
 })
+
 
 .controller('GalleryCtrl', function($scope, $stateParams, $timeout, ionicMaterialInk, ionicMaterialMotion) {
     $scope.$parent.showHeader();
