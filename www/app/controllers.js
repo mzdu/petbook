@@ -101,6 +101,12 @@ angular.module('petBook.controllers', [])
     }, 0);
     ionicMaterialInk.displayEffect();
 
+    //redirects the user to homepage if they are already logged in
+
+    if(StorageService.getCurrentUser()){
+        $state.go('app.moments');
+    }
+
     // $scope.user = {
     //     username: "testuser",
     //     password: "test123"
