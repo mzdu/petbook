@@ -22,20 +22,25 @@
        
 <!-- {{posts}} -->
         <div class="item card-item animate-fade-slide-in-right" ng-repeat="post in posts | orderBy: '-createdDate'">
-            <div class="card stable-bg ink ink-dark">
-                <div class="item item-text-wrap">
-                    <span class="avatar" style="background-image: url('img/dog2.jpg');"></span>
-                    <p style="margin-left:35%">{{post.description}}</p>
+            <!--<div class="card stable-bg ink ink-dark">-->
+                <div class="item item-avatar reduce-padding">
+                    <img class = "slimmer" src="img/dog2.jpg">
+                    <h2>Bob</h2>  
+                
+                <!--<div class="item item-text-wrap" >
+                    <<span class="avatar" style="background-image: url('img/dog2.jpg');"></span> -->
+                    <p class = "wrap">{{post.description}}</p>    
                     <div class="card-footer text-right">
-                    <i class="icon ion-chatbubble positive"></i> 2
-                        <i class="icon ion-heart assertive" ng-click="clickedLike()"></i> {{likes}}
+                        <i class="icon ion-chatbubble positive larger"></i> 2
+                        <i class="icon ion-heart assertive larger"></i> {{post.likes}}
                         <div class="pull-left">
-                            <i class="icon ion-clock"></i> <b>{{post.createdDate | date:'MM/dd/yyyy'}}</b>
+                            <i class="icon ion-clock larger"></i> <b>{{post.createdDate | date:'MM/dd/yyyy'}}</b>
                         </div>
                     </div>
+                </div> 
+            <!--    </div>
                 
-                </div>
-            </div>
+            </div>-->
         </div>
     </ion-content>
 </ion-view>

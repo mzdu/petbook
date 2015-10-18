@@ -10,6 +10,27 @@ h1 {
     font-size: larger;
 }
 
+.slimmer {
+    position: absolute !important;
+    top: 0px !important;
+    left: 0px !important;
+    max-width: 40px  !important;
+    max-height: 40px  !important;
+    width: 100%  !important;
+    height: 100%  !important;
+    border-radius: 50%  !important; 
+}
+
+/*momments display, and text wrap*/
+.reduce-padding{
+    padding-left:50px !important;
+}
+
+.wrap{
+  overflow: visible !important;
+  white-space: normal !important;
+}
+
 /* Utilities
 ==================================*/
 .title-bordered {
