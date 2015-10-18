@@ -544,7 +544,7 @@ angular.module('petBook.controllers', [])
     }, 8000);*/
 })
 
-.controller('NewPostCtrl',function($scope,StorageService,StatusService,$state, $ionicPopup){
+.controller('NewPostCtrl',function($scope,StorageService,StatusService,$state, LocationService, $ionicPopup){
     $scope.$parent.showHeader();
     $scope.$parent.clearFabs();
     $scope.isExpanded = false;
@@ -562,6 +562,10 @@ angular.module('petBook.controllers', [])
     { text: "other:", value: "other" }
     ];
 
+     LocationService.getCurrentLocation().then(function(loc){
+        $scope.location = loc;
+        console.log('location is: ', loc);
+    });
 
     $scope.addPost = function(){
         $scope.data.userInput = "";
