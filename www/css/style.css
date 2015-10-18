@@ -6,6 +6,9 @@ h1 {
     font-size: 42px;
 }
 
+.larger {
+    font-size: larger;
+}
 
 /* Utilities
 ==================================*/
