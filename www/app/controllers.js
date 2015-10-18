@@ -289,30 +289,32 @@ angular.module('petBook.controllers', [])
 
 .controller('MomentsCtrl', function($scope, $stateParams, $timeout, StorageService, ionicMaterialMotion, ionicMaterialInk, StatusService, LocationService) {
     
-       $scope.$parent.showHeader();
+    $scope.$parent.showHeader();
     $scope.$parent.clearFabs();
     $scope.isExpanded = false;
     $scope.$parent.setExpanded(false);
-    $scope.$parent.setHeaderFab('right');
+    $scope.$parent.setHeaderFab(false);
+    $scope.getLikes = getLikes;
 
-    $scope.likes = 0;
-    $scope.clickedLike = function(){
-        console.log('like clicked');
-        $scope.likes++;
-    }
-    $timeout(function() {
-        ionicMaterialMotion.fadeSlideIn({
-            selector: '.animate-fade-slide-in .item'
-        });
-    }, 200);
+    $scope.clickedLike = function(post){
+        var user = StorageService.getCurrentUser().user;
+        
+        if(updateLike(post)){
+             var promise = StatusService.addLike(post._id, user._id);
+                promise.then(function(data){
+                    console.log('successfully updated like');
+            });
+        }
+    };
+    // $timeout(function() {
+    //     ionicMaterialMotion.fadeSlideIn({
+    //         selector: '.animate-fade-slide-in .item'
+    //     });
+    // }, 200);
 
     var user = StorageService.getCurrentUser().user;
 
-
-
-    // Activate ink for controller
-    ionicMaterialInk.displayEffect();
-
+    
     LocationService.getCurrentLocation().then(function(loc){
         // $scope.location = loc;
         console.log('location is: ', loc);
@@ -322,21 +324,62 @@ angular.module('petBook.controllers', [])
             "rad": 10
         };
 
-            
-
-
         var promise = StatusService.getMoments(moment);
         promise.then(function(results, err) {
             if (!err) {
                 $scope.posts = results;
-                console.log('$scope.posts = ', $scope.posts);
-                console.log('success', results);
+                $scope.likes = results.likedBy
             } else {
                 $scope.log('error is', err);
             }
         });
 
     });
+
+
+        $timeout(function() {
+        ionicMaterialMotion.fadeSlideInRight({
+            startVelocity: 3000
+        });
+    }, 700);
+
+
+    // Activate ink for controller
+    ionicMaterialInk.displayEffect();
+
+
+    function getLikes(post){
+        if(post.likedBy && post.likedBy.length){
+            return post.likedBy.length;
+        } else {
+            return 0;
+        }
+    }
+
+    function hasUserAlreadyVotedOnPost(post){
+        return _.find(post.likedBy, function(item){
+                return item == user._id; 
+            });
+    }
+
+    //update the like count locally and prevents user from liking a post a second time.
+    function updateLike(post){
+        if(!post.likedBy){
+            post.likedBy = [];
+            post.likedBy.push(user._id);
+            return true;
+        } else {
+            if(hasUserAlreadyVotedOnPost(post)){
+                console.log('you already voted');
+                return false;
+            } else {
+                post.likedBy.push(user._id);
+                return true;
+            }
+        }
+        
+    }
+
 })
 
 

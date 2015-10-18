@@ -100,6 +100,10 @@
 
              getMoments: function(form){
                 return Restangular.all('status').post(form);
+             },
+
+             addLike: function(statusID, userID){
+                return Restangular.all('status').one('', statusID).one('likes', userID).post();
              }
 
          }; //end of return
