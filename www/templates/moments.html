@@ -28,7 +28,7 @@
                     <p style="margin-left:35%">{{post.description}}</p>
                     <div class="card-footer text-right">
                     <i class="icon ion-chatbubble positive"></i> 2
-                        <i class="icon ion-heart assertive"></i> {{post.likes}}
+                        <i class="icon ion-heart assertive" ng-click="clickedLike()"></i> {{likes}}
                         <div class="pull-left">
                             <i class="icon ion-clock"></i> <b>{{post.createdDate | date:'MM/dd/yyyy'}}</b>
                         </div>
