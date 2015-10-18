@@ -9,6 +9,8 @@
                     <h1 class=""><i class="ion-ios-paw-outline"></i><br />Petbook</h1>
                 </div>
             </div>
+
+            <form ng-submit="login()">
             <div class="list">
                 <!-- <label class="item item-input item-md-label" placeholder="Username" highlight-color="balanced" type="text"><input type="text" ng-model="user.username" required><span class="input-label">Username</span><div class="highlight highlight-balanced"></div></label> 
                 <label class="item item-input item-md-label" placeholder="Password" highlight-color="energized" type="password"><input type="password" ng-model="user.password" required><span class="input-label">Password</span><div class="highlight highlight-energized"></div></label>-->
@@ -20,9 +22,10 @@
                 <span>Invalid Credentials</span>
             </div> 
             <div class="padding">
-                <button type="submit" ng-click="login()" class="button button-block button-positive waves-effect waves-button waves-light" ng-disabled="loginForm.$invalid">Login</button>
+                <input type="submit" class="button button-block button-positive waves-effect waves-button waves-light" ng-disabled="loginForm.$invalid" value="Login">
                 <u class="calm" ng-click="register()"><b>New here? Sign up.</b></u>              
             </div>
+            </form>
 
             <div class="button-bar">
                 <button class="button button-small button-border icon-left ion-social-google button-assertive-900">Google+</button>
