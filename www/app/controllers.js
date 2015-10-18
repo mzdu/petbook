@@ -295,6 +295,11 @@ angular.module('petBook.controllers', [])
     $scope.$parent.setExpanded(false);
     $scope.$parent.setHeaderFab('right');
 
+    $scope.likes = 0;
+    $scope.clickedLike = function(){
+        console.log('like clicked');
+        $scope.likes++;
+    }
     $timeout(function() {
         ionicMaterialMotion.fadeSlideIn({
             selector: '.animate-fade-slide-in .item'
