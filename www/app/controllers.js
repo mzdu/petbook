@@ -118,9 +118,9 @@ angular.module('petBook.controllers', [])
 
     //redirects the user to homepage if they are already logged in
 
-    if(StorageService.getCurrentUser()){
-        $state.go('app.moments');
-    }
+    // if(StorageService.getCurrentUser()){
+    //     $state.go('app.moments');
+    // }
 
     // $scope.user = {
     //     username: "testuser",

@@ -49,6 +49,7 @@
   "postinstall": "bower install",
   "cordovaPlugins": [],
   "cordovaPlatforms": [
-    "ios"
+    "ios",
+    "android"
   ]
 }
