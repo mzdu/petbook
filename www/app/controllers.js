@@ -287,7 +287,7 @@ angular.module('petBook.controllers', [])
 
 
 
-.controller('MomentsCtrl', function($scope, $stateParams, $timeout, StorageService, ionicMaterialMotion, ionicMaterialInk, StatusService, LocationService) {
+.controller('MomentsCtrl', function($scope,  $cordovaToast, $stateParams, $timeout, StorageService, ionicMaterialMotion, ionicMaterialInk, StatusService, LocationService) {
     
     $scope.$parent.showHeader();
     $scope.$parent.clearFabs();
@@ -297,6 +297,7 @@ angular.module('petBook.controllers', [])
     $scope.getLikes = getLikes;
 
     $scope.clickedLike = function(post){
+        console.log('clicked like');
         var user = StorageService.getCurrentUser().user;
         
         if(updateLike(post)){
@@ -304,6 +305,22 @@ angular.module('petBook.controllers', [])
                 promise.then(function(data){
                     console.log('successfully updated like');
             });
+        } else {
+           //   var showError = $ionicPopup.show({
+           //   title: 'Error:',
+           //   template: 'You have already voted',
+           //   okText: '<i class="icon ion-checkmark-round"></i>',
+           // });
+           // showError.then(function(res) {
+           //   console.log('dialog shown');
+           //  });
+
+        //      $cordovaToast.show(message, duration, location).then(function(success) {
+        //     console.log("You have already voted!");
+        // }, function (error) {
+        //     console.log("The toast was not shown due to " + error);
+        // });
+
         }
     };
     // $timeout(function() {

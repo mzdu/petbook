@@ -6,7 +6,8 @@
     "restangular": "~1.5.1",
     "ionic-material": "0.4.2",
     "ngstorage": "~0.3.9",
-    "angular-animate": "~1.4.5"
+    "angular-animate": "~1.4.5",
+    "ngCordova": "~0.1.20-alpha"
   },
   "devDependencies": {
     "ionic": "driftyco/ionic-bower#1.0.0-rc.2",

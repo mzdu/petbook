@@ -6,6 +6,7 @@
 // 'petBook.controllers' is found in controllers.js
 
 angular.module('petBook', ['ionic', 
+    'ngCordova',
     'petBook.controllers',
     'petBook.services',
     'restangular',
