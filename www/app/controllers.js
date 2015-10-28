@@ -287,7 +287,7 @@ angular.module('petBook.controllers', [])
 
 
 
-.controller('MomentsCtrl', function($scope,  $cordovaToast, $stateParams, $timeout, StorageService, ionicMaterialMotion, ionicMaterialInk, StatusService, LocationService) {
+.controller('MomentsCtrl', function($scope, $state, $cordovaToast, $stateParams, $timeout, StorageService, ionicMaterialMotion, ionicMaterialInk, StatusService, LocationService) {
     
     $scope.$parent.showHeader();
     $scope.$parent.clearFabs();
@@ -397,6 +397,24 @@ angular.module('petBook.controllers', [])
         
     }
 
+    $scope.checkFriendInfo = function(post){
+        //console.log(post._Owner._id);
+        $state.go('app.friendinfo',{
+            userID: post._Owner._id
+        });
+    };
+
+})
+
+.controller('FriendInfoCtrl', function($scope, $state, $stateParams) {
+    $scope.$parent.showHeader();
+    $scope.$parent.clearFabs();
+    $scope.isExpanded = false;
+    $scope.$parent.setExpanded(false);
+    $scope.$parent.setHeaderFab(false);
+
+    $scope.userID = $stateParams.userID;
+    
 })
 
 
