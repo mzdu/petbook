@@ -33,7 +33,7 @@ Petbook does not knowingly collect personally identifiable information from chil
   
 ## Opt-Out & Unsubscribe 
 We respect your privacy and give you an opportunity to opt-out of receiving announcements of certain information. Users may opt-out of receiving any or all communications from Petbook by contacting us here: 
-- Email: [petbookapp@gmail.com](petbookapp@gmail.com)
+- Email: mailto:user@example.com
   
 ## Changes to this Statement 
 Petbook will occasionally update this Statement of Privacy to reflect company and customer feedback. Petbook encourages you to periodically review this Statement to be informed of how Petbook is protecting your information. 
@@ -41,7 +41,7 @@ Petbook will occasionally update this Statement of Privacy to reflect company an
 ## Contact Information 
 Petbook welcomes your questions or comments regarding this Statement of Privacy. If you believe that Petbook has not adhered to this Statement, please contact Petbook at: 
 
-Email Address: [petbookapp@gmail.com](petbookapp@gmail.com)
+Email Address: mailto:user@example.com
 _________________ 
   
 Effective as of October 31, 2015 
