@@ -314,12 +314,12 @@ angular.module('petBook.controllers', [])
            // showError.then(function(res) {
            //   console.log('dialog shown');
            //  });
-
-        //      $cordovaToast.show(message, duration, location).then(function(success) {
-        //     console.log("You have already voted!");
-        // }, function (error) {
-        //     console.log("The toast was not shown due to " + error);
-        // });
+            var message = 'You have already voted!';
+          $cordovaToast.show(message, 'short', 'bottom').then(function(success) {
+            console.log(message);
+        }, function (error) {
+            console.log("The toast was not shown due to " + error);
+        });
 
         }
     };
