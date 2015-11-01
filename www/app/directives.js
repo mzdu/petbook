@@ -32,13 +32,14 @@
     }
 
     /* @ngInject */
-    function PetBookMomentController($scope, ionicMaterialInk, ionicMaterialMotion, $timeout) {
+    function PetBookMomentController($scope, ionicMaterialInk, ionicMaterialMotion, $timeout, StorageService, StatusService) {
         var vm = this;
         vm.getLikes = getLikes; 
         vm.updateLike = updateLike;
         vm.isExpanded = false;
         vm.clickedLike = clickedLike;
 
+        var user = StorageService.getCurrentUser();
         $scope.$watch('PetBookMomentController.posts', function(data) {
             if (data) {
                 // $timeout(function() {
