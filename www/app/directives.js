@@ -41,21 +41,21 @@
 
         $scope.$watch('PetBookMomentController.posts', function(data) {
             if (data) {
-                $timeout(function() {
-                    ionicMaterialMotion.slideUp({
-                        selector: '.slide-up'
-                    });
-                }, 2000);
+                // $timeout(function() {
+                //     ionicMaterialMotion.slideUp({
+                //         selector: '.slide-up'
+                //     });
+                // }, 2000);
 
-                $timeout(function() {
-                    ionicMaterialMotion.fadeSlideInRight({
-                        startVelocity: 3000
-                    });
-                }, 2000);
+                // $timeout(function() {
+                //     ionicMaterialMotion.fadeSlideInRight({
+                //         startVelocity: 3000
+                //     });
+                // }, 2000);
 
 
                 // Set Ink
-                ionicMaterialInk.displayEffect();
+                // ionicMaterialInk.displayEffect();
             }
         });
 

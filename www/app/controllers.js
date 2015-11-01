@@ -328,21 +328,21 @@ angular.module('petBook.controllers', [])
     });
 
 
-         // Set Motion
-        $timeout(function() {
-            ionicMaterialMotion.slideUp({
-                selector: '.slide-up'
-            });
-        }, 2000);
+        //  // Set Motion
+        // $timeout(function() {
+        //     ionicMaterialMotion.slideUp({
+        //         selector: '.slide-up'
+        //     });
+        // }, 2000);
 
-        $timeout(function() {
-            ionicMaterialMotion.fadeSlideInRight({
-                startVelocity: 3000
-            });
-        }, 2000);
+        // $timeout(function() {
+        //     ionicMaterialMotion.fadeSlideInRight({
+        //         startVelocity: 3000
+        //     });
+        // }, 2000);
 
-        // Set Ink
-        ionicMaterialInk.displayEffect();
+        // // Set Ink
+        // ionicMaterialInk.displayEffect();
 
 
     // $scope.checkFriendInfo = function(post){
@@ -430,20 +430,20 @@ angular.module('petBook.controllers', [])
 
 
         // Set Motion
-        $timeout(function() {
-            ionicMaterialMotion.slideUp({
-                selector: '.slide-up'
-            });
-        }, 2000);
+        // $timeout(function() {
+        //     ionicMaterialMotion.slideUp({
+        //         selector: '.slide-up'
+        //     });
+        // }, 2000);
 
-        $timeout(function() {
-            ionicMaterialMotion.fadeSlideInRight({
-                startVelocity: 3000
-            });
-        }, 2000);
+        // $timeout(function() {
+        //     ionicMaterialMotion.fadeSlideInRight({
+        //         startVelocity: 3000
+        //     });
+        // }, 2000);
 
         // Set Ink
-        ionicMaterialInk.displayEffect();
+        // ionicMaterialInk.displayEffect();
 
 
 })
