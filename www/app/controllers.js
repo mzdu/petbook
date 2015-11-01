@@ -294,6 +294,7 @@ angular.module('petBook.controllers', [])
     $scope.isExpanded = true;
     $scope.$parent.setExpanded(true);
     $scope.$parent.setHeaderFab('right');
+    $scope.isExpanded = true;
 
     
 
