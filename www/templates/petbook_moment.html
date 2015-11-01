@@ -1,0 +1,45 @@
+        <div ng-if="showProfileAvatar" class="hero slide-up" style="background-image: url('img/profile-bg.jpg');">
+            <div class="content">
+                <div class="avatar" style="background-image: url('img/dogavatar.jpg');"></div>
+                <h3><a class="light">{{user.username}}</a></h3>
+
+            </div>
+        </div>
+
+        <div class="item card-item" ng-repeat="post in vm.posts | orderBy: '-createdDate'">
+            <div ui-sref="app.gallery" class="card stable-bg ink ink-dark">
+                <div class="item item-avatar item-text-wrap">
+                    <span class="avatar" style="background-image: url('img/petbook-lg.png');"></span>
+                    <strong>{{post._Owner.username}}</strong> {{post.description}}
+                    <div class="card-footer text-right">
+                        <i class="icon ion-chatbubbles positive"></i> 2
+                        <i class="icon ion-heart assertive larger"></i> {{vm.getLikes(post)}}
+                        <div class="pull-left">
+                            <i class="icon ion-clock"></i> {{post.createdDate | date:'MM/dd/yyyy'}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    <!--     <div class="item card-item" ng-repeat="post in vm.posts | orderBy: '-createdDate'">
+            <div ui-sref="" class="card stable-bg ink ink-dark">
+                  <img ng-if="vm.showPostAvatar" class = "slimmer" src="img/dog2.jpg">
+                    <h2 ng-if="vm.showPostAvatar" ng-click = "checkFriendInfo(post)">{{post._Owner.username}}</h2> 
+
+                <p class="wrap">
+          
+                    {{post.description}}
+                    <div class="card-footer text-right">
+                        <i class="icon ion-chatbubble positive larger"></i> 2
+                        <i class="icon ion-heart assertive larger" ng-click="clickedLike(post)"></i> {{vm.getLikes(post)}}
+                        <div class="pull-left">
+                            <i class="icon ion-clock"></i> {{post.createdDate | date:'MM/dd/yyyy'}}
+                        </div>
+                    </div>
+                
+                </p>
+            </div>
+        </div> -->
+

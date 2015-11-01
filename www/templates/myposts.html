@@ -1,6 +1,6 @@
 <ion-view view-title="My Posts">
-    <ion-content ng-class="{expanded:$scope.isExpanded}">
-        <div class="hero slide-up" style="background-image: url('img/profile-bg.jpg');">
+    <ion-content ng-class="{expanded:isExpanded}" class="animate-fade-slide-in">
+  <!--       <div class="hero slide-up" style="background-image: url('img/profile-bg.jpg');">
             <div class="content">
                 <div class="avatar" style="background-image: url('img/lake-animals-dogs-pets.jpg');"></div>
                 <h3><a class="light">{{user.username}}</a></h3>
@@ -22,7 +22,8 @@
                 
                 </div>
             </div>
-        </div>
+        </div> -->
+        <petbook-moment posts="posts"></petbook-moment>
 
     </ion-content>
 </ion-view>

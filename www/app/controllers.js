@@ -109,7 +109,7 @@ angular.module('petBook.controllers', [])
 
 .controller('LoginCtrl', function($scope, $state, $timeout, $stateParams, StorageService, ionicMaterialInk, AuthService, $ionicSideMenuDelegate) {
 
-	$ionicSideMenuDelegate.canDragContent(false)
+	$ionicSideMenuDelegate.canDragContent(false);
     $scope.$parent.clearFabs();
     $timeout(function() {
         $scope.$parent.hideHeader();
@@ -287,47 +287,15 @@ angular.module('petBook.controllers', [])
 
 
 
-.controller('MomentsCtrl', function($scope,  $cordovaToast, $stateParams, $timeout, StorageService, ionicMaterialMotion, ionicMaterialInk, StatusService, LocationService) {
+.controller('MomentsCtrl', function($scope, $state, $cordovaToast, $stateParams, $timeout, StorageService, ionicMaterialMotion, ionicMaterialInk, StatusService, LocationService) {
     
-    $scope.$parent.showHeader();
+       $scope.$parent.showHeader();
     $scope.$parent.clearFabs();
-    $scope.isExpanded = false;
-    $scope.$parent.setExpanded(false);
-    $scope.$parent.setHeaderFab(false);
-    $scope.getLikes = getLikes;
+    $scope.isExpanded = true;
+    $scope.$parent.setExpanded(true);
+    $scope.$parent.setHeaderFab('right');
 
-    $scope.clickedLike = function(post){
-        console.log('clicked like');
-        var user = StorageService.getCurrentUser().user;
-        
-        if(updateLike(post)){
-             var promise = StatusService.addLike(post._id, user._id);
-                promise.then(function(data){
-                    console.log('successfully updated like');
-            });
-        } else {
-           //   var showError = $ionicPopup.show({
-           //   title: 'Error:',
-           //   template: 'You have already voted',
-           //   okText: '<i class="icon ion-checkmark-round"></i>',
-           // });
-           // showError.then(function(res) {
-           //   console.log('dialog shown');
-           //  });
-
-        //      $cordovaToast.show(message, duration, location).then(function(success) {
-        //     console.log("You have already voted!");
-        // }, function (error) {
-        //     console.log("The toast was not shown due to " + error);
-        // });
-
-        }
-    };
-    // $timeout(function() {
-    //     ionicMaterialMotion.fadeSlideIn({
-    //         selector: '.animate-fade-slide-in .item'
-    //     });
-    // }, 200);
+    
 
     var user = StorageService.getCurrentUser().user;
 
@@ -345,7 +313,7 @@ angular.module('petBook.controllers', [])
         promise.then(function(results, err) {
             if (!err) {
                 $scope.posts = results;
-                $scope.likes = results.likedBy
+                $scope.likes = results.likedBy;
             } else {
                 $scope.log('error is', err);
             }
@@ -353,50 +321,28 @@ angular.module('petBook.controllers', [])
 
     });
 
-
-        $timeout(function() {
-        ionicMaterialMotion.fadeSlideInRight({
-            startVelocity: 3000
+    $timeout(function() {
+        ionicMaterialMotion.fadeSlideIn({
+            selector: '.animate-fade-slide-in .item'
         });
-    }, 700);
-
+    }, 200);
 
     // Activate ink for controller
     ionicMaterialInk.displayEffect();
 
 
-    function getLikes(post){
-        if(post.likedBy && post.likedBy.length){
-            return post.likedBy.length;
-        } else {
-            return 0;
-        }
-    }
+     
+})
 
-    function hasUserAlreadyVotedOnPost(post){
-        return _.find(post.likedBy, function(item){
-                return item == user._id; 
-            });
-    }
+.controller('FriendInfoCtrl', function($scope, $state, $stateParams) {
+    $scope.$parent.showHeader();
+    $scope.$parent.clearFabs();
+    $scope.isExpanded = false;
+    $scope.$parent.setExpanded(false);
+    $scope.$parent.setHeaderFab(false);
 
-    //update the like count locally and prevents user from liking a post a second time.
-    function updateLike(post){
-        if(!post.likedBy){
-            post.likedBy = [];
-            post.likedBy.push(user._id);
-            return true;
-        } else {
-            if(hasUserAlreadyVotedOnPost(post)){
-                console.log('you already voted');
-                return false;
-            } else {
-                post.likedBy.push(user._id);
-                return true;
-            }
-        }
-        
-    }
-
+    $scope.userID = $stateParams.userID;
+    
 })
 
 
@@ -421,26 +367,15 @@ angular.module('petBook.controllers', [])
 
 .controller('MyPostsCtrl', function($scope, $stateParams, $timeout, ionicMaterialMotion, ionicMaterialInk, StorageService, StatusService) {
     // Set Header
-    $scope.$parent.showHeader();
+    console.log('my posts');
+  $scope.$parent.showHeader();
     $scope.$parent.clearFabs();
-    $scope.isExpanded = false;
-    $scope.$parent.setExpanded(false);
-    $scope.$parent.setHeaderFab(false);
+    $scope.isExpanded = true;
+    $scope.$parent.setExpanded(true);
+    $scope.$parent.setHeaderFab('right');
 
+   
 
-  
-    /*    [{description: 'wishing my dad were home',
-           likes: 10,
-           createdDate: '8/29/15',
-           location: [51.5033630,-0.1276250]},
-        {description: 'that really itches',
-           likes: 10,
-           createdDate: '8/30/15',
-           location: [51.5033630,-0.1276250]},
-        {description: 'need someone to walk me',
-           likes: 10,
-           createdDate: '8/31/15',
-           location: [51.5033630,-0.1276250]}];*/
 
     if (!StorageService.getCurrentUser()) {
         return;
@@ -453,29 +388,26 @@ angular.module('petBook.controllers', [])
         promise.then(function(results, err) {
             if (!err) {
                 $scope.posts = results;
-                // console.log('likes is', $scope.sth);
+                console.log('results is', results);
             } else {
                 $scope.log('error is', err);
             }
         })
     }
 
-
-    // Set Motion
-    $timeout(function() {
-        ionicMaterialMotion.slideUp({
-            selector: '.slide-up'
+     $timeout(function() {
+        ionicMaterialMotion.fadeSlideIn({
+            selector: '.animate-fade-slide-in .item'
         });
-    }, 300);
+    }, 200);
 
-    $timeout(function() {
-        ionicMaterialMotion.fadeSlideInRight({
-            startVelocity: 3000
-        });
-    }, 700);
-
-    // Set Ink
+    // Activate ink for controller
     ionicMaterialInk.displayEffect();
+
+
+
+
+
 })
 
 .controller('AddPostsCtrl', function($scope, $state){ //, $stateParams, $timeout, ionicMaterialMotion, ionicMaterialInk, StorageService, $ionicPopup, StatusService, LocationService) {
