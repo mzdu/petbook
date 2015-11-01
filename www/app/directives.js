@@ -32,12 +32,13 @@
     }
 
     /* @ngInject */
-    function PetBookMomentController($scope, ionicMaterialInk, ionicMaterialMotion, $timeout) {
+    function PetBookMomentController($scope, $state, $stateParams, ionicMaterialInk, ionicMaterialMotion, $timeout) {
         var vm = this;
         vm.getLikes = getLikes; 
         vm.updateLike = updateLike;
         vm.isExpanded = false;
         vm.clickedLike = clickedLike;
+        vm.checkFriendInfo = checkFriendInfo;
 
         $scope.$watch('PetBookMomentController.posts', function(data) {
             if (data) {
@@ -130,6 +131,12 @@
             }
         };
 
+        function checkFriendInfo(post){
+           //console.log(post._Owner._id);
+            $state.go('app.friendinfo',{
+                userID: post._Owner._id
+            });
+         };
 
         
     } //end of moment ctrl

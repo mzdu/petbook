@@ -7,10 +7,10 @@
         </div>
 
         <div class="item card-item" ng-repeat="post in vm.posts | orderBy: '-createdDate'">
-            <div ui-sref="app.gallery" class="card stable-bg ink ink-dark">
+            <div class="card stable-bg ink ink-dark">
                 <div class="item item-avatar item-text-wrap">
-                    <span class="avatar" style="background-image: url('img/petbook-lg.png');"></span>
-                    <strong>{{post._Owner.username}}</strong> {{post.description}}
+                    <span class="avatar" style="background-image: url('img/petbook-lg.png');" ng-click = "vm.checkFriendInfo(post)"></span>
+                    <strong ng-click = "vm.checkFriendInfo(post)">{{post._Owner.username}}</strong> {{post.description}}
                     <div class="card-footer text-right">
                         <i class="icon ion-chatbubbles positive"></i> 2
                         <i class="icon ion-heart assertive larger"></i> {{vm.getLikes(post)}}
