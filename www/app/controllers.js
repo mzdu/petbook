@@ -109,7 +109,7 @@ angular.module('petBook.controllers', [])
 
 .controller('LoginCtrl', function($scope, $state, $timeout, $stateParams, StorageService, ionicMaterialInk, AuthService, $ionicSideMenuDelegate) {
 
-	$ionicSideMenuDelegate.canDragContent(false)
+	$ionicSideMenuDelegate.canDragContent(false);
     $scope.$parent.clearFabs();
     $timeout(function() {
         $scope.$parent.hideHeader();
@@ -289,19 +289,13 @@ angular.module('petBook.controllers', [])
 
 .controller('MomentsCtrl', function($scope, $state, $cordovaToast, $stateParams, $timeout, StorageService, ionicMaterialMotion, ionicMaterialInk, StatusService, LocationService) {
     
-    $scope.$parent.showHeader();
+       $scope.$parent.showHeader();
     $scope.$parent.clearFabs();
-    $scope.isExpanded = false;
-    $scope.$parent.setExpanded(false);
-    $scope.$parent.setHeaderFab(false);
-    $scope.foo = 'bar';
+    $scope.isExpanded = true;
+    $scope.$parent.setExpanded(true);
+    $scope.$parent.setHeaderFab('right');
 
-
-    // $timeout(function() {
-    //     ionicMaterialMotion.fadeSlideIn({
-    //         selector: '.animate-fade-slide-in .item'
-    //     });
-    // }, 200);
+    
 
     var user = StorageService.getCurrentUser().user;
 
@@ -327,32 +321,17 @@ angular.module('petBook.controllers', [])
 
     });
 
+    $timeout(function() {
+        ionicMaterialMotion.fadeSlideIn({
+            selector: '.animate-fade-slide-in .item'
+        });
+    }, 200);
 
-        //  // Set Motion
-        // $timeout(function() {
-        //     ionicMaterialMotion.slideUp({
-        //         selector: '.slide-up'
-        //     });
-        // }, 2000);
-
-        // $timeout(function() {
-        //     ionicMaterialMotion.fadeSlideInRight({
-        //         startVelocity: 3000
-        //     });
-        // }, 2000);
-
-        // // Set Ink
-        // ionicMaterialInk.displayEffect();
+    // Activate ink for controller
+    ionicMaterialInk.displayEffect();
 
 
-    // $scope.checkFriendInfo = function(post){
-    //     //console.log(post._Owner._id);
-    //     $state.go('app.friendinfo',{
-    //         userID: post._Owner._id
-    //     });
-    // };
-
-
+     
 })
 
 .controller('FriendInfoCtrl', function($scope, $state, $stateParams) {
@@ -389,26 +368,14 @@ angular.module('petBook.controllers', [])
 .controller('MyPostsCtrl', function($scope, $stateParams, $timeout, ionicMaterialMotion, ionicMaterialInk, StorageService, StatusService) {
     // Set Header
     console.log('my posts');
-    $scope.$parent.showHeader();
+  $scope.$parent.showHeader();
     $scope.$parent.clearFabs();
-    $scope.isExpanded = false;
-    $scope.$parent.setExpanded(false);
-    $scope.$parent.setHeaderFab(false);
+    $scope.isExpanded = true;
+    $scope.$parent.setExpanded(true);
+    $scope.$parent.setHeaderFab('right');
 
+   
 
-  
-    /*    [{description: 'wishing my dad were home',
-           likes: 10,
-           createdDate: '8/29/15',
-           location: [51.5033630,-0.1276250]},
-        {description: 'that really itches',
-           likes: 10,
-           createdDate: '8/30/15',
-           location: [51.5033630,-0.1276250]},
-        {description: 'need someone to walk me',
-           likes: 10,
-           createdDate: '8/31/15',
-           location: [51.5033630,-0.1276250]}];*/
 
     if (!StorageService.getCurrentUser()) {
         return;
@@ -428,22 +395,17 @@ angular.module('petBook.controllers', [])
         })
     }
 
+     $timeout(function() {
+        ionicMaterialMotion.fadeSlideIn({
+            selector: '.animate-fade-slide-in .item'
+        });
+    }, 200);
 
-        // Set Motion
-        // $timeout(function() {
-        //     ionicMaterialMotion.slideUp({
-        //         selector: '.slide-up'
-        //     });
-        // }, 2000);
+    // Activate ink for controller
+    ionicMaterialInk.displayEffect();
 
-        // $timeout(function() {
-        //     ionicMaterialMotion.fadeSlideInRight({
-        //         startVelocity: 3000
-        //     });
-        // }, 2000);
 
-        // Set Ink
-        // ionicMaterialInk.displayEffect();
+
 
 
 })
