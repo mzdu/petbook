@@ -7,7 +7,7 @@
         </div>
 
         <div class="item card-item animate-fade-slide-in-right" ng-repeat="post in vm.posts | orderBy: '-createdDate'">
-            <div class="item item-avatar reduce-padding">
+            <div class="card stable-bg ink ink-dark reduce-padding">
                 <!-- <div > -->
                   <img ng-if="vm.showPostAvatar" class = "slimmer" src="img/dog2.jpg">
                     <h2 ng-if="vm.showPostAvatar" ng-click = "checkFriendInfo(post)">{{post._Owner.username}}</h2> 

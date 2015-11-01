@@ -3,24 +3,7 @@
     <ion-content ng-class="{expanded:$scope.isExpanded}">
     
 <!-- {{posts}} -->
-    
-<!--                 <div class="item item-avatar reduce-padding">
-                    <img class = "slimmer" src="img/dog2.jpg">
-                    <h2 ng-click = "checkFriendInfo(post)">{{post._Owner.username}}</h2>  
-                
-              
-                    <p class = "wrap">{{post.description}}</p>    
-                    <div class="card-footer text-right">
-                    <i class="icon ion-chatbubble positive"></i> 2
-                        <i class="icon ion-heart assertive" ng-click="clickedLike(post)"></i> {{getLikes(post)}}
 
-                        <div class="pull-left">
-                            <i class="icon ion-clock larger"></i> <b>{{post.createdDate | date:'MM/dd/yyyy'}}</b>
-                        </div>
-                    </div>
-                </div> 
-           
-        </div> -->
             <petbook-moment posts="posts" card-type="moments"></petbook-moment> 
     </ion-content>
 </ion-view>
