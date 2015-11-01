@@ -8,6 +8,7 @@
 angular.module('petBook', ['ionic', 
     'ngCordova',
     'petBook.controllers',
+    'petBook.directives',
     'petBook.services',
     'restangular',
     'ngStorage', 
