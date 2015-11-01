@@ -236,7 +236,7 @@ angular.module('petBook.controllers', [])
 
     // Set Ink
     ionicMaterialInk.displayEffect();
-
+/*
     $scope.$on('toggleEdit', function(event, data) {
         //console.log('test received', data);
         $scope.editMode = data;
@@ -262,13 +262,14 @@ angular.module('petBook.controllers', [])
 
         // do what you want to do
         
-        /*console.log('scope editMode', $scope.editMode);
+        console.log('scope editMode', $scope.editMode);
         console.log('user obj is', $scope.user);
-        console.log('pet obj is', $scope.user.pet);*/
+        console.log('pet obj is', $scope.user.pet);
         
         
         // $timeout(function() {console.log('hahahaha')}, 100);       
     });
+*/
 
 
     // A confirm dialog
@@ -285,6 +286,35 @@ angular.module('petBook.controllers', [])
              }
            });
          };  */   
+})
+
+.controller('ProfileBlankInputCtrl', function($scope, $stateParams, $timeout, ionicMaterialMotion, ionicMaterialInk, StorageService, ProfileService, $ionicPopup) {
+    // Set Header
+    $scope.$parent.showHeader();
+    $scope.$parent.clearFabs();
+    // $scope.isExpanded = false;
+    // $scope.$parent.setExpanded(false);
+    // $scope.$parent.setHeaderFab(false);
+    $scope.user = StorageService.getCurrentUser().user;
+    //console.log('scope user is ', $scope.user);
+
+    // Set Motion
+    $timeout(function() {
+        ionicMaterialMotion.slideUp({
+            selector: '.slide-up'
+        });
+    }, 300);
+
+    $timeout(function() {
+        ionicMaterialMotion.fadeSlideInRight({
+            startVelocity: 3000
+        });
+    }, 700);
+
+    // Set Ink
+    ionicMaterialInk.displayEffect();
+
+ 
 })
 
 
@@ -406,12 +436,9 @@ angular.module('petBook.controllers', [])
 
     // Activate ink for controller
     ionicMaterialInk.displayEffect();
-
-
-
-
-
 })
+
+
 
 .controller('AddPostsCtrl', function($scope, $state){ //, $stateParams, $timeout, ionicMaterialMotion, ionicMaterialInk, StorageService, $ionicPopup, StatusService, LocationService) {
     // Set Header
