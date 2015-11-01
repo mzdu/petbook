@@ -161,7 +161,8 @@ angular.module('petBook', ['ionic',
             'menuContent': {
                 templateUrl: 'templates/profile.html',
                 controller: 'ProfileCtrl'
-            },
+            }
+            /*,
             'fabContent': {
                 template: '<button id="fab-profile" class="button button-fab button-fab-bottom-right button-energized-900" ng-click="toggleEdit()"><i ng-if="!editMode" class="icon ion-edit"></i><i ng-if="editMode" class="icon ion-checkmark"></i></button>',
                 controller: function ($scope, $rootScope, $timeout) {
@@ -170,10 +171,38 @@ angular.module('petBook', ['ionic',
                         $scope.editMode = !$scope.editMode;
                         $rootScope.$broadcast('toggleEdit', $scope.editMode);
                     }
-                    /*$timeout(function () {   
-                        document.getElementById('fab-profile').classList.toggle('on');
-                    }, 800);*/
+                    //$timeout(function () {   
+                    //    document.getElementById('fab-profile').classList.toggle('on');
+                    //}, 800);
                 }
+            }
+            */
+        }
+    })
+    .state('app.profileblankinput', {
+        url: '/profileblankinput',
+        views: {
+            'menuContent': {
+                templateUrl: 'templates/profileblankinput.html',
+                controller: 'ProfileBlankInputCtrl'
+            }
+        }
+    })
+    .state('app.profilebirthdayinput', {
+        url: '/profilebirthdayinput',
+        views: {
+            'menuContent': {
+                templateUrl: 'templates/profilebirthdayinput.html',
+                controller: 'ProfileBirthdayInputCtrl'
+            }
+        }
+    })
+    .state('app.profilesexinput', {
+        url: '/profilesexinput',
+        views: {
+            'menuContent': {
+                templateUrl: 'templates/profilesexinput.html',
+                controller: 'ProfileSexInputCtrl'
             }
         }
     })
