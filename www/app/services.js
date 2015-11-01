@@ -71,7 +71,7 @@
              // Post: /pet/:petID
              // updates a single pet
              update: function(form) {
-                 console.log('form is', form);
+                 //console.log('form is', form);
                  return Restangular.all('pet').one('', form._id).customPOST(form);
              },
 
