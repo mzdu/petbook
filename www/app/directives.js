@@ -32,12 +32,13 @@
     }
 
     /* @ngInject */
-    function PetBookMomentController($scope, ionicMaterialInk, ionicMaterialMotion, $timeout, StorageService, StatusService) {
+    function PetBookMomentController($scope, $state, $stateParams, ionicMaterialInk, ionicMaterialMotion, $timeout, StorageService, StatusService) {
         var vm = this;
         vm.getLikes = getLikes; 
         vm.updateLike = updateLike;
         vm.isExpanded = false;
         vm.clickedLike = clickedLike;
+        vm.checkFriendInfo = checkFriendInfo;
 
         var user = StorageService.getCurrentUser();
         $scope.$watch('PetBookMomentController.posts', function(data) {
@@ -131,6 +132,12 @@
             }
         };
 
+        function checkFriendInfo(post){
+           //console.log(post._Owner._id);
+            $state.go('app.friendinfo',{
+                userID: post._Owner._id
+            });
+         };
 
         
     } //end of moment ctrl
