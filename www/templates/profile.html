@@ -31,6 +31,9 @@
         <div class="item pet-profile-item" ng-if='editMode'>
             <label>Birthday: </label>
             <input type="date" ng-model="user.pet.dob" />
+            <datepicker>
+  <input ng-model="date" type="text"/>
+</datepicker>
         </div>
         <a class="item pet-profile-item" ng-if="!editMode" href="#">
             <label>Sex: </label>
