@@ -253,6 +253,8 @@ angular.module('petBook.controllers', [])
            confirmPopup.then(function(res) {
              if(res) {
                 $scope.user.pet._id = $scope.user._id;
+                $scope.user.pet.dob = new Date($scope.user.pet.dob);
+                //console.log($scope.user.pet);
                 var feedback = ProfileService.update($scope.user.pet);
               } 
             });

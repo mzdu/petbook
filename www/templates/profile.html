@@ -25,21 +25,26 @@
             <input type="text" ng-model="user.pet.name" />
         </div>
         <a class="item pet-profile-item" ng-if="!editMode" href="#">
-            <label>Age: </label>
-            <span>{{user.pet.age}}</span>
-          </a>
-           <div class="item pet-profile-item" ng-if='editMode'>
-            <label>Age: </label>
-            <input type="text" ng-model="user.pet.age" />
+            <label>Birthday: </label>
+            <span>{{user.pet.dob | date:'MM/dd/yyyy'}}</span>
+        </a>
+        <div class="item pet-profile-item" ng-if='editMode'>
+            <label>Birthday: </label>
+            <input type="date" ng-model="user.pet.dob" />
         </div>
         <a class="item pet-profile-item" ng-if="!editMode" href="#">
             <label>Sex: </label>
             <span>{{user.pet.sex}}</span>
         </a>
-         <div class="item pet-profile-item" ng-if='editMode'>
-            <label>Sex: </label>
-            <input type="text" ng-model="user.pet.sex" />
+
+        <div class="item item-input item-select pet-profile-item" ng-if='editMode'>
+            <label> Sex:</label>
+            <select ng-model="user.pet.sex">
+              <option selected>Male</option>
+              <option>Female</option>
+            </select>
         </div>
+
         <a class="item pet-profile-item" ng-if="!editMode" href="#">
             <label>Breed: </label>
             <span>{{user.pet.breed}}</span>
