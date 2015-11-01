@@ -367,7 +367,7 @@ angular.module('petBook.controllers', [])
         ionicMaterialMotion.fadeSlideIn({
             selector: '.animate-fade-slide-in .item'
         });
-    }, 200);
+    }, 1200);
 
     // Activate ink for controller
     ionicMaterialInk.displayEffect();
@@ -441,7 +441,7 @@ angular.module('petBook.controllers', [])
         ionicMaterialMotion.fadeSlideIn({
             selector: '.animate-fade-slide-in .item'
         });
-    }, 200);
+    }, 1200);
 
     // Activate ink for controller
     ionicMaterialInk.displayEffect();
