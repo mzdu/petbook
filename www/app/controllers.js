@@ -10,6 +10,15 @@ angular.module('petBook.controllers', [])
     $scope.hasHeaderFabLeft = false;
     $scope.hasHeaderFabRight = false;
 
+    $scope.isWebView = ionic.Platform.isWebView();
+    $scope.isIPad = ionic.Platform.isIPad();
+    $scope.isIOS = ionic.Platform.isIOS();
+    $scope.isAndroid = ionic.Platform.isAndroid();
+    $scope.isWindowsPhone = ionic.Platform.isWindowsPhone();
+    $scope.currentPlatform = ionic.Platform.platform();
+
+    console.log('$scope.currentPlatform = ', $scope.currentPlatform);
+
     var navIcons = document.getElementsByClassName('ion-navicon');
     for (var i = 0; i < navIcons.length; i++) {
         navIcons.addEventListener('click', function() {
