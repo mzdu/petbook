@@ -383,7 +383,8 @@ angular.module('petBook.controllers', [])
     $scope.$parent.setExpanded(false);
     $scope.$parent.setHeaderFab(false);
 
-    $scope.userID = $stateParams.userID;
+    console.log("friend info: ", $stateParams.user);
+    $scope.user = $stateParams.user;
     
 })
 
