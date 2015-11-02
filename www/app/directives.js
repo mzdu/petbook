@@ -132,7 +132,7 @@
            //console.log(post._Owner._id);
            console.log(post._Owner);
             $state.go('app.friendinfo',{
-                user: post._Owner
+                userID: post._Owner._id
             });
          };
 

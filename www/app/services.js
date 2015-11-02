@@ -75,10 +75,10 @@
                  return Restangular.all('pet').one('', form._id).customPOST(form);
              },
 
-             // GET: /user/:petID
+             // GET: /pet/:userID
              // returns a specific pet
-             get: function(petID) {
-                 return Restangular.one('pet', petID).get();
+             get: function(userID) {
+                 return Restangular.one('pet', userID).get();
              }
 
          }; //end of return

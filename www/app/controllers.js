@@ -377,15 +377,24 @@ angular.module('petBook.controllers', [])
      
 })
 
-.controller('FriendInfoCtrl', function($scope, $state, $stateParams) {
+.controller('FriendInfoCtrl', function($scope, $state, $stateParams, ProfileService) {
     $scope.$parent.showHeader();
     $scope.$parent.clearFabs();
     $scope.isExpanded = false;
     $scope.$parent.setExpanded(false);
     $scope.$parent.setHeaderFab(false);
 
-    console.log("friend info: ", $stateParams.user);
-    $scope.user = $stateParams.user;
+    var userID = $stateParams.userID;
+    if(userID){
+        var promise = ProfileService.get(userID);
+        promise.then(function(data){
+            if(data){
+                $scope.user = data;
+            }
+        });
+    }
+    
+    
     
 })
 

@@ -74,12 +74,14 @@ angular.module('petBook', ['ionic',
     })
 
     .state('app.friendinfo', {
-        url: '/friendinfo/:user',
-        params: {user: null},
+        url: '/friendinfo/:userID',
+        // params: {userID: null},
+        
         views: {
             'menuContent': {
                 templateUrl: 'templates/friendinfo.html',
                 controller: 'FriendInfoCtrl',
+
 
             }
 //    ,
