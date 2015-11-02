@@ -32,7 +32,7 @@
         <span>{{user.pet.dob | date:'MM/dd/yyyy'}}</span>
       </a>
 
-      <a class="item item-icon-right" href="./templates/profilesexinput.html">
+      <a class="item item-icon-right" ui-sref="app.editProfile({field: 'sex'})">
         <i class="icon ion-ios-arrow-forward"></i>
         <label>Gender: </label>
         <span>{{user.pet.sex}}</span>
