@@ -60,16 +60,10 @@ angular.module('petBook', ['ionic',
             'menuContent': {
                 templateUrl: 'templates/moments.html',
                 controller: 'MomentsCtrl'
+            },
+             'fabContent': {
+                template: ''
             }
-//    ,
-//            'fabContent': {
-//                template: '<button id="fab-Moments" class="button button-fab button-fab-top-right expanded button-energized-900 flap"><i class="icon ion-paper-airplane"></i></button>',
-//                controller: function ($timeout) {
-//                    $timeout(function () {
-//                        document.getElementById('fab-Moments').classList.toggle('on');
-//                    }, 200);
-//                }
-//            }
         }
     })
 
@@ -84,15 +78,6 @@ angular.module('petBook', ['ionic',
 
 
             }
-//    ,
-//            'fabContent': {
-//                template: '<button id="fab-Moments" class="button button-fab button-fab-top-right expanded button-energized-900 flap"><i class="icon ion-paper-airplane"></i></button>',
-//                controller: function ($timeout) {
-//                    $timeout(function () {
-//                        document.getElementById('fab-Moments').classList.toggle('on');
-//                    }, 200);
-//                }
-//            }
         }
     })
 
@@ -164,22 +149,10 @@ angular.module('petBook', ['ionic',
             'menuContent': {
                 templateUrl: 'templates/profile.html',
                 controller: 'ProfileCtrl'
-            }
-            /*,
-            'fabContent': {
-                template: '<button id="fab-profile" class="button button-fab button-fab-bottom-right button-energized-900" ng-click="toggleEdit()"><i ng-if="!editMode" class="icon ion-edit"></i><i ng-if="editMode" class="icon ion-checkmark"></i></button>',
-                controller: function ($scope, $rootScope, $timeout) {
-                    $scope.editMode = false;
-                    $scope.toggleEdit = function(){
-                        $scope.editMode = !$scope.editMode;
-                        $rootScope.$broadcast('toggleEdit', $scope.editMode);
-                    }
-                    //$timeout(function () {   
-                    //    document.getElementById('fab-profile').classList.toggle('on');
-                    //}, 800);
-                }
-            }
-            */
+            },
+             'fabContent': {
+                template: ''
+            }          
         }
     })
     .state('app.profileblankinput', {
@@ -233,7 +206,10 @@ angular.module('petBook', ['ionic',
                 templateUrl: 'templates/newpost.html',
                 controller: 'NewPostCtrl'
             }
-        }
+        },
+         'fabContent': {
+                template: ''
+            }
     })
     .state('app.petsnearby', {
         url: '/petsnearby',
