@@ -1,14 +1,26 @@
-<ion-header-bar
-  title="headerTitle"
-  left-buttons="leftButtons"
-  right-buttons="rightButtons"
-  type="bar-positive"
-  align-title="center">
-</ion-header-bar>
-    
+
+
 
 <ion-view view-title="Edit Profile">
 
     <ion-content ng-class="{expanded:$scope.isExpanded}">
     </ion-content>
+
+    <!-- <ion-footer-bar class="bar-positive"> -->
+<!--   <div class="buttons">
+    <button class="button">Left Button</button>
+  </div> -->
+  <!-- <h1 class="title" ng-click="save">Save</h1> -->
+
+  <div class="buttons" ng-click="doSomething()">
+    <button class="button">Right Button</button>
+  </div>
+
+<div class="buttons" ng-click="save()">
+  <button class="button button-full button-positive">
+  Save
+</button>
+</div>
+<!-- </ion-footer-bar> -->
+
 </ion-view>
