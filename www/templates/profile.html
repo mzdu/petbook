@@ -20,13 +20,13 @@
         Pet Info
       </div>
 
-      <a class="item item-icon-right" ui-sref="app.editProfile">
+      <a class="item item-icon-right" ui-sref="app.editProfile({field: 'name'})">
         <i class="icon ion-ios-arrow-forward"></i>
         <label>Name:</label>
         <span>{{user.pet.name}}</span>
       </a>
 
-      <a class="item item-icon-right" href="./templates/profilebirthdayinput.html">
+      <a class="item item-icon-right" ui-sref="app.editProfile({field: 'dob'})">
         <i class="icon ion-ios-arrow-forward"></i>
         <label>Birthday: </label>
         <span>{{user.pet.dob | date:'MM/dd/yyyy'}}</span>
@@ -38,13 +38,13 @@
         <span>{{user.pet.sex}}</span>
       </a>
 
-      <a class="item item-icon-right" href="./templates/profileblankinput.html" ng-click="value = 'breed'">
+      <a class="item item-icon-right" ui-sref="app.editProfile({field: 'breed'})">
         <i class="icon ion-ios-arrow-forward"></i>
         <label>Breed: </label>
         <span>{{user.pet.breed}}</span>
       </a>
 
-      <a class="item item-icon-right" href="./templates/profileblankinput.html" ng-click="value = 'bio'">
+      <a class="item item-icon-right" ui-sref="app.editProfile({field: 'bio'})">
         <i class="icon ion-ios-arrow-forward"></i>
         <label>Bio: </label>
             <p style="white-space:normal;">{{user.pet.bio}}</p>

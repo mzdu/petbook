@@ -157,7 +157,7 @@ angular.module('petBook', ['ionic',
     })
 
     .state('app.editProfile', {
-        url: '/profileEdit',
+        url: '/profileEdit/:field',
         views: {
             'menuContent': {
                 templateUrl: 'templates/edit_profile.html',

@@ -411,6 +411,9 @@ angular.module('petBook.controllers', [])
       }
     ];
 
+    $scope.field = $stateParams.field;
+    console.log('the field is: ', $scope.field);
+
     $scope.save = function(){
         console.log('save clicked');
     }

@@ -1,29 +1,42 @@
-
-
-
 <ion-view view-title="Edit Profile">
-
     <ion-content ng-class="{expanded:$scope.isExpanded}">
-
-<div class="list">
-                <label class="item item-input item-floating-label">
-                    <span class="input-label">First Name</span>
-                    <input type="text" placeholder="First Name">
-                </label>
-                <label class="item item-input item-floating-label">
-                    <span class="input-label">Last Name</span>
-                    <input type="text" placeholder="Last Name">
-                </label>
-               </div>
-
-
-<div class="buttons">
-  <button class="button button-full button-positive" ng-click="save()">
-  Save
-</button>
- <button class="button button-full button-assertive" ng-click="cancel()">
-  Cancel
-</button>
-</div>
+        <div class="list">
+            <!-- name -->
+            <label class="item item-input" ng-if="field === 'name'">
+                <span class="input-label">Name:</span>
+                <input type="text" placeholder="Pet Name" ng-model="pet.name">
+            </label>
+            <!-- dob -->
+            <label class="item item-input" ng-if="field === 'dob'">
+                <span class="input-label">Birthday:</span>
+                <input type="date" ng-model="pet.dob" />
+            </label>
+            <!-- gender -->
+            <label class="item item-input" ng-if="field === 'sex'">
+                <span class="input-label">Gender:</span>
+                <select ng-model="pet.sex">
+                    <option selected>Male</option>
+                    <option>Female</option>
+                </select>
+            </label>
+            <!-- breed -->
+            <label class="item item-input" ng-if="field === 'breed'">
+                <span class="input-label">Breed:</span>
+                <input type="text" ng-model="pet.breed" />
+            </label>
+            <!-- bio -->
+            <label class="item item-input" ng-if="field === 'bio'">
+                <span class="input-label">Bio:</span>
+                <input type="text" ng-model="pet.bio" />
+            </label>
+        </div>
+        <div class="buttons">
+            <button class="button button-full button-positive" ng-click="save()">
+                Save
+            </button>
+            <button class="button button-full button-assertive" ng-click="cancel()">
+                Cancel
+            </button>
+        </div>
     </ion-content>
 </ion-view>
