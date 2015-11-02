@@ -5,10 +5,10 @@
         .module('petBook.directives', [])
         .directive('petbookMoment', petbookMoment);
 
-    petbookMoment.$inject = ['StorageService', 'StatusService', 'ionicMaterialInk', 'ionicMaterialMotion', '$timeout'];
+    petbookMoment.$inject = ['StorageService', 'StatusService', 'ionicMaterialInk', 'ionicMaterialMotion', '$timeout', '$cordovaToast'];
 
     /* @ngInject */
-    function petbookMoment(StorageService, StatusService, ionicMaterialInk, ionicMaterialMotion, $timeout)  {
+    function petbookMoment(StorageService, StatusService, ionicMaterialInk, ionicMaterialMotion, $timeout, $cordovaToast)  {
         // Usage:
         //
         // Creates:
@@ -32,7 +32,7 @@
     }
 
     /* @ngInject */
-    function PetBookMomentController($scope, $state, $stateParams, ionicMaterialInk, ionicMaterialMotion, $timeout, StorageService, StatusService) {
+    function PetBookMomentController($scope, $state, $stateParams, ionicMaterialInk, ionicMaterialMotion, $timeout, StorageService, StatusService, $cordovaToast) {
         var vm = this;
         vm.getLikes = getLikes; 
         vm.updateLike = updateLike;
@@ -40,25 +40,21 @@
         vm.clickedLike = clickedLike;
         vm.checkFriendInfo = checkFriendInfo;
 
-        var user = StorageService.getCurrentUser();
-        $scope.$watch('PetBookMomentController.posts', function(data) {
-            if (data) {
-                // $timeout(function() {
-                //     ionicMaterialMotion.slideUp({
-                //         selector: '.slide-up'
-                //     });
-                // }, 2000);
+        var user = StorageService.getCurrentUser().user;
+        console.log('user is: ', user);
+        $scope.$watch('vm.posts', function(data, data2) {
+        if (data) {
+            console.log('got data', data);
 
-                // $timeout(function() {
-                //     ionicMaterialMotion.fadeSlideInRight({
-                //         startVelocity: 3000
-                //     });
-                // }, 2000);
+            $timeout(function() {
+                ionicMaterialMotion.fadeSlideIn({
+                    selector: '.animate-fade-slide-in .item'
+                });
+            }, 200);
+            // Set Ink
+            ionicMaterialInk.displayEffect();
+        }
 
-
-                // Set Ink
-                // ionicMaterialInk.displayEffect();
-            }
         });
 
         // Set Motion

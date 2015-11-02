@@ -355,6 +355,7 @@ angular.module('petBook.controllers', [])
         promise.then(function(results, err) {
             if (!err) {
                 $scope.posts = results;
+                console.log('posts are: ', $scope.posts);
                 $scope.likes = results.likedBy;
             } else {
                 $scope.log('error is', err);
@@ -363,14 +364,14 @@ angular.module('petBook.controllers', [])
 
     });
 
-    $timeout(function() {
-        ionicMaterialMotion.fadeSlideIn({
-            selector: '.animate-fade-slide-in .item'
-        });
-    }, 1200);
+    // $timeout(function() {
+    //     ionicMaterialMotion.fadeSlideIn({
+    //         selector: '.animate-fade-slide-in .item'
+    //     });
+    // }, 1200);
 
-    // Activate ink for controller
-    ionicMaterialInk.displayEffect();
+    // // Activate ink for controller
+    // ionicMaterialInk.displayEffect();
 
 
      
@@ -437,14 +438,14 @@ angular.module('petBook.controllers', [])
         })
     }
 
-     $timeout(function() {
-        ionicMaterialMotion.fadeSlideIn({
-            selector: '.animate-fade-slide-in .item'
-        });
-    }, 1200);
+    //  $timeout(function() {
+    //     ionicMaterialMotion.fadeSlideIn({
+    //         selector: '.animate-fade-slide-in .item'
+    //     });
+    // }, 1200);
 
-    // Activate ink for controller
-    ionicMaterialInk.displayEffect();
+    // // Activate ink for controller
+    // ionicMaterialInk.displayEffect();
 })
 
 
