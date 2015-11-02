@@ -230,6 +230,17 @@ angular.module('petBook.controllers', [])
     $scope.user = StorageService.getCurrentUser().user;
     //console.log('scope user is ', $scope.user);
 
+    $scope.field = $stateParams.field;
+    $scope.value = $stateParams.value;
+    console.log('$scope.field = ', $scope.field);
+    console.log('$scope.value = ', $scope.value);
+    if($scope.field && $scope.value){
+        console.log('got both field and value');
+        $scope.user.pet[$scope.field] = $scope.value;
+    }
+    
+
+
     // Set Motion
     $timeout(function() {
         ionicMaterialMotion.slideUp({
@@ -395,7 +406,7 @@ angular.module('petBook.controllers', [])
     }
 })
 
-.controller('EditProfileCtrl', function($scope, $state, $stateParams, ProfileService) {
+.controller('EditProfileCtrl', function($scope, $state, $stateParams, ProfileService, StorageService) {
     $scope.$parent.showHeader();
     $scope.$parent.clearFabs();
     $scope.isExpanded = false;
@@ -412,10 +423,25 @@ angular.module('petBook.controllers', [])
     ];
 
     $scope.field = $stateParams.field;
-    console.log('the field is: ', $scope.field);
+    $scope.value = $stateParams.value;
+    $scope.pet = {};
+    $scope.pet[$scope.field] = $scope.value;
+    console.log('scope.pet is: ', $scope.pet);
 
-    $scope.save = function(){
-        console.log('save clicked');
+    console.log('the field is: ', $scope.field);
+    console.log('the value is: ', $scope.value);
+
+    $scope.save = function(pet){
+        var user = StorageService.getCurrentUser().user;
+        pet._id = user._id;
+        var promise = ProfileService.update(pet);
+        promise.then(function(response){
+            if(response){
+                $state.go('app.profile', {field: $scope.field, value: pet[$scope.field]});
+            }
+        })
+
+
     }
 
     $scope.cancel = function(){

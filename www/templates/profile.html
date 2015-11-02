@@ -20,31 +20,31 @@
         Pet Info
       </div>
 
-      <a class="item item-icon-right" ui-sref="app.editProfile({field: 'name'})">
+      <a class="item item-icon-right" ui-sref="app.editProfile({field: 'name', value: user.pet.name})">
         <i class="icon ion-ios-arrow-forward"></i>
         <label>Name:</label>
         <span>{{user.pet.name}}</span>
       </a>
 
-      <a class="item item-icon-right" ui-sref="app.editProfile({field: 'dob'})">
+      <a class="item item-icon-right" ui-sref="app.editProfile({field: 'dob', value: user.pet.dob})">
         <i class="icon ion-ios-arrow-forward"></i>
         <label>Birthday: </label>
         <span>{{user.pet.dob | date:'MM/dd/yyyy'}}</span>
       </a>
 
-      <a class="item item-icon-right" ui-sref="app.editProfile({field: 'sex'})">
+      <a class="item item-icon-right" ui-sref="app.editProfile({field: 'sex', value: user.pet.sex})">
         <i class="icon ion-ios-arrow-forward"></i>
         <label>Gender: </label>
         <span>{{user.pet.sex}}</span>
       </a>
 
-      <a class="item item-icon-right" ui-sref="app.editProfile({field: 'breed'})">
+      <a class="item item-icon-right" ui-sref="app.editProfile({field: 'breed', value: user.pet.breed})">
         <i class="icon ion-ios-arrow-forward"></i>
         <label>Breed: </label>
         <span>{{user.pet.breed}}</span>
       </a>
 
-      <a class="item item-icon-right" ui-sref="app.editProfile({field: 'bio'})">
+      <a class="item item-icon-right" ui-sref="app.editProfile({field: 'bio', value: user.pet.bio})">
         <i class="icon ion-ios-arrow-forward"></i>
         <label>Bio: </label>
             <p style="white-space:normal;">{{user.pet.bio}}</p>
