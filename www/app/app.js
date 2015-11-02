@@ -53,7 +53,17 @@ angular.module('petBook', ['ionic',
         templateUrl: 'templates/menu.html',
         controller: 'AppCtrl'
     })
+ 
+     .state('app.intro', {
+        url: '/intro',
+        views: {
+            'menuContent': {
+                templateUrl: 'templates/intro.html',
+                controller: 'IntroCtrl',
 
+            }
+        }
+    })
     .state('app.moments', {
         url: '/moments',
         views: {
@@ -251,5 +261,5 @@ angular.module('petBook', ['ionic',
     ;
 
     // if none of the above states are matched, use this as the fallback
-    $urlRouterProvider.otherwise('/app/login');
+    $urlRouterProvider.otherwise('/app/intro');
 });
