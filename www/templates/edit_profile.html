@@ -4,23 +4,26 @@
 <ion-view view-title="Edit Profile">
 
     <ion-content ng-class="{expanded:$scope.isExpanded}">
-    </ion-content>
 
-    <!-- <ion-footer-bar class="bar-positive"> -->
-<!--   <div class="buttons">
-    <button class="button">Left Button</button>
-  </div> -->
-  <!-- <h1 class="title" ng-click="save">Save</h1> -->
+<div class="list">
+                <label class="item item-input item-floating-label">
+                    <span class="input-label">First Name</span>
+                    <input type="text" placeholder="First Name">
+                </label>
+                <label class="item item-input item-floating-label">
+                    <span class="input-label">Last Name</span>
+                    <input type="text" placeholder="Last Name">
+                </label>
+               </div>
 
-  <div class="buttons" ng-click="doSomething()">
-    <button class="button">Right Button</button>
-  </div>
 
-<div class="buttons" ng-click="save()">
-  <button class="button button-full button-positive">
+<div class="buttons">
+  <button class="button button-full button-positive" ng-click="save()">
   Save
 </button>
+ <button class="button button-full button-assertive" ng-click="cancel()">
+  Cancel
+</button>
 </div>
-<!-- </ion-footer-bar> -->
-
+    </ion-content>
 </ion-view>
