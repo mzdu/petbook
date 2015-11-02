@@ -53,7 +53,17 @@ angular.module('petBook', ['ionic',
         templateUrl: 'templates/menu.html',
         controller: 'AppCtrl'
     })
+ 
+     .state('app.intro', {
+        url: '/intro',
+        views: {
+            'menuContent': {
+                templateUrl: 'templates/intro.html',
+                controller: 'IntroCtrl',
 
+            }
+        }
+    })
     .state('app.moments', {
         url: '/moments',
         views: {
