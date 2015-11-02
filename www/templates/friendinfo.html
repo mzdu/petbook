@@ -4,15 +4,6 @@
 <div class="list animate-fade-slide-in-right">
 
 
-<!--    <div class="item card-item"> -->
-    <div class="card">
-        <div class="item item-avatar item-text-wrap">
-            <span class="avatar" style="background-image: url('img/lake-animals-dogs-pets.jpg');"></span>
-            <strong>{{user.username}} <br />{{user.email}}</strong>
-        </div>
-    </div>
-      
-
 
     </div class="list">
 
@@ -20,30 +11,27 @@
         Pet Info
       </div>
 
-        <label>Name:</label>
+      <a class="item item-icon-right" href="#">
+        <label>Name: </label>
         <span>{{user.pet.name}}</span>
+      </a>
 
-
-      <a class="item item-icon-right" href="./templates/profilebirthdayinput.html">
-        <i class="icon ion-ios-arrow-forward"></i>
+      <a class="item item-icon-right" href="#">
         <label>Birthday: </label>
         <span>{{user.pet.dob | date:'MM/dd/yyyy'}}</span>
       </a>
 
-      <a class="item item-icon-right" href="./templates/profilesexinput.html">
-        <i class="icon ion-ios-arrow-forward"></i>
+      <a class="item item-icon-right" href="#">
         <label>Gender: </label>
         <span>{{user.pet.sex}}</span>
       </a>
 
-      <a class="item item-icon-right" href="./templates/profileblankinput.html" ng-click="value = 'breed'">
-        <i class="icon ion-ios-arrow-forward"></i>
+      <a class="item item-icon-right" href="#">
         <label>Breed: </label>
         <span>{{user.pet.breed}}</span>
       </a>
 
-      <a class="item item-icon-right" href="./templates/profileblankinput.html" ng-click="value = 'bio'">
-        <i class="icon ion-ios-arrow-forward"></i>
+      <a class="item item-icon-right" href="#">
         <label>Bio: </label>
             <p style="white-space:normal;">{{user.pet.bio}}</p>
       </a>
