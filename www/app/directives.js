@@ -130,8 +130,9 @@
 
         function checkFriendInfo(post){
            //console.log(post._Owner._id);
+           console.log(post._Owner);
             $state.go('app.friendinfo',{
-                userID: post._Owner._id
+                user: post._Owner
             });
          };
 

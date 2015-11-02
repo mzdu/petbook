@@ -74,7 +74,8 @@ angular.module('petBook', ['ionic',
     })
 
     .state('app.friendinfo', {
-        url: '/friendinfo/:userID',
+        url: '/friendinfo/:user',
+        params: {user: null},
         views: {
             'menuContent': {
                 templateUrl: 'templates/friendinfo.html',
