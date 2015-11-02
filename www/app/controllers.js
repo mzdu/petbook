@@ -418,6 +418,11 @@ angular.module('petBook.controllers', [])
         console.log('save clicked');
     }
 
+    $scope.cancel = function(){
+        $scope.pet = {};
+        $state.go('app.profile');
+    }
+
     console.log('in edit profile ctrl');
 })
 
