@@ -155,6 +155,19 @@ angular.module('petBook', ['ionic',
             }          
         }
     })
+
+    .state('app.editProfile', {
+        url: '/profileEdit',
+        views: {
+            'menuContent': {
+                templateUrl: 'templates/edit_profile.html',
+                controller: 'EditProfileCtrl'
+            },
+             'fabContent': {
+                template: ''
+            }          
+        }
+    })
     .state('app.profileblankinput', {
         url: '/profileblankinput',
         views: {

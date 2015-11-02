@@ -393,9 +393,25 @@ angular.module('petBook.controllers', [])
             }
         });
     }
-    
-    
-    
+})
+
+.controller('EditProfileCtrl', function($scope, $state, $stateParams, ProfileService) {
+    $scope.$parent.showHeader();
+    $scope.$parent.clearFabs();
+    $scope.isExpanded = false;
+    $scope.$parent.setExpanded(false);
+    $scope.$parent.setHeaderFab(false);
+
+    $scope.leftButtons = [
+      {
+        type: 'button-positive',
+        content: '<i class="icon ion-navicon"></i>',
+        tap: function(e) {
+        }
+      }
+    ];
+
+    console.log('in edit profile ctrl');
 })
 
 
