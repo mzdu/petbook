@@ -39,6 +39,9 @@
         vm.isExpanded = false;
         vm.clickedLike = clickedLike;
         vm.checkFriendInfo = checkFriendInfo;
+        
+        vm.getComments = getComments;
+        vm.addComment = addComment;
 
         var user = StorageService.getCurrentUser().user;
         console.log('user is: ', user);
@@ -134,6 +137,17 @@
             $state.go('app.friendinfo',{
                 userID: post._Owner._id
             });
+         };
+         
+         
+         function getComments(post){
+        	 return post.comments
+         };
+         
+         function addComment(post){
+        	 
+        	 // add a comment and save it
+        	 return 
          };
 
         
