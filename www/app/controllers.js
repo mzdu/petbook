@@ -118,7 +118,7 @@ angular.module('petBook.controllers', [])
 
 .controller('LoginCtrl', function($scope, $state, $timeout, $stateParams, StorageService, ionicMaterialInk, AuthService, $ionicSideMenuDelegate) {
 
-	$ionicSideMenuDelegate.canDragContent(false);
+    $ionicSideMenuDelegate.canDragContent(false);
     $scope.$parent.clearFabs();
     $timeout(function() {
         $scope.$parent.hideHeader();
@@ -168,7 +168,7 @@ angular.module('petBook.controllers', [])
 
 .controller('RegisterCtrl', function($scope, $state, $timeout, $stateParams, StorageService, ionicMaterialInk, AuthService, $ionicSideMenuDelegate) {
 
-	$ionicSideMenuDelegate.canDragContent(false)
+    $ionicSideMenuDelegate.canDragContent(false)
     $scope.$parent.clearFabs();
     $timeout(function() {
         $scope.$parent.hideHeader();
@@ -444,8 +444,13 @@ angular.module('petBook.controllers', [])
     ];
 
     $scope.field = $stateParams.field;
-    $scope.value = $stateParams.value;
+    if($scope.field === 'dob'){
+        $scope.value = new Date($stateParams.value);
+    }else{
+        $scope.value = $stateParams.value;
+    }
     $scope.pet = {};
+
     $scope.pet[$scope.field] = $scope.value;
     console.log('scope.pet is: ', $scope.pet);
 
