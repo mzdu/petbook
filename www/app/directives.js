@@ -62,9 +62,11 @@
         console.log('vm.cardType = ', vm.cardType);
 
         if(vm.cardType === 'myPosts'){
+            //console.log('enter myposts');
             vm.showProfileAvatar = true;
-            vm.showPostAvatar = false;
+            vm.showPostAvatar = true;
         } else {
+            //console.log('enter moments');
             vm.showProfileAvatar = false;
             vm.showPostAvatar = true;
         }
@@ -129,11 +131,19 @@
         };
 
         function checkFriendInfo(post){
-           //console.log(post._Owner._id);
-           console.log(post._Owner);
-            $state.go('app.friendinfo',{
-                userID: post._Owner._id
-            });
+           
+           /*console.log(post._Owner);
+           console.log(post._Owner._id);
+           console.log(user);*/
+           //for moments page, _Owner is a user, 
+           //for my posts page, _Owner is a user id
+           if(user._id == post._Owner || user._id == post._Owner._id){
+                $state.go('app.profile');
+           }else{
+                $state.go('app.friendinfo',{
+                    userID: post._Owner._id
+                });
+            }
          };
 
         
