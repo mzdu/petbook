@@ -178,33 +178,6 @@ angular.module('petBook', ['ionic',
             }          
         }
     })
-    .state('app.profileblankinput', {
-        url: '/profileblankinput',
-        views: {
-            'menuContent': {
-                templateUrl: 'templates/profileblankinput.html',
-                controller: 'ProfileBlankInputCtrl'
-            }
-        }
-    })
-    .state('app.profilebirthdayinput', {
-        url: '/profilebirthdayinput',
-        views: {
-            'menuContent': {
-                templateUrl: 'templates/profilebirthdayinput.html',
-                controller: 'ProfileBirthdayInputCtrl'
-            }
-        }
-    })
-    .state('app.profilesexinput', {
-        url: '/profilesexinput',
-        views: {
-            'menuContent': {
-                templateUrl: 'templates/profilesexinput.html',
-                controller: 'ProfileSexInputCtrl'
-            }
-        }
-    })
     .state('app.myposts', {
         url: '/myposts',
         views: {
