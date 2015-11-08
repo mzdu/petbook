@@ -252,7 +252,12 @@ angular.module('petBook.controllers', [])
     //console.log('scope user is ', $scope.user);
 
     $scope.field = $stateParams.field;
-    $scope.value = $stateParams.value;
+    if($scope.field === 'dob'){
+        
+        $scope.value = new Date($stateParams.value);
+    }else{
+        $scope.value = $stateParams.value;
+    }
     console.log('$scope.field = ', $scope.field);
     console.log('$scope.value = ', $scope.value);
     if($scope.field && $scope.value){
@@ -446,15 +451,17 @@ angular.module('petBook.controllers', [])
     $scope.field = $stateParams.field;
     if($scope.field === 'dob'){
         $scope.value = new Date($stateParams.value);
+        
     }else{
         $scope.value = $stateParams.value;
     }
     $scope.pet = {};
 
     $scope.pet[$scope.field] = $scope.value;
+
     console.log('scope.pet is: ', $scope.pet);
 
-    console.log('the field is: ', $scope.field);
+    console.log('$scope.field = ', $scope.field);    
     console.log('the value is: ', $scope.value);
 
     $scope.save = function(pet){
