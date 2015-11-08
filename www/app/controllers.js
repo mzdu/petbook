@@ -135,7 +135,7 @@ angular.module('petBook.controllers', [])
     //     username: "testuser",
     //     password: "test123"
     // }
-  
+
     $scope.login = function() {
 
         var promise = AuthService.login($scope.user);
@@ -177,6 +177,32 @@ angular.module('petBook.controllers', [])
 
     $scope.user = {};
 
+  $scope.$watch('user.password2', function(newvalue){
+    $scope.passwordMismatch = validatePassword($scope.user.password, newvalue);
+    // if($scope.user.password != newvalue)
+    // {
+    //     $scope.passwordMismatch = true;
+    // }
+    // else{
+    //     $scope.passwordMismatch = false;
+    //     console.log("Passwords Match");
+    // }
+    console.log('newvalue value is: ', newvalue);
+  });
+
+$scope.$watch('user.password', function(newvalue){
+     $scope.passwordMismatch = validatePassword($scope.user.password, newvalue);
+    // if($scope.user.password != newvalue)
+    // {
+    //     $scope.passwordMismatch = true;
+    // }
+    // else{
+    //     $scope.passwordMismatch = false;
+    //     console.log("Passwords Match");
+    // }
+    console.log('newvalue value is: ', newvalue);
+  });
+    
     $scope.Register = function() {
 
         console.log('scope user is: ', $scope.user);
@@ -199,6 +225,17 @@ angular.module('petBook.controllers', [])
     $scope.login = function() {
         $state.go('app.login');
     }; 
+
+    function validatePassword(pw, nv){
+        if(pw != nv)
+        {
+            return true;
+        }
+        else{
+            return false;
+            console.log("Passwords Match");
+        }
+    }
 })
 
 .controller('IntroCtrl', function($scope, $stateParams, $timeout, ionicMaterialInk, ionicMaterialMotion) {
