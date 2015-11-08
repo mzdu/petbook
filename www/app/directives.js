@@ -63,7 +63,7 @@
 
         if(vm.cardType === 'myPosts'){
             //console.log('enter myposts');
-            vm.showProfileAvatar = true;
+            vm.showProfileAvatar = false;
             vm.showPostAvatar = true;
         } else {
             //console.log('enter moments');
