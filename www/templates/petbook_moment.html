@@ -13,10 +13,15 @@
                     <span class="avatar" style="background-image: url('img/petbook-lg.png');" ng-click = "vm.checkFriendInfo(post)"></span>
                     <strong ng-click = "vm.checkFriendInfo(post)">{{post._Owner.username}}</strong> {{post.description}}
                     <div class="card-footer text-right">
-                        <!-- <i class="icon ion-chatbubbles positive"></i> 2 -->
+                        <i class="icon ion-ios-chatboxes positive"></i>
                         <i class="icon ion-heart assertive larger" ng-click="vm.clickedLike(post)"></i> {{vm.getLikes(post)}}
                         <div class="pull-left">
                             <i class="icon ion-clock"></i> {{post.createdDate | date:'MM/dd/yyyy'}}
+                        </div>
+                        <div class="arrow_box">
+                            <!-- <div ng-repeat="(username, comment) in comments">{{username}}:{{comment}}</div> -->
+                            <div><a href="#">Bhanu</a>: This is a comment test.</div>
+                            <div><a href="#">Mingzhe</a>: This is the second test.</div>
                         </div>
                     </div>
                 </div>
