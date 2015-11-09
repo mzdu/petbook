@@ -10,7 +10,7 @@ angular.module('petBook', ['ionic',
     'petBook.controllers',
     'petBook.directives',
     'petBook.services',
-    //'petBook.auth',
+    'petBook.auth',
     'restangular',
     'ngStorage', 
     'ionic-material', 
@@ -132,8 +132,8 @@ angular.module('petBook', ['ionic',
         url: '/login',
         views: {
             'menuContent': {
-                templateUrl: 'templates/login.html',
-                controller: 'LoginCtrl'
+                templateUrl: 'app/auth/auth.login.view.html',
+                controller: 'LoginCtrl',
             },
             'fabContent': {
                 template: ''
@@ -145,7 +145,7 @@ angular.module('petBook', ['ionic',
         url: '/register',
         views: {
             'menuContent': {
-                templateUrl: 'templates/register.html',
+                templateUrl: 'app/auth/auth.register.view.html',
                 controller: 'RegisterCtrl'
             },
             'fabContent': {
