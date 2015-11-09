@@ -152,3 +152,9 @@ p {
 .login-bar{
 	margin-bottom: 10px;
 }
+
+.help-text {
+  margin: 0 10px;
+  color:#EF473A;
+  background-color: #fff;
+}
