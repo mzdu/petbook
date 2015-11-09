@@ -3,6 +3,7 @@
 
     angular
         .module('petBook.auth', [
-            'petBook.auth.directives'
+            'petBook.auth.login.controller',
+            'petBook.auth.register.controller'
         ]);
 })();

@@ -1,5 +1,6 @@
 module.exports = function() {
     var client = './www/';
+    var clientApp = './www/app/';
     var temp = client + '.tmp/';
     var img = 'img';
     // var clientApp = client + 'js/';
@@ -7,8 +8,9 @@ module.exports = function() {
 
         // all js to vet
         alljs: [
-            client + 'js/*.js',
-            client + 'controllers/**/*.js',
+            clientApp + '*.js',
+            clientApp + '**/*.module.js',
+            clientApp + '**/*.js'
         ],
         allBuild: [
             './build/js/*.js'
@@ -17,14 +19,15 @@ module.exports = function() {
         client: client,
         css: client + 'css/*.css',
         fonts: client + 'lib/ionic/fonts/*.*',
-        html: client + 'templates/**/*.html',
-        htmltemplates: client + 'templates/**/*.html',
+        html: [client + 'templates/**/*.html', clientApp + '/**/*.html'],
+        htmltemplates: [client + 'templates/**/*.html', clientApp + '/**/*.html'],
         img: img,
         images: client + img + '/**/*.*',
         index: client + 'index.html',
         js: [
-            client + 'js/*.js',
-            client + 'controllers/**/*.js',
+            clientApp + '*.js',
+            clientApp + '**/*.module.js',
+            clientApp + '**/*.js',
             '!' + client + '**/*.spec.js'
         ],
         less: client + 'styles/styles.less',
