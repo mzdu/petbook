@@ -152,3 +152,33 @@ p {
 .login-bar{
 	margin-bottom: 10px;
 }
+
+.arrow_box {
+    position: relative;
+    background: lightgrey;
+    border: 1px solid lightgrey;
+    text-align: left;
+}
+.arrow_box:after, .arrow_box:before {
+    bottom: 100%;
+    left: 77%;
+    border: solid transparent;
+    content: " ";
+    height: 0;
+    width: 0;
+    position: absolute;
+    pointer-events: none;
+}
+
+.arrow_box:after {
+    border-color: rgba(136, 183, 213, 0);
+    border-bottom-color: lightgrey;
+    border-width: 0px;
+    margin-left: 0px;
+}
+.arrow_box:before {
+    border-color: rgba(194, 225, 245, 0);
+    border-bottom-color: lightgrey;
+    border-width: 7px;
+    margin-left: -7px;
+}
