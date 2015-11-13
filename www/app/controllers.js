@@ -3,7 +3,7 @@
 
 angular.module('petBook.controllers', [])
 
-.controller('AppCtrl', function($rootScope, $scope, $ionicModal, $ionicPopover, $timeout, StorageService,$state, $ionicPopup) {
+.controller('AppCtrl', function($rootScope, $scope, $ionicModal, $ionicPopover, $timeout, StorageService,$state, $ionicPopup, $ionicLoading) {
     // Form data for the login modal
     $scope.loginData = {};
     $scope.isExpanded = false;
@@ -114,9 +114,19 @@ angular.module('petBook.controllers', [])
          }
        }); 
     };
+    //for loading screens
+    $scope.showLoading = function() {
+        $ionicLoading.show({
+          template: '<p style="color:#0a9ec7">Loading...</p><ion-spinner icon="bubbles" class="spinner-calm"></ion-spinner>'
+        });
+    };
+
+    $scope.hideLoading = function(){
+        $ionicLoading.hide();
+    };
 })
 
-.controller('LoginCtrl', function($scope, $state, $timeout, $stateParams, StorageService, ionicMaterialInk, AuthService, $ionicSideMenuDelegate) {
+.controller('LoginCtrl', function($scope, $state, $timeout, $stateParams, StorageService, ionicMaterialInk, AuthService, $ionicSideMenuDelegate, $ionicLoading) {
 
     $ionicSideMenuDelegate.canDragContent(false);
     $scope.$parent.clearFabs();
@@ -137,6 +147,8 @@ angular.module('petBook.controllers', [])
     // }
   
     $scope.login = function() {
+        // Start showing the progress
+        $scope.showLoading($ionicLoading);
 
         var promise = AuthService.login($scope.user);
         promise.then(function(user, err) {
@@ -154,9 +166,11 @@ angular.module('petBook.controllers', [])
         }, function(response) {
             console.log('error login!');
             $scope.error = 'invalid credentials';
-        }); //end of then
-
-        //        $state.go('app.home');
+        }) //end of then
+        .finally(function($ionicLoading) { 
+          //hide the loading
+          $scope.hideLoading($ionicLoading);  
+        });
 
     };
 
