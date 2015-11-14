@@ -5,7 +5,7 @@
                 <img src="img/Logo2_with_type.png" style="width:35%"/>
             </div>
         </div>
-        <form name="registerForm" ng-submit="register()" novalidate>
+        <form name="registerForm" novalidate>
             <div class="list">
                 <ion-md-input placeholder="Username" highlight-color="balanced" type="text" ng-model="user.username" required></ion-md-input>
                 <ion-md-input placeholder="Password" highlight-color="balanced" type="password" ng-model="user.password" required></ion-md-input>   
@@ -18,7 +18,8 @@
                 <span>Invalid Credentials</span>
             </div>
             <div class="padding">
-                    <button type="submit" ng-disabled="passwordMismatch || registerForm.$invalid" class="button button-block button-positive waves-effect waves-button waves-light">Signup</button>
+                    <button type="button" ng-click="register()"  ng-disabled="passwordMismatch || registerForm.$invalid" class="button button-block button-positive waves-effect waves-button waves-light">Signup</button>
+                    <br><br>
                 <a href="#" class="calm" ng-click="login()"><b>Already have an account? Sign in.</b></a>           
             </div>
         </form>

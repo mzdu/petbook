@@ -7,7 +7,7 @@
                 </div>
             </div>
 
-            <form name="loginForm" ng-submit="login()">
+            <form name="loginForm">
 
             <div class="list">
                 <ion-md-input placeholder="Username" highlight-color="balanced" type="text" ng-model="user.username" required></ion-md-input>
@@ -15,11 +15,12 @@
                 
             </div>
             <div class="list error" ng-if="error">
-                <span>Invalid Credentials</span>
+                <span>{{error | json}}</span>
             </div>
             <div class="padding">
-                 <button type="submit" ng-disabled="loginForm.$invalid" class="button button-block button-positive waves-effect waves-button waves-light">Login</button>
-            <a href="#" class="calm" ng-click="register()"><b>New here? Sign up.</b></a>              
+                 <button type="button" ng-click="login()" ng-disabled="loginForm.$invalid" class="button button-block button-positive waves-effect waves-button waves-light">Login</button>
+                 <button type="button" ng-click="register()" class="button button-block button-assertive waves-effect waves-button waves-light">Register</button>
+            <!-- <a href="#" class="calm" ng-click="register()"><b>New here? Sign up.</b></a>               -->
             </div>
             <!-- <div><center>
                 

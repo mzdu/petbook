@@ -38,8 +38,9 @@
                 }
                 return;
             }, function(response) {
-                console.log('error login!');
-                $scope.error = 'invalid credentials';
+                //console.log('error login!');
+                $scope.error = response;
+                // 'invalid credentials';
             }); //end of then
 
             //        $state.go('app.home');
