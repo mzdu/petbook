@@ -153,6 +153,12 @@ p {
 	margin-bottom: 10px;
 }
 
+
+.help-text {
+  margin: 0 10px;
+  color:#EF473A;
+  background-color: #fff;
+
 .arrow_box {
     position: relative;
     background: lightgrey;
@@ -181,4 +187,5 @@ p {
     border-bottom-color: lightgrey;
     border-width: 7px;
     margin-left: -7px;
+
 }

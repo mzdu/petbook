@@ -1,0 +1,27 @@
+<ion-view view-title="Home">
+    <div class="ionic login " style="background-image: url('img/landing.jpeg'); background-size: cover; background-repeat: no-repeat;">
+        <div class="hero no-header flat" style="height:30%">
+            <div class="content">
+                <img src="img/Logo2_with_type.png" style="width:35%"/>
+            </div>
+        </div>
+        <form name="registerForm" novalidate>
+            <div class="list">
+                <ion-md-input placeholder="Username" highlight-color="balanced" type="text" ng-model="user.username" required></ion-md-input>
+                <ion-md-input placeholder="Password" highlight-color="balanced" type="password" ng-model="user.password" required></ion-md-input>   
+                <ion-md-input placeholder="Confirm Password" highlight-color="balanced" type="password" ng-model="user.password2" required></ion-md-input>
+                <p class="help-text" ng-if="passwordMismatch">Please enter matching passwords</p>
+                <ion-md-input placeholder="Email" highlight-color="balanced" type="email" ng-model="user.email" required></ion-md-input>
+
+            </div>
+            <div class="list error" ng-if="error">
+                <span>Invalid Credentials</span>
+            </div>
+            <div class="padding">
+                    <button type="button" ng-click="register()"  ng-disabled="passwordMismatch || registerForm.$invalid" class="button button-block button-positive waves-effect waves-button waves-light">Signup</button>
+                    <br><br>
+                <a href="#" class="calm" ng-click="login()"><b>Already have an account? Sign in.</b></a>           
+            </div>
+        </form>
+    </div>
+</ion-view>

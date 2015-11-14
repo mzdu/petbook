@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<widget id="com.ionicframework.sample374926" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
-  <name>sample</name>
+<widget id="com.ionicframework.sample374926" version="0.0.4" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+  <name>Petbook</name>
   <description>
-        An Ionic Framework and Cordova project.
+        Connect with pets and pet lovers near you!
     </description>
-  <author email="hi@ionicframework" href="http://ionicframework.com/">
-      Ionic Framework Team
+  <author email="davidhe@fastmail.com" href="http://ionicframework.com/">
+      Petbook Team
     </author>
   <content src="index.html"/>
   <access origin="*"/>
