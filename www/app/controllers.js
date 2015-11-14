@@ -3,7 +3,7 @@
 
 angular.module('petBook.controllers', [])
 
-.controller('AppCtrl', function($rootScope, $scope, $ionicModal, $ionicPopover, $timeout, StorageService,$state, $ionicPopup) {
+.controller('AppCtrl', function($rootScope, $scope, $ionicModal, $ionicPopover, $timeout, StorageService,$state, $ionicPopup, $ionicLoading) {
     // Form data for the login modal
     $scope.loginData = {};
     $scope.isExpanded = false;
@@ -113,6 +113,16 @@ angular.module('petBook.controllers', [])
            console.log('You are not sure');
          }
        }); 
+    };
+    //for loading screens
+    $scope.showLoading = function() {
+        $ionicLoading.show({
+          template: '<p style="color:#0a9ec7">Loading...</p><ion-spinner icon="bubbles" class="spinner-calm"></ion-spinner>'
+        });
+    };
+
+    $scope.hideLoading = function(){
+        $ionicLoading.hide();
     };
 })
 
