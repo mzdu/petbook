@@ -44,10 +44,10 @@
         vm.addComment = addComment;
 
         var user = StorageService.getCurrentUser().user;
-        console.log('user is: ', user);
+        //console.log('user is: ', user);
         $scope.$watch('vm.posts', function(data, data2) {
         if (data) {
-            console.log('got data', data);
+            //console.log('got data', data);
 
             $timeout(function() {
                 ionicMaterialMotion.fadeSlideIn({
@@ -62,7 +62,7 @@
 
         // Set Motion
        
-        console.log('vm.cardType = ', vm.cardType);
+        //console.log('vm.cardType = ', vm.cardType);
 
         if(vm.cardType === 'myPosts'){
             //console.log('enter myposts');
@@ -90,7 +90,7 @@
                 return true;
             } else {
                 if(hasUserAlreadyVotedOnPost(post)){
-                    console.log('you already voted');
+                    //console.log('you already voted');
                     return false;
                 } else {
                     post.likedBy.push(user._id);
@@ -106,7 +106,7 @@
         }
 
         function clickedLike(post) {
-            console.log('clicked like');
+            //console.log('clicked like');
             var user = StorageService.getCurrentUser().user;
 
             if (updateLike(post)) {

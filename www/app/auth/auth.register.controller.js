@@ -5,10 +5,10 @@
         .module('petBook.auth.register.controller', [])
         .controller('RegisterCtrl', RegisterCtrl);
 
-    RegisterCtrl.$inject = ['$scope', '$state', '$timeout', '$stateParams', 'StorageService', 'ionicMaterialInk', 'AuthService', '$ionicSideMenuDelegate'];
+    RegisterCtrl.$inject = ['$scope', '$state', '$timeout', '$stateParams', 'StorageService', 'ionicMaterialInk', 'AuthService', '$ionicSideMenuDelegate', '$ionicLoading'];
 
     /* @ngInject */
-    function RegisterCtrl($scope, $state, $timeout, $stateParams, StorageService, ionicMaterialInk, AuthService, $ionicSideMenuDelegate) {
+    function RegisterCtrl($scope, $state, $timeout, $stateParams, StorageService, ionicMaterialInk, AuthService, $ionicSideMenuDelegate, $ionicLoading) {
         var vm = $scope;
         vm.login = login;
         vm.register = register;
@@ -35,7 +35,8 @@
         });
 
         function register() {
-
+            //loading spinner
+            $scope.showLoading($ionicLoading);
             console.log('scope user is: ', $scope.user);
             var promise = AuthService.register($scope.user);
             promise.then(function(user, err) {
@@ -50,7 +51,11 @@
                     console.log('error is: ', err);
                     $scope.error = 'unable to sign up at this time';
                 }
-            }); //end of then
+            }) //end of then
+            .finally(function($ionicLoading) {
+                    //hide the loading
+                    $scope.hideLoading($ionicLoading);
+            });
         }; // end of sign up   
 
         function login() {
