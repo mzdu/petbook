@@ -290,38 +290,40 @@ angular.module('petBook.controllers', [])
 
 
 
-.controller('MomentsCtrl', function($scope, $state, $cordovaToast, $stateParams, $timeout, StorageService, ionicMaterialMotion, ionicMaterialInk, StatusService, LocationService) {
+.controller('MomentsCtrl', function($scope, $state, $cordovaToast, $stateParams, $timeout, StorageService, ionicMaterialMotion, ionicMaterialInk, StatusService, LocationService, $ionicLoading) {
     
-       $scope.$parent.showHeader();
+    $scope.$parent.showHeader();
     $scope.$parent.clearFabs();
     $scope.isExpanded = true;
     $scope.$parent.setExpanded(true);
     $scope.$parent.setHeaderFab('right');
     $scope.isExpanded = true;
 
-    
-
     var user = StorageService.getCurrentUser().user;
-
     
     LocationService.getCurrentLocation().then(function(loc){
         // $scope.location = loc;
-        console.log('location is: ', loc);
-         var moment = {
+        //console.log('location is: ', loc);
+        var moment = {
             "userID": user._id,
             "location": loc,
             "rad": 10
         };
 
+        $scope.showLoading($ionicLoading);
         var promise = StatusService.getMoments(moment);
         promise.then(function(results, err) {
             if (!err) {
                 $scope.posts = results;
-                console.log('posts are: ', $scope.posts);
+                //console.log('posts are: ', $scope.posts);
                 $scope.likes = results.likedBy;
             } else {
                 $scope.log('error is', err);
             }
+        })
+        .finally(function($ionicLoading) {
+            //hide the loading
+            $scope.hideLoading($ionicLoading);
         });
 
     });
@@ -357,7 +359,7 @@ angular.module('petBook.controllers', [])
     }
 })
 
-.controller('EditProfileCtrl', function($scope, $state, $stateParams, ProfileService, StorageService) {
+.controller('EditProfileCtrl', function($scope, $state, $stateParams, ProfileService, StorageService, $ionicLoading) {
     $scope.$parent.showHeader();
     $scope.$parent.clearFabs();
     $scope.isExpanded = false;
@@ -393,11 +395,17 @@ angular.module('petBook.controllers', [])
         var user = StorageService.getCurrentUser().user;
         pet._id = user._id;
         var promise = ProfileService.update(pet);
+        $scope.showLoading($ionicLoading);
         promise.then(function(response){
             if(response){
                 $state.go('app.profile', {field: $scope.field, value: pet[$scope.field]});
             }
         })
+        .finally(function($ionicLoading) {
+                    //hide the loading
+                    $scope.hideLoading($ionicLoading);
+        });
+
 
 
     }
@@ -430,17 +438,14 @@ angular.module('petBook.controllers', [])
 
 })
 
-.controller('MyPostsCtrl', function($scope, $stateParams, $timeout, ionicMaterialMotion, ionicMaterialInk, StorageService, StatusService) {
+.controller('MyPostsCtrl', function($scope, $stateParams, $timeout, ionicMaterialMotion, ionicMaterialInk, StorageService, StatusService, $ionicLoading) {
     // Set Header
     console.log('my posts');
-  $scope.$parent.showHeader();
+    $scope.$parent.showHeader();
     $scope.$parent.clearFabs();
     $scope.isExpanded = true;
     $scope.$parent.setExpanded(true);
     $scope.$parent.setHeaderFab('right');
-
-   
-
 
     if (!StorageService.getCurrentUser()) {
         return;
@@ -449,15 +454,19 @@ angular.module('petBook.controllers', [])
         var promise = StatusService.getAll($scope.user._id);
         // console.log(promise);
         // $scope.posts
-
+        $scope.showLoading($ionicLoading);
         promise.then(function(results, err) {
             if (!err) {
                 $scope.posts = results;
-                console.log('results is', results);
+                //console.log('results is', results);
             } else {
                 $scope.log('error is', err);
             }
         })
+        .finally(function($ionicLoading) {
+            //hide the loading
+            $scope.hideLoading($ionicLoading);
+        });
     }
 
     //  $timeout(function() {
@@ -603,7 +612,7 @@ angular.module('petBook.controllers', [])
     }, 8000);*/
 })
 
-.controller('NewPostCtrl',function($scope,StorageService,StatusService,$state, LocationService, $ionicPopup){
+.controller('NewPostCtrl',function($scope,StorageService,StatusService,$state, LocationService, $ionicPopup, $ionicLoading){
     $scope.$parent.showHeader();
     $scope.$parent.clearFabs();
     $scope.isExpanded = false;
@@ -637,6 +646,7 @@ angular.module('petBook.controllers', [])
             }
             $scope.data.userInput = $scope.data.userInput + $scope.data.post;
         }
+
         if( ($scope.data.choice == "other" || $scope.data.choice == undefined) && $scope.data.post == undefined){
             var alertPopup = $ionicPopup.alert({
              title: 'Alert',
@@ -646,8 +656,9 @@ angular.module('petBook.controllers', [])
              console.log('Try select or enter again.');
             });
         }else{
-            console.log("data is ",$scope.data);
-
+            //console.log("data is ",$scope.data);
+            $scope.showLoading($ionicLoading);
+            
             var status = {
                 description: $scope.data.userInput,
                 likes: 5,
@@ -667,9 +678,15 @@ angular.module('petBook.controllers', [])
                 }
             }, function(response) {
                 console.log('response error ', response);
-            });
+            })
+            .finally(function($ionicLoading) {
+                //hide the loading
+                $scope.hideLoading($ionicLoading);
+             });
         }
+
     }
+
 })
 /*.controller('PetsNearbyCtrl', ['$scope', function ($scope) {
     
