@@ -8,13 +8,13 @@
         <form name="loginForm">
             <div class="list">
                 <ion-md-input placeholder="Username" highlight-color="balanced" type="text" ng-model="user.username" required></ion-md-input>
-                <ion-md-input placeholder="Password" highlight-color="balanced" type="password" ng-model="user.password" required></ion-md-input>
+                <ion-md-input placeholder="Password" highlight-color="balanced" type="password" ng-model="user.password" ng-enter= "login()" required></ion-md-input>
                 <div class="help-text" ng-if="error">
                     <span>{{error}}</span>
                 </div>
             </div>
             <div class="padding">
-                <button type="button" ng-click="login()" ng-disabled="loginForm.$invalid" class="button button-block button-positive waves-effect waves-button waves-light">Login</button>
+                <button type="submit" ng-click="login()" ng-disabled="loginForm.$invalid" class="button button-block button-positive waves-effect waves-button waves-light">Login</button>
                 <button type="button" ng-click="register()" class="button button-block button-assertive waves-effect waves-button waves-light">Register</button>
             </div>
                 
