@@ -39,7 +39,7 @@
         vm.isExpanded = false;
         vm.clickedLike = clickedLike;
         vm.checkFriendInfo = checkFriendInfo;
-        
+        $scope.likes = 0;
         vm.getComments = getComments;
         vm.addComment = addComment;
 
@@ -91,6 +91,13 @@
             } else {
                 if(hasUserAlreadyVotedOnPost(post)){
                     //console.log('you already voted');
+                    console.log('you already voted, you want to dislike it.');
+                    for(var i = post.likedBy.length; i--;) {
+                        if(post.likedBy[i] === user._id) {
+                            post.likedBy.splice(i, 1);
+                        }
+                    }
+                    //post.likeBy.splice(index, 1);
                     return false;
                 } else {
                     post.likedBy.push(user._id);
@@ -105,30 +112,43 @@
             });
         }
 
-        function clickedLike(post) {
+        function clickedLike(post,$event) {
             //console.log('clicked like');
             var user = StorageService.getCurrentUser().user;
-
+            var buttonClasses = $event.currentTarget.className;
+            console.log(buttonClasses);
+            if (buttonClasses.indexOf('-outline') > 0) {
+              buttonClasses = buttonClasses.replace('-outline', '');
+            } else {
+              buttonClasses = buttonClasses.replace("heart", 'heart-outline');
+            }
+            $event.currentTarget.className = buttonClasses;
+            console.log(buttonClasses);
+            var promise = StatusService.addLike(post._id, user._id);
             if (updateLike(post)) {
+                console.log("aaaa");
                 var promise = StatusService.addLike(post._id, user._id);
                 promise.then(function(data) {
                     console.log('successfully updated like');
-                });
+                }
+                );
             } else {
-                //   var showError = $ionicPopup.show({
-                //   title: 'Error:',
-                //   template: 'You have already voted',
-                //   okText: '<i class="icon ion-checkmark-round"></i>',
-                // });
-                // showError.then(function(res) {
-                //   console.log('dialog shown');
-                //  });
-                var message = 'You have already voted!';
-                $cordovaToast.show(message, 'short', 'bottom').then(function(success) {
-                    console.log(message);
-                }, function(error) {
-                    console.log("The toast was not shown due to " + error);
-                });
+                var promise = StatusService.minusLike(post._id, user._id);
+                console.log("bbbb");
+            //     //   var showError = $ionicPopup.show({
+            //     //   title: 'Error:',
+            //     //   template: 'You have already voted',
+            //     //   okText: '<i class="icon ion-checkmark-round"></i>',
+            //     // });
+            //     // showError.then(function(res) {
+            //     //   console.log('dialog shown');
+            //     //  });
+            //     var message = 'You have already voted!';
+            //     $cordovaToast.show(message, 'short', 'bottom').then(function(success) {
+            //         console.log(message);
+            //     }, function(error) {
+            //         console.log("The toast was not shown due to " + error);
+            //     });
 
             }
         };

@@ -14,7 +14,7 @@
                     <strong ng-click = "vm.checkFriendInfo(post)">{{post._Owner.username}}</strong> {{post.description}}
                     <div class="card-footer text-right">
                         <i class="icon ion-ios-chatboxes positive"></i>
-                        <i class="icon ion-heart assertive larger" ng-click="vm.clickedLike(post)"></i> {{vm.getLikes(post)}}
+                        <i class="icon ion-ios-heart assertive larger" ng-click="vm.clickedLike(post,$event)"></i> {{vm.getLikes(post)}}
                         <div class="pull-left">
                             <i class="icon ion-clock"></i> {{post.createdDate | date:'MM/dd/yyyy'}}
                         </div>
