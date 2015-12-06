@@ -75,7 +75,7 @@
         }
 
 
-        function getLikes(post){
+        function getLikes(post,$event){
             if(post.likedBy && post.likedBy.length){
                 return post.likedBy.length;
             } else {
