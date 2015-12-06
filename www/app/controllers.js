@@ -21,7 +21,7 @@ angular.module('petBook.controllers', [])
 
     var navIcons = document.getElementsByClassName('ion-navicon');
     for (var i = 0; i < navIcons.length; i++) {
-        navIcons.addEventListener('click', function() {
+        navIcons[i].addEventListener('click', function() {
             this.classList.toggle('active');
         });
     }
