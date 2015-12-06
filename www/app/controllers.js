@@ -661,7 +661,7 @@ angular.module('petBook.controllers', [])
             
             var status = {
                 description: $scope.data.userInput,
-                likes: 5,
+                likes: 0,
                 location: $scope.location //hard coded
             }
             var promise = StatusService.add($scope.user._id, status);
