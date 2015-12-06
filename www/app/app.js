@@ -43,8 +43,8 @@ angular.module('petBook', ['ionic',
         'Content-Type': 'application/json'
     });
 
-   // RestangularProvider.setBaseUrl('http://localhost:8080/api');	
-    RestangularProvider.setBaseUrl('https://petbookapi.herokuapp.com/api'); 
+    RestangularProvider.setBaseUrl('http://localhost:8080/api');	
+    //RestangularProvider.setBaseUrl('https://petbookapi.herokuapp.com/api'); 
     // RestangularProvider.setBaseUrl('https://petbookprod.herokuapp.com/api'); 
 
     

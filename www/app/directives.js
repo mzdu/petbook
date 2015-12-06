@@ -124,31 +124,31 @@
             }
             $event.currentTarget.className = buttonClasses;
             console.log(buttonClasses);
-            var promise = StatusService.addLike(post._id, user._id);
+            //updateLike(post);
+            //var promise = StatusService.addLike(post._id, user._id);
+            //console.log(post.likedBy);
             if (updateLike(post)) {
-                console.log("aaaa");
-                var promise = StatusService.addLike(post._id, user._id);
-                promise.then(function(data) {
-                    console.log('successfully updated like');
-                }
-                );
-            } else {
-                var promise = StatusService.minusLike(post._id, user._id);
-                console.log("bbbb");
-            //     //   var showError = $ionicPopup.show({
-            //     //   title: 'Error:',
-            //     //   template: 'You have already voted',
-            //     //   okText: '<i class="icon ion-checkmark-round"></i>',
-            //     // });
-            //     // showError.then(function(res) {
-            //     //   console.log('dialog shown');
-            //     //  });
-            //     var message = 'You have already voted!';
-            //     $cordovaToast.show(message, 'short', 'bottom').then(function(success) {
-            //         console.log(message);
-            //     }, function(error) {
-            //         console.log("The toast was not shown due to " + error);
-            //     });
+               var promise = StatusService.addLike(post._id, user._id);
+               promise.then(function(data) {
+                   console.log('successfully updated like');
+               }
+               );
+            } else {               
+               var promise = StatusService.minusLike(post._id, user._id);
+                //   var showError = $ionicPopup.show({
+                //   title: 'Error:',
+                //   template: 'You have already voted',
+                //   okText: '<i class="icon ion-checkmark-round"></i>',
+                // });
+                // showError.then(function(res) {
+                //   console.log('dialog shown');
+                //  });
+                var message = 'You have already voted!';
+                $cordovaToast.show(message, 'short', 'bottom').then(function(success) {
+                    console.log(message);
+                }, function(error) {
+                    console.log("The toast was not shown due to " + error);
+                });
 
             }
         };
