@@ -14,7 +14,8 @@ angular.module('petBook', ['ionic',
     'restangular',
     'ngStorage', 
     'ionic-material', 
-    'ionMdInput'])
+    'ionMdInput',
+    'infinite-scroll'])
 
 .run(function($ionicPlatform) {
     $ionicPlatform.ready(function() {
@@ -43,8 +44,8 @@ angular.module('petBook', ['ionic',
         'Content-Type': 'application/json'
     });
 
-   // RestangularProvider.setBaseUrl('http://localhost:8080/api');	
-    RestangularProvider.setBaseUrl('https://petbookapi.herokuapp.com/api'); 
+   RestangularProvider.setBaseUrl('http://localhost:8080/api');	
+    // RestangularProvider.setBaseUrl('https://petbookapi.herokuapp.com/api'); 
     // RestangularProvider.setBaseUrl('https://petbookprod.herokuapp.com/api'); 
 
     

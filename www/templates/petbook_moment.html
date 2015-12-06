@@ -5,7 +5,7 @@
 
             </div>
         </div>
-
+        
         <div class="item card-item" ng-repeat="post in vm.posts | orderBy: '-createdDate'">
             <div class="card stable-bg ink ink-dark">
                 <div class="item item-avatar item-text-wrap">
@@ -27,6 +27,10 @@
                 </div>
             </div>
         </div>
+        <ion-infinite-scroll
+            on-infinite="vm.load()"
+            distance="1%">
+          </ion-infinite-scroll>
 
 
     <!--     <div class="item card-item" ng-repeat="post in vm.posts | orderBy: '-createdDate'">

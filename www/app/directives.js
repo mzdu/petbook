@@ -21,6 +21,7 @@
             restrict: 'E',
             scope: {
                 posts: '=',
+                load: '&',
                 cardType: '@'
             },
             templateUrl: 'templates/petbook_moment.html'
@@ -42,6 +43,7 @@
         
         vm.getComments = getComments;
         vm.addComment = addComment;
+        vm.test = test;
 
         var user = StorageService.getCurrentUser().user;
         //console.log('user is: ', user);
@@ -75,6 +77,9 @@
         }
 
 
+        function test(){
+            console.log('in test');
+        }
         function getLikes(post){
             if(post.likedBy && post.likedBy.length){
                 return post.likedBy.length;

@@ -3,7 +3,7 @@
 
 angular.module('petBook.controllers', [])
 
-.controller('AppCtrl', function($rootScope, $scope, $ionicModal, $ionicPopover, $timeout, StorageService,$state, $ionicPopup, $ionicLoading) {
+.controller('AppCtrl', function($rootScope, $scope, $ionicModal, $ionicPopover, $timeout, StorageService, $state, $ionicPopup, $ionicLoading) {
     // Form data for the login modal
     $scope.loginData = {};
     $scope.isExpanded = false;
@@ -25,7 +25,7 @@ angular.module('petBook.controllers', [])
             this.classList.toggle('active');
         });
     }
- 
+
     ////////////////////////////////////////
     // Layout Methods
     ////////////////////////////////////////
@@ -99,29 +99,29 @@ angular.module('petBook.controllers', [])
         /*StorageService.resetCurrentUser();
         $state.go('app.login');*/
         var confirmPopup = $ionicPopup.confirm({
-         title: 'Confirmation',
-         template: 'Are you sure you want to log out?',
-         okText: '<i class="icon ion-checkmark-round"></i>',
-         cancelText: '<i class="icon ion-close-round"></i>'
-       });
-       confirmPopup.then(function(res) {
-         if(res) {
-           StorageService.resetCurrentUser();
-           $state.go('app.login');
-           console.log('You are sure');
-         } else {
-           console.log('You are not sure');
-         }
-       }); 
+            title: 'Confirmation',
+            template: 'Are you sure you want to log out?',
+            okText: '<i class="icon ion-checkmark-round"></i>',
+            cancelText: '<i class="icon ion-close-round"></i>'
+        });
+        confirmPopup.then(function(res) {
+            if (res) {
+                StorageService.resetCurrentUser();
+                $state.go('app.login');
+                console.log('You are sure');
+            } else {
+                console.log('You are not sure');
+            }
+        });
     };
     //for loading screens
     $scope.showLoading = function() {
         $ionicLoading.show({
-          template: '<p style="color:#0a9ec7">Loading...</p><ion-spinner icon="bubbles" class="spinner-calm"></ion-spinner>'
+            template: '<p style="color:#0a9ec7">Loading...</p><ion-spinner icon="bubbles" class="spinner-calm"></ion-spinner>'
         });
     };
 
-    $scope.hideLoading = function(){
+    $scope.hideLoading = function() {
         $ionicLoading.hide();
     };
 })
@@ -177,19 +177,19 @@ angular.module('petBook.controllers', [])
     //console.log('scope user is ', $scope.user);
 
     $scope.field = $stateParams.field;
-    if($scope.field === 'dob'){
-        
+    if ($scope.field === 'dob') {
+
         $scope.value = new Date($stateParams.value);
-    }else{
+    } else {
         $scope.value = $stateParams.value;
     }
     console.log('$scope.field = ', $scope.field);
     console.log('$scope.value = ', $scope.value);
-    if($scope.field && $scope.value){
+    if ($scope.field && $scope.value) {
         console.log('got both field and value');
         $scope.user.pet[$scope.field] = $scope.value;
     }
-    
+
 
 
     // Set Motion
@@ -207,56 +207,56 @@ angular.module('petBook.controllers', [])
 
     // Set Ink
     ionicMaterialInk.displayEffect();
-/*
-    $scope.$on('toggleEdit', function(event, data) {
-        //console.log('test received', data);
-        $scope.editMode = data;
+    /*
+        $scope.$on('toggleEdit', function(event, data) {
+            //console.log('test received', data);
+            $scope.editMode = data;
 
-        //console.log('editmode is', $scope.editMode);
+            //console.log('editmode is', $scope.editMode);
 
-        if (!$scope.editMode) {
-            var confirmPopup = $ionicPopup.confirm({
-             title: 'Confirmation',
-             template: 'Are you sure you want to save it?',
-             okText: '<i class="icon ion-checkmark-round"></i>',
-             cancelText: '<i class="icon ion-close-round"></i>'
-           });
-           confirmPopup.then(function(res) {
-             if(res) {
-                $scope.user.pet._id = $scope.user._id;
-                $scope.user.pet.dob = new Date($scope.user.pet.dob);
-                //console.log($scope.user.pet);
-                var feedback = ProfileService.update($scope.user.pet);
-              } 
-            });
-        }
+            if (!$scope.editMode) {
+                var confirmPopup = $ionicPopup.confirm({
+                 title: 'Confirmation',
+                 template: 'Are you sure you want to save it?',
+                 okText: '<i class="icon ion-checkmark-round"></i>',
+                 cancelText: '<i class="icon ion-close-round"></i>'
+               });
+               confirmPopup.then(function(res) {
+                 if(res) {
+                    $scope.user.pet._id = $scope.user._id;
+                    $scope.user.pet.dob = new Date($scope.user.pet.dob);
+                    //console.log($scope.user.pet);
+                    var feedback = ProfileService.update($scope.user.pet);
+                  } 
+                });
+            }
 
-        // do what you want to do
-        
-        console.log('scope editMode', $scope.editMode);
-        console.log('user obj is', $scope.user);
-        console.log('pet obj is', $scope.user.pet);
-        
-        
-        // $timeout(function() {console.log('hahahaha')}, 100);       
-    });
-*/
+            // do what you want to do
+            
+            console.log('scope editMode', $scope.editMode);
+            console.log('user obj is', $scope.user);
+            console.log('pet obj is', $scope.user.pet);
+            
+            
+            // $timeout(function() {console.log('hahahaha')}, 100);       
+        });
+    */
 
 
     // A confirm dialog
-/*         $scope.showConfirm = function() {
-           var confirmPopup = $ionicPopup.confirm({
-             title: 'Confirmation',
-             template: 'Are you sure you want to save it?'
-           });
-           confirmPopup.then(function(res) {
-             if(res) {
-               
-             } else {
-               
-             }
-           });
-         };  */   
+    /*         $scope.showConfirm = function() {
+               var confirmPopup = $ionicPopup.confirm({
+                 title: 'Confirmation',
+                 template: 'Are you sure you want to save it?'
+               });
+               confirmPopup.then(function(res) {
+                 if(res) {
+                   
+                 } else {
+                   
+                 }
+               });
+             };  */
 })
 
 .controller('ProfileBlankInputCtrl', function($scope, $stateParams, $timeout, ionicMaterialMotion, ionicMaterialInk, StorageService, ProfileService, $ionicPopup) {
@@ -285,48 +285,82 @@ angular.module('petBook.controllers', [])
     // Set Ink
     ionicMaterialInk.displayEffect();
 
- 
+
 })
 
 
 
-.controller('MomentsCtrl', function($scope, $state, $cordovaToast, $stateParams, $timeout, StorageService, ionicMaterialMotion, ionicMaterialInk, StatusService, LocationService, $ionicLoading) {
-    
+.controller('MomentsCtrl', function($scope, $state, $cordovaToast, $ionicPlatform, $stateParams, $timeout, StorageService, ionicMaterialMotion, ionicMaterialInk, StatusService, LocationService, $ionicLoading) {
+
     $scope.$parent.showHeader();
     $scope.$parent.clearFabs();
     $scope.isExpanded = true;
     $scope.$parent.setExpanded(true);
     $scope.$parent.setHeaderFab('right');
     $scope.isExpanded = true;
+    $scope.loadMoreData = loadMoreData;
 
     var user = StorageService.getCurrentUser().user;
-    
-    LocationService.getCurrentLocation().then(function(loc){
-        // $scope.location = loc;
-        //console.log('location is: ', loc);
-        var moment = {
-            "userID": user._id,
-            "location": loc,
-            "rad": 10
-        };
+    console.log('in moment ctrl');
 
+    var geolocation = false;
+    if (navigator.geolocation) {
+        geolocation = navigator.geolocation;
+    }
+
+     var moment = {
+        "userID": user._id
+    };
+
+    $ionicPlatform.ready(function() {
+        console.log('device ready');
         $scope.showLoading($ionicLoading);
+        LocationService.getCurrentLocation().then(function(loc) {
+            
+            console.log('location ctrl is: ', loc);
+            moment.location = loc;
+            moment.rad = 10;
+            loadMoments();
+            
+
+        }, function(error) {
+            loadMoments();
+            console.log('could not load location ', error);
+        });
+
+    });
+
+    function loadMoments(){
         var promise = StatusService.getMoments(moment);
-        promise.then(function(results, err) {
-            if (!err) {
-                $scope.posts = results;
-                //console.log('posts are: ', $scope.posts);
-                $scope.likes = results.likedBy;
-            } else {
-                $scope.log('error is', err);
-            }
-        })
+        promise.then(successHandler, errorHandler)
         .finally(function($ionicLoading) {
             //hide the loading
             $scope.hideLoading($ionicLoading);
         });
+    }
 
-    });
+    function loadMoreData(){
+        console.log('get more data from moments');
+    }
+
+
+    function successHandler(results, err) {
+        if (!err) {
+            $scope.posts = results;
+            //console.log('posts are: ', $scope.posts);
+            $scope.likes = results.likedBy;
+        } else {
+            $scope.log('error is', err);
+        }
+
+    }
+
+    function errorHandler() {
+        console.log('in error handler');
+        $scope.hideLoading($ionicLoading);
+    }
+
+
 
     // $timeout(function() {
     //     ionicMaterialMotion.fadeSlideIn({
@@ -338,7 +372,7 @@ angular.module('petBook.controllers', [])
     // ionicMaterialInk.displayEffect();
 
 
-     
+
 })
 
 .controller('FriendInfoCtrl', function($scope, $state, $stateParams, ProfileService) {
@@ -349,10 +383,10 @@ angular.module('petBook.controllers', [])
     $scope.$parent.setHeaderFab(false);
 
     var userID = $stateParams.userID;
-    if(userID){
+    if (userID) {
         var promise = ProfileService.get(userID);
-        promise.then(function(data){
-            if(data){
+        promise.then(function(data) {
+            if (data) {
                 $scope.user = data;
             }
         });
@@ -366,20 +400,17 @@ angular.module('petBook.controllers', [])
     $scope.$parent.setExpanded(false);
     $scope.$parent.setHeaderFab(false);
 
-    $scope.leftButtons = [
-      {
+    $scope.leftButtons = [{
         type: 'button-positive',
         content: '<i class="icon ion-navicon"></i>',
-        tap: function(e) {
-        }
-      }
-    ];
+        tap: function(e) {}
+    }];
 
     $scope.field = $stateParams.field;
-    if($scope.field === 'dob'){
+    if ($scope.field === 'dob') {
         $scope.value = new Date($stateParams.value);
-        
-    }else{
+
+    } else {
         $scope.value = $stateParams.value;
     }
     $scope.pet = {};
@@ -388,29 +419,32 @@ angular.module('petBook.controllers', [])
 
     console.log('scope.pet is: ', $scope.pet);
 
-    console.log('$scope.field = ', $scope.field);    
+    console.log('$scope.field = ', $scope.field);
     console.log('the value is: ', $scope.value);
 
-    $scope.save = function(pet){
+    $scope.save = function(pet) {
         var user = StorageService.getCurrentUser().user;
         pet._id = user._id;
         var promise = ProfileService.update(pet);
         $scope.showLoading($ionicLoading);
-        promise.then(function(response){
-            if(response){
-                $state.go('app.profile', {field: $scope.field, value: pet[$scope.field]});
-            }
-        })
-        .finally(function($ionicLoading) {
-                    //hide the loading
-                    $scope.hideLoading($ionicLoading);
-        });
+        promise.then(function(response) {
+                if (response) {
+                    $state.go('app.profile', {
+                        field: $scope.field,
+                        value: pet[$scope.field]
+                    });
+                }
+            })
+            .finally(function($ionicLoading) {
+                //hide the loading
+                $scope.hideLoading($ionicLoading);
+            });
 
 
 
     }
 
-    $scope.cancel = function(){
+    $scope.cancel = function() {
         $scope.pet = {};
         $state.go('app.profile');
     }
@@ -456,17 +490,17 @@ angular.module('petBook.controllers', [])
         // $scope.posts
         $scope.showLoading($ionicLoading);
         promise.then(function(results, err) {
-            if (!err) {
-                $scope.posts = results;
-                //console.log('results is', results);
-            } else {
-                $scope.log('error is', err);
-            }
-        })
-        .finally(function($ionicLoading) {
-            //hide the loading
-            $scope.hideLoading($ionicLoading);
-        });
+                if (!err) {
+                    $scope.posts = results;
+                    //console.log('results is', results);
+                } else {
+                    $scope.log('error is', err);
+                }
+            })
+            .finally(function($ionicLoading) {
+                //hide the loading
+                $scope.hideLoading($ionicLoading);
+            });
     }
 
     //  $timeout(function() {
@@ -481,7 +515,7 @@ angular.module('petBook.controllers', [])
 
 
 
-.controller('AddPostsCtrl', function($scope, $state){ //, $stateParams, $timeout, ionicMaterialMotion, ionicMaterialInk, StorageService, $ionicPopup, StatusService, LocationService) {
+.controller('AddPostsCtrl', function($scope, $state) { //, $stateParams, $timeout, ionicMaterialMotion, ionicMaterialInk, StorageService, $ionicPopup, StatusService, LocationService) {
     // Set Header
     $scope.$parent.showHeader();
     $scope.$parent.clearFabs();
@@ -489,9 +523,9 @@ angular.module('petBook.controllers', [])
     $scope.$parent.setExpanded(false);
     $scope.$parent.setHeaderFab(false);
     $scope.showPopup = function() {
-        $state.go('app.newpost');
-    }
-    /* //testing data
+            $state.go('app.newpost');
+        }
+        /* //testing data
     $scope.posts = [{
         description: 'wishing my dad were home',
         likes: 10,
@@ -518,7 +552,7 @@ angular.module('petBook.controllers', [])
 
 =======
     }];*/
-    /*
+        /*
     $scope.user = StorageService.getCurrentUser().user;
 
     // Set Motion
@@ -607,93 +641,104 @@ angular.module('petBook.controllers', [])
 
             });
     */
-    /*$timeout(function() {
-       myPopup.close(); //close the popup after 3 seconds for some reason
-    }, 8000);*/
+        /*$timeout(function() {
+           myPopup.close(); //close the popup after 3 seconds for some reason
+        }, 8000);*/
 })
 
-.controller('NewPostCtrl',function($scope,StorageService,StatusService,$state, LocationService, $ionicPopup, $ionicLoading){
-    $scope.$parent.showHeader();
-    $scope.$parent.clearFabs();
-    $scope.isExpanded = false;
-    $scope.$parent.setExpanded(false);
-    $scope.$parent.setHeaderFab(false);
-    $scope.data = {};
-    $scope.user = StorageService.getCurrentUser().user;
-    
-    $scope.choiceList = [
-    { text: "playmates!", value: "playmates!" },
-    { text: "medical advice.", value: "medical advice." },
-    { text: "to take a shower.", value: "to take a shower." },
-    { text: "a walk.", value: "a walk." },
-    { text: "dog sitting/boarding.", value: "dog sitting/boarding." },
-    { text: "other:", value: "other" }
-    ];
+.controller('NewPostCtrl', function($scope, StorageService, StatusService, $state, LocationService, $ionicPopup, $ionicLoading) {
+        $scope.$parent.showHeader();
+        $scope.$parent.clearFabs();
+        $scope.isExpanded = false;
+        $scope.$parent.setExpanded(false);
+        $scope.$parent.setHeaderFab(false);
+        $scope.data = {};
+        $scope.user = StorageService.getCurrentUser().user;
 
-     LocationService.getCurrentLocation().then(function(loc){
-        $scope.location = loc;
-        console.log('location is: ', loc);
-    });
+        $scope.choiceList = [{
+            text: "playmates!",
+            value: "playmates!"
+        }, {
+            text: "medical advice.",
+            value: "medical advice."
+        }, {
+            text: "to take a shower.",
+            value: "to take a shower."
+        }, {
+            text: "a walk.",
+            value: "a walk."
+        }, {
+            text: "dog sitting/boarding.",
+            value: "dog sitting/boarding."
+        }, {
+            text: "other:",
+            value: "other"
+        }];
 
-    $scope.addPost = function(){
-        $scope.data.userInput = "";
-        if($scope.data.choice != "other" && $scope.data.choice != undefined){
-            $scope.data.userInput = "My dog needs " + $scope.data.choice;
-        }
-        if($scope.data.post != undefined){
-            if($scope.data.userInput != "") {
-                $scope.data.userInput = $scope.data.userInput + " ";
+        LocationService.getCurrentLocation().then(function(loc) {
+            $scope.location = loc;
+            console.log('location is: ', loc);
+        });
+
+        $scope.addPost = function() {
+            $scope.data.userInput = "";
+            if ($scope.data.choice != "other" && $scope.data.choice != undefined) {
+                $scope.data.userInput = "My dog needs " + $scope.data.choice;
             }
-            $scope.data.userInput = $scope.data.userInput + $scope.data.post;
-        }
-
-        if( ($scope.data.choice == "other" || $scope.data.choice == undefined) && $scope.data.post == undefined){
-            var alertPopup = $ionicPopup.alert({
-             title: 'Alert',
-             template: 'You need to select a choice or enter some text.'
-            });
-            alertPopup.then(function(res) {
-             console.log('Try select or enter again.');
-            });
-        }else{
-            //console.log("data is ",$scope.data);
-            $scope.showLoading($ionicLoading);
-            
-            var status = {
-                description: $scope.data.userInput,
-                likes: 5,
-                location: $scope.location //hard coded
-            }
-            var promise = StatusService.add($scope.user._id, status);
-
-            promise.then(function(data, error) {
-                if (!error) {
-                    console.log('added data is: ', data);
-                    console.log('wish successfully added');
-                    //$state.reload();
-                    $state.go('app.myposts');
-
-                } else {
-                    console.log('error adding wish');
+            if ($scope.data.post != undefined) {
+                if ($scope.data.userInput != "") {
+                    $scope.data.userInput = $scope.data.userInput + " ";
                 }
-            }, function(response) {
-                console.log('response error ', response);
-            })
-            .finally(function($ionicLoading) {
-                //hide the loading
-                $scope.hideLoading($ionicLoading);
-             });
+                $scope.data.userInput = $scope.data.userInput + $scope.data.post;
+            }
+
+            if (($scope.data.choice == "other" || $scope.data.choice == undefined) && $scope.data.post == undefined) {
+                var alertPopup = $ionicPopup.alert({
+                    title: 'Alert',
+                    template: 'You need to select a choice or enter some text.'
+                });
+                alertPopup.then(function(res) {
+                    console.log('Try select or enter again.');
+                });
+            } else {
+                //console.log("data is ",$scope.data);
+                $scope.showLoading($ionicLoading);
+
+                var status = {
+                    description: $scope.data.userInput,
+                    likes: 5,
+                    location: $scope.location //hard coded
+                }
+                var promise = StatusService.add($scope.user._id, status);
+
+                promise.then(function(data, error) {
+                        if (!error) {
+                            console.log('added data is: ', data);
+                            console.log('wish successfully added');
+                            //$state.reload();
+                            $state.go('app.myposts');
+
+                        } else {
+                            console.log('error adding wish');
+                        }
+                    }, function(response) {
+                        console.log('response error ', response);
+                    })
+                    .finally(function($ionicLoading) {
+                        //hide the loading
+                        $scope.hideLoading($ionicLoading);
+                    });
+            }
+
         }
 
-    }
+    })
+    /*.controller('PetsNearbyCtrl', ['$scope', function ($scope) {
+        
+    }])
+    */
+    .controller('AboutCtrl', function($scope) {
 
-})
-/*.controller('PetsNearbyCtrl', ['$scope', function ($scope) {
-    
-}])
-*/
-.controller('AboutCtrl', function($scope){
-
-})
+    })
 
 ;
