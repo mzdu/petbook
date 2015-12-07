@@ -332,7 +332,7 @@ angular.module('petBook.controllers', [])
 
     function loadMoments(){
         var promise = StatusService.getMoments(moment);
-        promise.then(successHandler, errorHandler)
+        promise.then(attachMoments, errorHandler)
         .finally(function($ionicLoading) {
             //hide the loading
             $scope.hideLoading($ionicLoading);
@@ -341,14 +341,36 @@ angular.module('petBook.controllers', [])
 
     function loadMoreData(){
         console.log('get more data from moments');
+        moment.offSet = $scope.posts.length;
+        loadMoments();
     }
 
 
-    function successHandler(results, err) {
+    function attachMoments(results, err) {
+        console.log('results are: ', results);
         if (!err) {
-            $scope.posts = results;
+            
+            if(!$scope.posts){
+                // $scope.posts = [];
+                $scope.posts = results;
+            }
+            else {
+                // var copy = angular.copy($scope.posts);
+                $timeout(function(){
+                     _.each(results, function(item){
+                        // copy.push(item);
+                        $scope.posts.push(item)
+                    });
+                })
+           
+            // $scope.posts = copy;
+            console.log('new scpoe is: ', $scope.posts);
+
             //console.log('posts are: ', $scope.posts);
             $scope.likes = results.likedBy;
+
+            }   
+
         } else {
             $scope.log('error is', err);
         }

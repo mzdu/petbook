@@ -21,7 +21,7 @@
             restrict: 'E',
             scope: {
                 posts: '=',
-                load: '&',
+                nextPage: '&',
                 cardType: '@'
             },
             templateUrl: 'templates/petbook_moment.html'
@@ -45,11 +45,13 @@
         vm.addComment = addComment;
         vm.test = test;
 
+        vm.hasRendered = false;
         var user = StorageService.getCurrentUser().user;
         //console.log('user is: ', user);
         $scope.$watch('vm.posts', function(data, data2) {
-        if (data) {
-            //console.log('got data', data);
+            console.log('in watch');
+        if (data && !vm.hasRendered) {
+            console.log('got data and rendering', data);
 
             $timeout(function() {
                 ionicMaterialMotion.fadeSlideIn({
@@ -58,7 +60,8 @@
             }, 200);
             // Set Ink
             ionicMaterialInk.displayEffect();
-        }
+            vm.hasRendered = true;
+        } 
 
         });
 
