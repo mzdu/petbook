@@ -301,7 +301,6 @@ angular.module('petBook.controllers', [])
     $scope.loadMoreData = loadMoreData;
 
     var user = StorageService.getCurrentUser().user;
-    console.log('in moment ctrl');
 
     var geolocation = false;
     if (navigator.geolocation) {
@@ -313,11 +312,9 @@ angular.module('petBook.controllers', [])
     };
 
     $ionicPlatform.ready(function() {
-        console.log('device ready');
         $scope.showLoading($ionicLoading);
         LocationService.getCurrentLocation().then(function(loc) {
             
-            console.log('location ctrl is: ', loc);
             moment.location = loc;
             moment.rad = 10;
             loadMoments();
@@ -325,7 +322,6 @@ angular.module('petBook.controllers', [])
 
         }, function(error) {
             loadMoments();
-            console.log('could not load location ', error);
         });
 
     });
@@ -336,37 +332,32 @@ angular.module('petBook.controllers', [])
         .finally(function($ionicLoading) {
             //hide the loading
             $scope.hideLoading($ionicLoading);
+            $scope.$broadcast('scroll.infiniteScrollComplete');
         });
     }
 
     function loadMoreData(){
-        console.log('get more data from moments');
         moment.offSet = $scope.posts.length;
         loadMoments();
     }
 
 
     function attachMoments(results, err) {
-        console.log('results are: ', results);
+        // $scope.showInfiniteScroll = true;
         if (!err) {
-            
+            // $scope.showInfiniteScroll = (results.length > 0) ? true : false;
             if(!$scope.posts){
-                // $scope.posts = [];
                 $scope.posts = results;
             }
             else {
-                // var copy = angular.copy($scope.posts);
                 $timeout(function(){
                      _.each(results, function(item){
-                        // copy.push(item);
                         $scope.posts.push(item)
                     });
                 })
            
             // $scope.posts = copy;
-            console.log('new scpoe is: ', $scope.posts);
 
-            //console.log('posts are: ', $scope.posts);
             $scope.likes = results.likedBy;
 
             }   
