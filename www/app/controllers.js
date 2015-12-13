@@ -174,6 +174,7 @@ angular.module('petBook.controllers', [])
     // $scope.$parent.setExpanded(false);
     // $scope.$parent.setHeaderFab(false);
     $scope.user = StorageService.getCurrentUser().user;
+    $scope.user.avatar='';
     //console.log('scope user is ', $scope.user);
 
     $scope.field = $stateParams.field;
@@ -258,36 +259,6 @@ angular.module('petBook.controllers', [])
                });
              };  */
 })
-
-.controller('ProfileBlankInputCtrl', function($scope, $stateParams, $timeout, ionicMaterialMotion, ionicMaterialInk, StorageService, ProfileService, $ionicPopup) {
-    // Set Header
-    $scope.$parent.showHeader();
-    $scope.$parent.clearFabs();
-    // $scope.isExpanded = false;
-    // $scope.$parent.setExpanded(false);
-    // $scope.$parent.setHeaderFab(false);
-    $scope.user = StorageService.getCurrentUser().user;
-    //console.log('scope user is ', $scope.user);
-
-    // Set Motion
-    $timeout(function() {
-        ionicMaterialMotion.slideUp({
-            selector: '.slide-up'
-        });
-    }, 300);
-
-    $timeout(function() {
-        ionicMaterialMotion.fadeSlideInRight({
-            startVelocity: 3000
-        });
-    }, 700);
-
-    // Set Ink
-    ionicMaterialInk.displayEffect();
-
-
-})
-
 
 
 .controller('MomentsCtrl', function($scope, $state, $cordovaToast, $ionicPlatform, $stateParams, $timeout, StorageService, ionicMaterialMotion, ionicMaterialInk, StatusService, LocationService, $ionicLoading) {
@@ -401,7 +372,7 @@ angular.module('petBook.controllers', [])
     }
 })
 
-.controller('EditProfileCtrl', function($scope, $state, $stateParams, ProfileService, StorageService, $ionicLoading) {
+.controller('EditProfileCtrl', function($scope, $state, $stateParams, ProfileService, StorageService, $ionicLoading, $cordovaImagePicker, $ionicPlatform, $cordovaFileTransfer) {
     $scope.$parent.showHeader();
     $scope.$parent.clearFabs();
     $scope.isExpanded = false;
@@ -422,13 +393,14 @@ angular.module('petBook.controllers', [])
         $scope.value = $stateParams.value;
     }
     $scope.pet = {};
+    $scope.user = StorageService.getCurrentUser().user;
+    $scope.user.avatar = '';
 
     $scope.pet[$scope.field] = $scope.value;
 
-    console.log('scope.pet is: ', $scope.pet);
-
-    console.log('$scope.field = ', $scope.field);
-    console.log('the value is: ', $scope.value);
+    /*console.log('scope.pet is: ', $scope.pet);
+    console.log('$scope.field = ', $scope.field);    
+    console.log('the value is: ', $scope.value);*/
 
     $scope.save = function(pet) {
         var user = StorageService.getCurrentUser().user;
@@ -448,16 +420,51 @@ angular.module('petBook.controllers', [])
                 $scope.hideLoading($ionicLoading);
             });
 
-
-
     }
 
     $scope.cancel = function() {
         $scope.pet = {};
+        $scope.user.avatar='';
         $state.go('app.profile');
     }
 
-    console.log('in edit profile ctrl');
+    //upload selected avatar image to AWS; not finished yet
+    $scope.upload = function(){
+        var options = {
+            fileKey: "avatar",
+            fileName: "avatar",
+            chunkedMode: false,
+            mimeType: "image/png"
+        };
+        //$cordovaFileTransfer.upload("http://192.168.56.1:1337/file/upload", "img/care1.png", options)
+
+    }
+    //console.log('in edit profile ctrl');
+
+    //choose a photo for avatar; the avatar's uri is in $scope.user.avatar
+    $scope.selectImage = function(){
+        // Image picker will load images according to these settings
+        var options = {
+            maximumImagesCount: 1, // Max number of selected images
+            width: 800,
+            height: 800,
+            quality: 80            // Higher is better
+        };
+     
+        $cordovaImagePicker.getPictures(options).then(function (results) {
+            // Loop through acquired images; if multiple images
+            /*for (var i = 0; i < results.length; i++) {
+                console.log('Image URI: ' + results[i]);   // Print image URI
+            }*/
+            //$scope.user.avatar = 'http://www.google.com/imgres?imgurl=http://animalia-life.com/data_images/dog/dog7.jpg&imgrefurl=http://animalia-life.com/dogs.html&h=2317&w=2121&tbnid=Q-QQDJH26K8rsM:&tbnh=186&tbnw=170&usg=__VEQGqVYJwWqvFCni6PQlaSmjXaw=&docid=QIa83ScG5OU-uM&itg=1';
+            $scope.user.avatar = results[0];
+            //the following is for testing local images
+            //$scope.user.avatar = "img/arya.jpg";
+            console.log('Image URI: '+results[0]);
+        }, function(error) {
+            console.log('Error: ' + JSON.stringify(error));    // In case of error
+        });
+    }
 })
 
 
