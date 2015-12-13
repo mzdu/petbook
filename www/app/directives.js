@@ -43,7 +43,6 @@
         $scope.likes = 0;
         vm.getComments = getComments;
         vm.addComment = addComment;
-        vm.test = test;
 
         vm.hasRendered = false;
         var user = StorageService.getCurrentUser().user;
