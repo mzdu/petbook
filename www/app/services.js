@@ -104,7 +104,11 @@
 
              addLike: function(statusID, userID){
                 return Restangular.all('status').one('', statusID).one('likes', userID).post();
-             }
+            },
+
+            minusLike: function(statusID, userID){
+                return Restangular.all('status').one('', statusID).one('disLikes', userID).post();  
+             },
 
          }; //end of return
      };  
