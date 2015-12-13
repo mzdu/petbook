@@ -416,10 +416,10 @@ angular.module('petBook.controllers', [])
                 console.log('Image URI: ' + results[i]);   // Print image URI
             }*/
             //$scope.user.avatar = 'http://www.google.com/imgres?imgurl=http://animalia-life.com/data_images/dog/dog7.jpg&imgrefurl=http://animalia-life.com/dogs.html&h=2317&w=2121&tbnid=Q-QQDJH26K8rsM:&tbnh=186&tbnw=170&usg=__VEQGqVYJwWqvFCni6PQlaSmjXaw=&docid=QIa83ScG5OU-uM&itg=1';
-            $scope.user.avatar = result[0];
+            $scope.user.avatar = results[0];
             //the following is for testing local images
             //$scope.user.avatar = "img/arya.jpg";
-            console.log('Image URI: '+result[0]);
+            console.log('Image URI: '+results[0]);
         }, function(error) {
             console.log('Error: ' + JSON.stringify(error));    // In case of error
         });

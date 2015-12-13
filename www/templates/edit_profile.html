@@ -8,12 +8,17 @@
                     <button class="button button-full button-positive" ng-click="selectImage()">
                         Select Photo
                     </button>
-                   <img ng-show="image" ng-src="{{user.avatar}}"/>
-                   <p>Your photo: {{user.avatar}}</p>
+                   <!--<img ng-show="image" ng-src="{{user.avatar}}"/> -->
+                   <!--<p>Your photo: {{user.avatar}}</p>
                    
                    <a class="item item-avatar">
-                     <img ng-src="{{user.avatar}}">
+                     <img src="{{user.avatar}}">
                    </a>
+                   -->
+                   <div class="item item-body">
+                    <img class="full-image avatar-bigger" src="{{user.avatar}}">
+                    <div>
+
                 </div>
                 <!-- name -->
                 <label class="item item-input" ng-if="field === 'name'">
