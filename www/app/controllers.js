@@ -302,11 +302,6 @@ angular.module('petBook.controllers', [])
 
     var user = StorageService.getCurrentUser().user;
 
-    var geolocation = false;
-    if (navigator.geolocation) {
-        geolocation = navigator.geolocation;
-    }
-
      var moment = {
         "userID": user._id
     };
