@@ -160,6 +160,17 @@
         	 return 
          };
 
+         function getTimeSpan(post){
+           console.log(post.CreatedDate);
+           var a = moment(post.CreatedDate);
+           console.log(a);
+           var b = moment();
+           console.log(b);
+           var c = a.from(b);
+           console.log(c);
+           return c;
+         };
+
         
     } //end of moment ctrl
 
