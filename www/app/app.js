@@ -112,7 +112,7 @@ angular.module('petBook', ['ionic',
         }
     })
 
-    .state('app.gallery', {
+/*    .state('app.gallery', {
         url: '/gallery',
         views: {
             'menuContent': {
@@ -128,7 +128,7 @@ angular.module('petBook', ['ionic',
                 }
             }
         }
-    })
+    })*/
 
     .state('app.login', {
         url: '/login',
@@ -189,7 +189,7 @@ angular.module('petBook', ['ionic',
                 controller: 'MyPostsCtrl'
             },
              'fabContent': {
-                template: '<button id="fab-myposts" class="button button-fab button-fab-bottom-right button-energized-900" ng-click="showPopup()"><i class="icon ion-plus"></i></button>',
+                template: '<button id="fab-myposts" class="button button-fab button-fab-bottom-right button-calm" ng-click="showPopup()"><i class="icon ion-plus"></i></button>',
                 controller: 'AddPostsCtrl'/*function ($timeout) {
                     $timeout(function () {
                         document.getElementById('fab-profile').classList.toggle('on');
@@ -205,10 +205,11 @@ angular.module('petBook', ['ionic',
                 templateUrl: 'templates/newpost.html',
                 controller: 'NewPostCtrl'
             }
-        },
-         'fabContent': {
+            ,
+            'fabContent': {
                 template: ''
             }
+        }
     })
     .state('app.petsnearby', {
         url: '/petsnearby',
