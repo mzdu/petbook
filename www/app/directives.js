@@ -21,6 +21,7 @@
             restrict: 'E',
             scope: {
                 posts: '=',
+                nextPage: '&',
                 cardType: '@'
             },
             templateUrl: 'templates/petbook_moment.html'
@@ -40,15 +41,17 @@
         vm.clickedLike = clickedLike;
         vm.checkFriendInfo = checkFriendInfo;
         vm.getTimeSpan = getTimeSpan;
-        
+        $scope.likes = 0;
         vm.getComments = getComments;
         vm.addComment = addComment;
 
+        vm.hasRendered = false;
         var user = StorageService.getCurrentUser().user;
-        console.log('user is: ', user);
+        //console.log('user is: ', user);
         $scope.$watch('vm.posts', function(data, data2) {
-        if (data) {
-            console.log('got data', data);
+            console.log('in watch');
+        if (data && !vm.hasRendered) {
+            console.log('got data and rendering', data);
 
             $timeout(function() {
                 ionicMaterialMotion.fadeSlideIn({
@@ -57,13 +60,14 @@
             }, 200);
             // Set Ink
             ionicMaterialInk.displayEffect();
-        }
+            vm.hasRendered = true;
+        } 
 
         });
 
         // Set Motion
        
-        console.log('vm.cardType = ', vm.cardType);
+        //console.log('vm.cardType = ', vm.cardType);
 
         if(vm.cardType === 'myPosts'){
             //console.log('enter myposts');
@@ -76,7 +80,8 @@
         }
 
 
-        function getLikes(post){
+
+        function getLikes(post,$event){
             if(post.likedBy && post.likedBy.length){
                 return post.likedBy.length;
             } else {
@@ -91,7 +96,14 @@
                 return true;
             } else {
                 if(hasUserAlreadyVotedOnPost(post)){
-                    console.log('you already voted');
+                    //console.log('you already voted');
+                    console.log('you already voted, you want to dislike it.');
+                    for(var i = post.likedBy.length; i--;) {
+                        if(post.likedBy[i] === user._id) {
+                            post.likedBy.splice(i, 1);
+                        }
+                    }
+                    //post.likeBy.splice(index, 1);
                     return false;
                 } else {
                     post.likedBy.push(user._id);
@@ -106,16 +118,29 @@
             });
         }
 
-        function clickedLike(post) {
-            console.log('clicked like');
+        function clickedLike(post,$event) {
+            //console.log('clicked like');
             var user = StorageService.getCurrentUser().user;
-
-            if (updateLike(post)) {
-                var promise = StatusService.addLike(post._id, user._id);
-                promise.then(function(data) {
-                    console.log('successfully updated like');
-                });
+            var buttonClasses = $event.currentTarget.className;
+            console.log(buttonClasses);
+            if (buttonClasses.indexOf('-outline') > 0) {
+              buttonClasses = buttonClasses.replace('-outline', '');
             } else {
+              buttonClasses = buttonClasses.replace("heart", 'heart-outline');
+            }
+            $event.currentTarget.className = buttonClasses;
+            console.log(buttonClasses);
+            //updateLike(post);
+            //var promise = StatusService.addLike(post._id, user._id);
+            //console.log(post.likedBy);
+            if (updateLike(post)) {
+               var promise = StatusService.addLike(post._id, user._id);
+               promise.then(function(data) {
+                   console.log('successfully updated like');
+               }
+               );
+            } else {               
+               var promise = StatusService.minusLike(post._id, user._id);
                 //   var showError = $ionicPopup.show({
                 //   title: 'Error:',
                 //   template: 'You have already voted',

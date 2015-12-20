@@ -5,16 +5,16 @@
 
             </div>
         </div>
-
-        <div class="item card-item" ng-repeat="post in vm.posts | orderBy: '-createdDate'">
+        
+        <div class="item card-item" ng-repeat="post in vm.posts | orderBy: '-createdDate'" ng-class="{ 'in in done': vm.hasRendered }">
             <div class="card stable-bg ink ink-dark">
-                <div class="item item-avatar item-text-wrap">
+                <div class="item item-avatar item-text-wrap" ng-class="{ 'in done': vm.hasRendered }">
 
                     <span ng-if="vm.showPostAvatar" class="avatar" style="background-image: url('img/petbook-lg.png');" ng-click = "vm.checkFriendInfo(post)"></span>
                     <strong ng-click = "vm.checkFriendInfo(post)">{{post._Owner.username}}</strong> {{post.description}}
                     <div class="card-footer text-right">
                         <i class="icon ion-ios-chatboxes positive"></i>
-                        <i class="icon ion-heart assertive larger" ng-click="vm.clickedLike(post)"></i> {{vm.getLikes(post)}}
+                        <i class="icon ion-ios-heart-outline assertive larger" ng-click="vm.clickedLike(post,$event)"></i> {{vm.getLikes(post,$event)}}
                         <div class="pull-left">
                             <!--<i class="icon ion-clock"></i> {{post.createdDate | date:'MM/dd/yyyy'}}-->
                             <i class="icon ion-clock"></i> {{vm.getTimeSpan(post)}}
@@ -28,6 +28,10 @@
                 </div>
             </div>
         </div>
+        <ion-infinite-scroll
+            on-infinite="vm.nextPage()"
+            distance="1%">
+          </ion-infinite-scroll>
 
 
     <!--     <div class="item card-item" ng-repeat="post in vm.posts | orderBy: '-createdDate'">

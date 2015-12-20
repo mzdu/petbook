@@ -192,3 +192,15 @@ p {
     margin-left: -7px;
 
 }
+
+/* update profile
+==================================*/
+
+.avatar-bigger{
+  border-radius: 50%;
+  height: 100px;
+  width: 100px;
+  display:block; 
+  margin:auto;
+}
+

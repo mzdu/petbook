@@ -104,37 +104,54 @@
 
              addLike: function(statusID, userID){
                 return Restangular.all('status').one('', statusID).one('likes', userID).post();
-             }
+            },
+
+            minusLike: function(statusID, userID){
+                return Restangular.all('status').one('', statusID).one('disLikes', userID).post();  
+             },
 
          }; //end of return
      };  
 
 
 
-function LocationService($q, $localStorage) {
+function LocationService($q, $localStorage, $cordovaGeolocation) {
+
+    
+
     return {
         getCurrentLocation: function() {
+            console.log('in get current loc');
             var deferred = $q.defer();
-
-            if ($localStorage.location) {
-                deferred.resolve($localStorage.location);
-            } else {
+           
+                console.log('in get loc else');
                 var geoLoc = [];
 
-                var onSuccess = function(position) {
+                var options = { timeout: 10000, enableHighAccuracy: true }; //this is needed to enable location on android
+                // navigator.geolocation.getCurrentPosition(onSuccess, onError, options);
+                 $cordovaGeolocation
+                 .getCurrentPosition(options)
+                 .then(onSuccess, onError);
+
+
+                function onSuccess(position) {
+                    console.log('success');
                     geoLoc.push(position.coords.latitude);
                     geoLoc.push(position.coords.longitude);
                     $localStorage.location = geoLoc;
+                    console.log('loc is: ' +  angular.toJson($localStorage.location));
                     deferred.resolve(geoLoc);
                 };
 
-                var onError = function(error) {
+                function onError(error) {
+                    console.log('could not get location');
+                    console.log(angular.toJson(error));
                     deferred.reject(error);
                 };
 
-                navigator.geolocation.getCurrentPosition(onSuccess, onError);
 
-            }
+
+            // }
 
             return deferred.promise;
         }

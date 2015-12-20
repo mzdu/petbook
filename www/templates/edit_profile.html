@@ -2,6 +2,24 @@
     <ion-content ng-class="{expanded:$scope.isExpanded}">
         <form name="profileEdit">
             <div class="list">
+                <!-- avatar -->
+
+                <div ng-if="field === 'avatar'">
+                    <button class="button button-full button-positive" ng-click="selectImage()">
+                        Select Photo
+                    </button>
+                   <!--<img ng-show="image" ng-src="{{user.avatar}}"/> -->
+                   <!--<p>Your photo: {{user.avatar}}</p>
+                   
+                   <a class="item item-avatar">
+                     <img src="{{user.avatar}}">
+                   </a>
+                   -->
+                   <div class="item item-body">
+                    <img class="full-image avatar-bigger" src="{{user.avatar}}">
+                    <div>
+
+                </div>
                 <!-- name -->
                 <label class="item item-input" ng-if="field === 'name'">
                     <span class="input-label">Name:</span>
@@ -32,9 +50,14 @@
                 </label>
             </div>
             <div class="buttons">
-                <button class="button button-full button-positive" ng-click="save(pet)">
+                <button class="button button-full button-positive" ng-click="save(pet)" ng-if="field !== 'avatar'">
                     Save
                 </button>
+
+                <button class="button button-full button-positive" ng-click="upload()" ng-if="field === 'avatar'">
+                    Save
+                </button>
+
                 <button class="button button-full button-assertive" ng-click="cancel()">
                     Cancel
                 </button>
