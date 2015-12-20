@@ -89,30 +89,45 @@
             }
         }
 
-        function updateLike(post){
-            if(!post.likedBy){
-                post.likedBy = [];
-                post.likedBy.push(user._id);
-                return true;
-            } else {
-                if(hasUserAlreadyVotedOnPost(post)){
-                    //console.log('you already voted');
-                    console.log('you already voted, you want to dislike it.');
-                    for(var i = post.likedBy.length; i--;) {
-                        if(post.likedBy[i] === user._id) {
-                            post.likedBy.splice(i, 1);
-                        }
-                    }
-                    //post.likeBy.splice(index, 1);
-                    return false;
-                } else {
-                    post.likedBy.push(user._id);
-                    return true;
+        function removeUserVoteOnClient(post){
+            for(var i = post.likedBy.length; i--;) {
+                if(post.likedBy[i] === user._id) {
+                    post.likedBy.splice(i, 1);
                 }
             }
         }
+        function addUserVoteOnClient(post){
+             if(!post.likedBy){
+                post.likedBy = [];
+             }
+             post.likedBy.push(user._id);
+        }
+
+        // function updateLike(post){
+        //     if(!post.likedBy){
+                
+                
+        //         return true;
+        //     } else {
+        //         if(hasUserAlreadyVotedOnPost(post)){
+        //             //console.log('you already voted');
+        //             console.log('you already voted, you want to dislike it.');
+                    
+        //             //post.likeBy.splice(index, 1);
+        //             return false;
+        //         } else {
+        //             post.likedBy.push(user._id);
+        //             return true;
+        //         }
+        //     }
+        // }
+
+
 
         function hasUserAlreadyVotedOnPost(post) {
+            if(!post.likedBy){
+                return false;
+            }
             return _.find(post.likedBy, function(item) {
                 return item == user._id;
             });
@@ -121,43 +136,23 @@
         function clickedLike(post,$event) {
             //console.log('clicked like');
             var user = StorageService.getCurrentUser().user;
-            var buttonClasses = $event.currentTarget.className;
-            console.log(buttonClasses);
-            if (buttonClasses.indexOf('-outline') > 0) {
-              buttonClasses = buttonClasses.replace('-outline', '');
-            } else {
-              buttonClasses = buttonClasses.replace("heart", 'heart-outline');
-            }
-            $event.currentTarget.className = buttonClasses;
-            console.log(buttonClasses);
-            //updateLike(post);
-            //var promise = StatusService.addLike(post._id, user._id);
-            //console.log(post.likedBy);
-            if (updateLike(post)) {
-               var promise = StatusService.addLike(post._id, user._id);
-               promise.then(function(data) {
-                   console.log('successfully updated like');
-               }
-               );
-            } else {               
-               var promise = StatusService.minusLike(post._id, user._id);
-                //   var showError = $ionicPopup.show({
-                //   title: 'Error:',
-                //   template: 'You have already voted',
-                //   okText: '<i class="icon ion-checkmark-round"></i>',
-                // });
-                // showError.then(function(res) {
-                //   console.log('dialog shown');
-                //  });
-                var message = 'You have already voted!';
-                $cordovaToast.show(message, 'short', 'bottom').then(function(success) {
-                    console.log(message);
-                }, function(error) {
-                    console.log("The toast was not shown due to " + error);
-                });
+            
+            //find out if like button is now liked or disliked. 
 
+            if(hasUserAlreadyVotedOnPost(post)){
+                removeUserVoteOnClient(post);
+                StatusService.minusLike(post._id, user._id)
+                .then(function(data){
+                    console.log('removed user like', data);
+                });
+            } else {
+                addUserVoteOnClient(post);
+                StatusService.addLike(post._id, user._id)
+                 .then(function(data){
+                    console.log('added user like', data);
+                });
             }
-        };
+        }
 
         function checkFriendInfo(post){
            
