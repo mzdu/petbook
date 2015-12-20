@@ -184,8 +184,8 @@ angular.module('petBook.controllers', [])
     } else {
         $scope.value = $stateParams.value;
     }
-    console.log('$scope.field = ', $scope.field);
-    console.log('$scope.value = ', $scope.value);
+    //console.log('$scope.field = ', $scope.field);
+    //console.log('$scope.value = ', $scope.value);
     if ($scope.field && $scope.value) {
         console.log('got both field and value');
         $scope.user.pet[$scope.field] = $scope.value;
@@ -379,6 +379,9 @@ angular.module('petBook.controllers', [])
     $scope.$parent.setExpanded(false);
     $scope.$parent.setHeaderFab(false);
 
+    $scope.user = StorageService.getCurrentUser().user;
+    $scope.user.avatar = '';
+
     $scope.leftButtons = [{
         type: 'button-positive',
         content: '<i class="icon ion-navicon"></i>',
@@ -393,8 +396,7 @@ angular.module('petBook.controllers', [])
         $scope.value = $stateParams.value;
     }
     $scope.pet = {};
-    $scope.user = StorageService.getCurrentUser().user;
-    $scope.user.avatar = '';
+    
 
     $scope.pet[$scope.field] = $scope.value;
 
@@ -468,7 +470,7 @@ angular.module('petBook.controllers', [])
 })
 
 
-.controller('GalleryCtrl', function($scope, $stateParams, $timeout, ionicMaterialInk, ionicMaterialMotion) {
+/*.controller('GalleryCtrl', function($scope, $stateParams, $timeout, ionicMaterialInk, ionicMaterialMotion) {
     $scope.$parent.showHeader();
     $scope.$parent.clearFabs();
     $scope.isExpanded = false;
@@ -485,7 +487,7 @@ angular.module('petBook.controllers', [])
         selector: '.animate-fade-slide-in .item'
     });
 
-})
+})*/
 
 .controller('MyPostsCtrl', function($scope, $stateParams, $timeout, ionicMaterialMotion, ionicMaterialInk, StorageService, StatusService, $ionicLoading) {
     // Set Header

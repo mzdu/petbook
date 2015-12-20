@@ -3,7 +3,6 @@
         <form name="profileEdit">
             <div class="list">
                 <!-- avatar -->
-
                 <div ng-if="field === 'avatar'">
                     <button class="button button-full button-calm" ng-click="selectImage()">
                         Select Photo
@@ -16,9 +15,8 @@
                    </a>
                    -->
                    <div class="item item-body">
-                    <img class="full-image avatar-bigger" src="{{user.avatar}}">
-                    <div>
-
+                    <img class="full-image avatar-bigger" ng-src="{{user.avatar}}">
+                    </div>
                 </div>
                 <!-- name -->
                 <label class="item item-input" ng-if="field === 'name'">
