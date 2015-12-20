@@ -35,6 +35,7 @@
     /* @ngInject */
     function PetBookMomentController($scope, $state, $stateParams, ionicMaterialInk, ionicMaterialMotion, $timeout, StorageService, StatusService, $cordovaToast) {
         var vm = this;
+
         vm.getLikes = getLikes; 
         // vm.updateLike = updateLike;
         vm.hasUserAlreadyVotedOnPost = hasUserAlreadyVotedOnPost;
@@ -47,6 +48,7 @@
         vm.addComment = addComment;
         vm.hasRendered = false;
         vm.hasMoreData = false; //for the infinite scroll
+        vm.noDataMsg = null;
         var user = StorageService.getCurrentUser().user;
         //console.log('user is: ', user);
         $scope.$watch('vm.posts', function(data, data2) {
@@ -54,17 +56,20 @@
         if (data && !vm.hasRendered) {
             console.log('got data and rendering', data);
 
+            
+
             $timeout(function() {
                 ionicMaterialMotion.fadeSlideIn({
                     selector: '.animate-fade-slide-in .item'
                 });
             }, 200);
+
             // Set Ink
             ionicMaterialInk.displayEffect();
             vm.hasRendered = true;
         }
 
-        vm.hasMoreData =  data.length >= 25 ? true : false;
+        vm.hasMoreData =  (data && data.length) >= 25 ? true : false;
 
         });
 
@@ -76,10 +81,12 @@
             //console.log('enter myposts');
             vm.showProfileAvatar = false;
             vm.showPostAvatar = true;
+            vm.noDataMsg = 'You have not created any posts yet. Click on the plus button at the bottom right to get started.';
         } else {
             //console.log('enter moments');
             vm.showProfileAvatar = false;
             vm.showPostAvatar = true;
+            vm.noDataMsg = 'There are no moments within 10 miles of your location or your GPS is disabled.';
         }
 
         function loadMoreData(){

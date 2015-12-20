@@ -31,7 +31,7 @@
 
         <div class="card" ng-if="!vm.posts || !vm.posts.length">
           <div class="item item-text-wrap">
-            There are no moments within 10 miles of your location or your GPS is disabled.
+            {{vm.noDataMsg}}
           </div>
         </div>
 
