@@ -143,6 +143,6 @@ function LocationService($q, $localStorage) {
             return deferred.promise;
         }
     }; //end of return
-}
+}     
 
 })();

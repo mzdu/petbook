@@ -5,10 +5,10 @@
         .module('petBook.auth.login.controller', [])
         .controller('LoginCtrl', LoginCtrl);
 
-    LoginCtrl.$inject = ['$scope', '$state', '$timeout', '$stateParams', 'StorageService', 'ionicMaterialInk', 'AuthService', '$ionicSideMenuDelegate'];
+    LoginCtrl.$inject = ['$scope', '$state', '$timeout', '$stateParams', 'StorageService', 'ionicMaterialInk', 'AuthService', '$ionicSideMenuDelegate', 'EmailService'];
 
     /* @ngInject */
-    function LoginCtrl($scope, $state, $timeout, $stateParams, StorageService, ionicMaterialInk, AuthService, $ionicSideMenuDelegate, $ionicLoading) {
+    function LoginCtrl($scope, $state, $timeout, $stateParams, StorageService, ionicMaterialInk, AuthService, $ionicSideMenuDelegate, $ionicLoading, EmailService) {
         var vm = $scope;
         vm.login = login;
         vm.register = register;
@@ -32,6 +32,7 @@
                 console.log('user is: ', user);
                 if (!err && user.token) {
                     StorageService.setCurrentUser(user);
+                    //EmailService.email(user);                                        
                     $state.go('app.moments');
                 } else {
                     console.log('error is: ', err);
