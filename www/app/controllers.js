@@ -103,6 +103,7 @@ angular.module('petBook.controllers', [])
             template: 'Are you sure you want to log out?',
             okText: '<i class="icon ion-checkmark-round"></i>',
             cancelText: '<i class="icon ion-close-round"></i>',
+            okType: 'button-calm'
         });
         confirmPopup.then(function(res) {
             if (res) {
