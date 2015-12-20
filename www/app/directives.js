@@ -52,11 +52,7 @@
         var user = StorageService.getCurrentUser().user;
         //console.log('user is: ', user);
         $scope.$watch('vm.posts', function(data, data2) {
-            console.log('in watch');
         if (data && !vm.hasRendered) {
-            console.log('got data and rendering', data);
-
-            
 
             $timeout(function() {
                 ionicMaterialMotion.fadeSlideIn({
@@ -68,7 +64,7 @@
             ionicMaterialInk.displayEffect();
             vm.hasRendered = true;
         }
-
+        //< 25 records means we are on the last page and we can disable infinite scroll.
         vm.hasMoreData =  (data && data.length) >= 25 ? true : false;
 
         });
@@ -87,10 +83,6 @@
             vm.showProfileAvatar = false;
             vm.showPostAvatar = true;
             vm.noDataMsg = 'There are no moments within 10 miles of your location or your GPS is disabled.';
-        }
-
-        function loadMoreData(){
-            hasMoreData
         }
 
         function getLikes(post,$event){
