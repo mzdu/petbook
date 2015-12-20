@@ -9,7 +9,11 @@
     "angular-animate": "~1.4.5",
     "ngCordova": "~0.1.20-alpha",
     "firebase": "~2.3.1",
+<<<<<<< HEAD
+    "moment": "~2.10.6"
+=======
     "nginfinitescroll": "~1.2.1"
+>>>>>>> master
   },
   "devDependencies": {
     "ionic": "driftyco/ionic-bower#1.0.0-rc.2",

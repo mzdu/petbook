@@ -40,6 +40,7 @@
         vm.isExpanded = false;
         vm.clickedLike = clickedLike;
         vm.checkFriendInfo = checkFriendInfo;
+        vm.getTimeSpan = getTimeSpan;
         $scope.likes = 0;
         vm.getComments = getComments;
         vm.addComment = addComment;
@@ -183,6 +184,12 @@
         	 
         	 // add a comment and save it
         	 return 
+         };
+
+         function getTimeSpan(post){
+           var createdDate = moment(post.createdDate);
+           var currentDate = moment();
+           return createdDate.from(currentDate);
          };
 
         
