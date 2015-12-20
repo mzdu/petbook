@@ -36,7 +36,8 @@
     function PetBookMomentController($scope, $state, $stateParams, ionicMaterialInk, ionicMaterialMotion, $timeout, StorageService, StatusService, $cordovaToast) {
         var vm = this;
         vm.getLikes = getLikes; 
-        vm.updateLike = updateLike;
+        // vm.updateLike = updateLike;
+        vm.hasUserAlreadyVotedOnPost = hasUserAlreadyVotedOnPost;
         vm.isExpanded = false;
         vm.clickedLike = clickedLike;
         vm.checkFriendInfo = checkFriendInfo;
@@ -103,27 +104,7 @@
              post.likedBy.push(user._id);
         }
 
-        // function updateLike(post){
-        //     if(!post.likedBy){
-                
-                
-        //         return true;
-        //     } else {
-        //         if(hasUserAlreadyVotedOnPost(post)){
-        //             //console.log('you already voted');
-        //             console.log('you already voted, you want to dislike it.');
-                    
-        //             //post.likeBy.splice(index, 1);
-        //             return false;
-        //         } else {
-        //             post.likedBy.push(user._id);
-        //             return true;
-        //         }
-        //     }
-        // }
-
-
-
+        
         function hasUserAlreadyVotedOnPost(post) {
             if(!post.likedBy){
                 return false;
@@ -138,7 +119,6 @@
             var user = StorageService.getCurrentUser().user;
             
             //find out if like button is now liked or disliked. 
-
             if(hasUserAlreadyVotedOnPost(post)){
                 removeUserVoteOnClient(post);
                 StatusService.minusLike(post._id, user._id)
