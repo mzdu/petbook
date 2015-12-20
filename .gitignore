@@ -7,7 +7,7 @@ plugins/
 .project
 .tmp
 .sass-cache
-<%= appPath %>/bower_components
+lib/
 coverage
 platforms
 plugins
