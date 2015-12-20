@@ -4,7 +4,7 @@
             <div class="list">
                 <!-- avatar -->
                 <div ng-if="field === 'avatar'">
-                    <button class="button button-full button-positive" ng-click="selectImage()">
+                    <button class="button button-full button-calm" ng-click="selectImage()">
                         Select Photo
                     </button>
                    <!--<img ng-show="image" ng-src="{{user.avatar}}"/> -->
@@ -48,11 +48,11 @@
                 </label>
             </div>
             <div class="buttons">
-                <button class="button button-full button-positive" ng-click="save(pet)" ng-if="field !== 'avatar'">
+                <button class="button button-full button-calm" ng-click="save(pet)" ng-if="field !== 'avatar'">
                     Save
                 </button>
 
-                <button class="button button-full button-positive" ng-click="upload()" ng-if="field === 'avatar'">
+                <button class="button button-full button-calm" ng-click="upload()" ng-if="field === 'avatar'">
                     Save
                 </button>
 
