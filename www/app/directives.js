@@ -45,8 +45,8 @@
         $scope.likes = 0;
         vm.getComments = getComments;
         vm.addComment = addComment;
-
         vm.hasRendered = false;
+        vm.hasMoreData = false; //for the infinite scroll
         var user = StorageService.getCurrentUser().user;
         //console.log('user is: ', user);
         $scope.$watch('vm.posts', function(data, data2) {
@@ -62,7 +62,9 @@
             // Set Ink
             ionicMaterialInk.displayEffect();
             vm.hasRendered = true;
-        } 
+        }
+
+        vm.hasMoreData =  data.length >= 25 ? true : false;
 
         });
 
@@ -80,7 +82,9 @@
             vm.showPostAvatar = true;
         }
 
-
+        function loadMoreData(){
+            hasMoreData
+        }
 
         function getLikes(post,$event){
             if(post.likedBy && post.likedBy.length){
