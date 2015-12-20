@@ -1,5 +1,13 @@
 /* General
 ==================================*/
+.mthemecolor{
+  color:#0a9dc7;
+}
+
+.popup-buttons .button {
+    background-color: #0a9dc7;
+}
+
 h1 {
     color: #fff;
     text-shadow: 0 1px 0px #000;
