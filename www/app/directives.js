@@ -39,6 +39,7 @@
         vm.isExpanded = false;
         vm.clickedLike = clickedLike;
         vm.checkFriendInfo = checkFriendInfo;
+        vm.getTimeSpan = getTimeSpan;
         
         vm.getComments = getComments;
         vm.addComment = addComment;
@@ -161,14 +162,9 @@
          };
 
          function getTimeSpan(post){
-           console.log(post.CreatedDate);
-           var a = moment(post.CreatedDate);
-           console.log(a);
-           var b = moment();
-           console.log(b);
-           var c = a.from(b);
-           console.log(c);
-           return c;
+           var createdDate = moment(post.createdDate);
+           var currentDate = moment();
+           return createdDate.from(currentDate);
          };
 
         
