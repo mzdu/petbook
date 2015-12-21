@@ -13,17 +13,19 @@
                     <span ng-if="vm.showPostAvatar" class="avatar" style="background-image: url('img/petbook-lg.png');" ng-click = "vm.checkFriendInfo(post)"></span>
                     <strong ng-click = "vm.checkFriendInfo(post)">{{post._Owner.username}}</strong> {{post.description}}
                     <div class="card-footer text-right">
-                        <!-- <i class="icon ion-ios-chatboxes positive"></i> -->
+                        <i class="icon ion-ios-chatboxes positive"  ng-click="vm.addComment(post)"></i>
                         <i class="icon  assertive larger" ng-class="{ 'ion-ios-heart': vm.hasUserAlreadyVotedOnPost(post), 'ion-ios-heart-outline': !vm.hasUserAlreadyVotedOnPost(post) }" ng-click="vm.clickedLike(post)"></i>
                         {{vm.getLikes(post,$event)}}
+
                         <div class="pull-left">
                             <!--<i class="icon ion-clock"></i> {{post.createdDate | date:'MM/dd/yyyy'}}-->
                             <i class="icon ion-clock"></i> {{vm.getTimeSpan(post)}}
                         </div>
-<!--                         <div class="arrow_box">
-                            <div><a href="#">Bhanu</a>: This is a comment test.</div>
-                            <div><a href="#">Mingzhe</a>: This is the second test.</div>
-                        </div> -->
+
+                        <div class="arrow_box" ng-click="vm.addComment(post)" ng-repeat="comment in vm.getComments(post)">
+                            <div><a href="#/app/friendinfo/{{comment.commentBy._id}}">{{comment.commentBy.username}}</a>: {{comment.comment}}</div>
+                        </div>
+              
                     </div>
                 </div>
             </div>
@@ -32,7 +34,6 @@
             on-infinite="vm.nextPage()"
             distance="1%">
           </ion-infinite-scroll>
-
 
     <!--     <div class="item card-item" ng-repeat="post in vm.posts | orderBy: '-createdDate'">
             <div ui-sref="" class="card stable-bg ink ink-dark">

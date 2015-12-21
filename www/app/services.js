@@ -99,15 +99,19 @@
              },
 
              getMoments: function(form){
+            	console.log('getMoments is running');
                 return Restangular.all('status').post(form);
              },
 
              addLike: function(statusID, userID){
                 return Restangular.all('status').one('', statusID).one('likes', userID).post();
-            },
+             },
 
-            minusLike: function(statusID, userID){
+             minusLike: function(statusID, userID){
                 return Restangular.all('status').one('', statusID).one('disLikes', userID).post();  
+             },
+             addComment: function(statusID, userID, comment){
+                 return Restangular.all('status').one('', statusID).one('comment', userID).customPOST(comment);
              },
 
          }; //end of return
