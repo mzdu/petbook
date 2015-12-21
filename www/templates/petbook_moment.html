@@ -6,7 +6,7 @@
             </div>
         </div>
         
-        <div class="item card-item" ng-repeat="post in vm.posts | orderBy: '-createdDate'" ng-class="{ 'in in done': vm.hasRendered }">
+        <div class="item card-item" ng-if="vm.posts.length" ng-repeat="post in vm.posts | orderBy: '-createdDate'" ng-class="{ 'in in done': vm.hasRendered }">
             <div class="card stable-bg ink ink-dark">
                 <div class="item item-avatar item-text-wrap" ng-class="{ 'in done': vm.hasRendered }">
 
@@ -25,13 +25,20 @@
                         <div class="arrow_box" ng-click="vm.addComment(post)" ng-repeat="comment in vm.getComments(post)">
                             <div><a href="#/app/friendinfo/{{comment.commentBy._id}}">{{comment.commentBy.username}}</a>: {{comment.comment}}</div>
                         </div>
-              
                     </div>
                 </div>
             </div>
         </div>
+
+        <div class="card" ng-if="!vm.posts || !vm.posts.length">
+          <div class="item item-text-wrap">
+            {{vm.noDataMsg}}
+          </div>
+        </div>
+
         <ion-infinite-scroll
             on-infinite="vm.nextPage()"
+            ng-if="vm.hasMoreData"
             distance="1%">
           </ion-infinite-scroll>
 
