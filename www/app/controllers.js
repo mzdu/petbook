@@ -618,6 +618,64 @@ angular.module('petBook.controllers', [])
         
     }])
     */
+.controller('NewCommentCtrl',function($scope,$stateParams,StorageService,StatusService,$state, LocationService, $ionicPopup, $ionicLoading){
+    $scope.$parent.showHeader();
+    $scope.$parent.clearFabs();
+    $scope.isExpanded = false;
+    $scope.$parent.setExpanded(false);
+    $scope.$parent.setHeaderFab(false);
+    $scope.data = {};
+    $scope.user = StorageService.getCurrentUser().user;
+    
+
+    $scope.addComment = function(){
+    	
+//    	console.log("in add comment");
+    	
+//        $scope.data.comment = "";
+        
+        var userComment = $scope.data.comment;
+//        console.log("userComment message is");
+//        console.log(userComment);
+        
+        //console.log("data is ",$scope.data);
+//        $scope.showLoading($ionicLoading);
+        
+        var comment = {
+            comment: userComment
+        }
+        
+        var userID = $stateParams.userID;
+        var statusID = $stateParams.statusID;
+
+//        console.log("scope userID is");
+//        console.log(userID, statusID);        
+        
+        var promise = StatusService.addComment(statusID, userID, comment);
+//        promise.then(function(data, error) {
+//            if (!error) {
+//                console.log('added data is: ', data);
+//                console.log('wish successfully added');
+//                //$state.reload();
+//                $state.go('app.myposts');
+//
+//            } else {
+//                console.log('error adding wish');
+//            }
+//        });
+        
+        promise.then(function(data, error) {
+            if (data) {
+//                $scope.user = data;
+            	console.log('addcomment success');
+            	$state.go('app.moments');
+            }
+            
+        });
+    }
+
+})
+
     .controller('AboutCtrl', function($scope) {
 
     })
