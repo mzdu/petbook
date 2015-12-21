@@ -33,7 +33,7 @@
     }
 
     /* @ngInject */
-    function PetBookMomentController($scope, $state, $stateParams, ionicMaterialInk, ionicMaterialMotion, $timeout, StorageService, StatusService, $cordovaToast) {
+    function PetBookMomentController($scope, $state, $stateParams, ionicMaterialInk, ionicMaterialMotion, $timeout, StorageService, StatusService, $cordovaToast, $ionicActionSheet) {
         var vm = this;
         vm.getLikes = getLikes; 
         vm.updateLike = updateLike;
@@ -180,9 +180,32 @@
          };
          
          function addComment(post){
+        		    
+		    $ionicActionSheet.show({
+		      titleText: '',
+		      buttons: [
+		        { text: '<i class="icon ion-share"></i> Add Comment' },
+		      ],
+		      
+//		      destructiveText: 'POST',
+		      cancelText: 'Cancel',
+		      cancel: function() {
+//		        console.log('CANCELLED');
+		      },
+		      buttonClicked: function(index) {
+		    	$state.go('app.newcomment',{
+		    		statusID: post._id,
+		    		userID: user._id
+		    	});
+//		        console.log('BUTTON CLICKED', index);
+		        return true;
+		      },
+//		      destructiveButtonClicked: function() {
+//		        console.log('DESTRUCT');
+//		        return true;
+//		      }
+		    });
         	 
-        	 // add a comment and save it
-        	 return 
          };
 
         

@@ -45,8 +45,8 @@ angular.module('petBook', ['ionic',
     });
 
     // RestangularProvider.setBaseUrl('https://petbookapi.herokuapp.com/api'); 
-    RestangularProvider.setBaseUrl('https://petbookapi.herokuapp.com/api'); 
     // RestangularProvider.setBaseUrl('https://petbookprod.herokuapp.com/api'); 
+    RestangularProvider.setBaseUrl('http://localhost:8080/api'); 
 
     
     
@@ -222,6 +222,18 @@ angular.module('petBook', ['ionic',
             }
         }
     })
+    .state('app.newcomment',{
+        url: '/newcomment/:statusID/:userID',
+        views:{
+            'menuContent':{
+                templateUrl: 'templates/newComment.html',
+                controller: 'NewCommentCtrl'
+            }
+        },
+         'fabContent': {
+                template: ''
+            }
+    })    
     .state('app.about', {
         url: '/about',
         views: {
