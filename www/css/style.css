@@ -1,5 +1,15 @@
 /* General
 ==================================*/
+.mthemecolor{
+  color:#0a9dc7;
+}
+
+/*
+.popup-buttons .button {
+    background-color: #0a9dc7;
+}
+*/
+
 h1 {
     color: #fff;
     text-shadow: 0 1px 0px #000;
@@ -192,3 +202,15 @@ p {
     margin-left: -7px;
 
 }
+
+/* update profile
+==================================*/
+
+.avatar-bigger{
+  border-radius: 50%;
+  height: 100px;
+  width: 100px;
+  display:block; 
+  margin:auto;
+}
+
