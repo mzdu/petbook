@@ -7,9 +7,13 @@
         </div>
         <form name="registerForm" novalidate>
             <div class="list">
-                <ion-md-input placeholder="Username" highlight-color="balanced" type="text" ng-model="user.username" required></ion-md-input>
-                <ion-md-input placeholder="Password" highlight-color="balanced" type="password" ng-model="user.password" required></ion-md-input>   
+                <!-- <p>Username and password should be at leat 6 characters.</p> -->
+                <ion-md-input name="username" placeholder="Username" highlight-color="balanced" type="text" ng-model="user.username" ng-minlength="6" required></ion-md-input>
+                <p class="help-text" ng-show="registerForm.username.$error.minlength" class="help-block">Username is at least 6 characters.</p>
+                <ion-md-input name = "password" placeholder="Password" highlight-color="balanced" type="password" ng-model="user.password" ng-minlength="6" required></ion-md-input>   
+                <p class="help-text" ng-show="registerForm.password.$error.minlength" class="help-block">Password is at least 6 characters.</p>
                 <ion-md-input placeholder="Confirm Password" highlight-color="balanced" type="password" ng-model="user.password2" required></ion-md-input>
+                <p class="help-text" ng-if="registerForm.Username.$error">Username and password should be at leat 6 characters.</p>
                 <p class="help-text" ng-if="passwordMismatch">Please enter matching passwords</p>
                 <ion-md-input placeholder="Email" highlight-color="balanced" type="email" ng-model="user.email" required></ion-md-input>
 
@@ -18,7 +22,7 @@
                 <span>Invalid Credentials</span>
             </div>
             <div class="padding">
-                    <button type="submit" ng-click="register()"  ng-disabled="passwordMismatch || registerForm.$invalid" class="button button-block button-positive waves-effect waves-button waves-light">Signup</button>
+                    <button type="submit" ng-click="register()"  ng-disabled="passwordMismatch || registerForm.$invalid" class="button button-block button-calm waves-effect waves-button waves-light">Signup</button>
                     <br><br>
                 <a href="#" class="calm" ng-click="login()"><b>Already have an account? Sign in.</b></a>           
             </div>
