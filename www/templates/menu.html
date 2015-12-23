@@ -1,6 +1,6 @@
 <ion-side-menus enable-menu-with-back-views="true">
     <ion-side-menu-content>
-        <ion-nav-bar class="bar-assertive 900" ng-class="{'has-header-fab-left': hasHeaderFabLeft, 'has-header-fab-right': hasHeaderFabRight}" align-title="left">
+        <ion-nav-bar class="bar-calm 900" ng-class="{'has-header-fab-left': hasHeaderFabLeft, 'has-header-fab-right': hasHeaderFabRight}" align-title="left">
             <ion-nav-back-button class="no-text">
             </ion-nav-back-button>
             <ion-nav-buttons side="left">
@@ -12,7 +12,7 @@
                 </button>
             </ion-nav-buttons> -->
         </ion-nav-bar>
-       <!--  <button id="fab" class="button button-positive button-fab button-fab-bottom-right">
+       <!--  <button id="fab" class="button button-calm button-fab button-fab-bottom-right">
             <i class="icon ion-social-twitter"></i>
         </button> -->
         <ion-nav-view name="fabContent"></ion-nav-view>
@@ -23,28 +23,28 @@
 
         <ion-header-bar class="dark-bg  expanded">
             <img src="img/lake-animals-dogs-pets.jpg" class="avatar motion spin fade">
-            <div class="menu-bottom" style="color:red">
-                Petbook 
+            <div class="menu-bottom" style="color:#0a9dc7">
+                PetBook 
             </div>
         </ion-header-bar>
         <ion-content class="stable-bg has-expanded-header">
             <ion-list>
                 <ion-item nav-clear menu-close ui-sref="app.moments">
-                <i class="icon ion-aperture mthemecolor"></i>
+                <i class="icon ion-aperture"></i>
                     Moments
                 </ion-item>
                 <ion-item nav-clear menu-close ui-sref="app.myposts">
-                <i class="icon ion-image mthemecolor"></i>
+                <i class="icon ion-image"></i>
                     My Posts
                 </ion-item>
                 <ion-item nav-clear menu-close ui-sref="app.profile">
-                <i class="icon ion-ios-paw mthemecolor"></i>
+                <i class="icon ion-ios-paw"></i>
                     Profile
                 </ion-item>
-               <!--  <ion-item nav-clear menu-close ui-sref="app.about">
-                <i class="icon ion-ios-home mthemecolor"></i>
+                <ion-item nav-clear menu-close ui-sref="app.about">
+                <i class="icon ion-ios-home"></i>
                     About
-                </ion-item> -->
+                </ion-item>
                 <ion-item nav-clear menu-close>
                 <button class="button button-block button-assertive" ng-click="logout()">
                   Logout

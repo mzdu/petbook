@@ -25,13 +25,12 @@
 
         $scope.$watch('user.password2', function(newvalue) {
             $scope.passwordMismatch = validatePassword($scope.user.password, newvalue);
-           
-            console.log('newvalue value is: ', newvalue);
+            //console.log('newvalue value is: ', newvalue);
         });
 
         $scope.$watch('user.password', function(newvalue) {
             $scope.passwordMismatch = validatePassword($scope.user.password2, newvalue);
-            console.log('newvalue value is: ', newvalue);
+            //console.log('newvalue value is: ', newvalue);
         });
 
         function register() {
@@ -44,9 +43,7 @@
                 if (!err) {
                     console.log('user is: ', user);
                     StorageService.setCurrentUser(user);
-                    $state.go('app.profile', {}, {
-                        reload: true
-                    });
+                    $state.go('app.moments');
                 } else {
                     console.log('error is: ', err);
                     $scope.error = 'unable to sign up at this time';

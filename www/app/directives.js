@@ -21,6 +21,7 @@
             restrict: 'E',
             scope: {
                 posts: '=',
+                nextPage: '&',
                 cardType: '@'
             },
             templateUrl: 'templates/petbook_moment.html'
@@ -32,31 +33,39 @@
     }
 
     /* @ngInject */
-    function PetBookMomentController($scope, $state, $stateParams, ionicMaterialInk, ionicMaterialMotion, $timeout, StorageService, StatusService, $cordovaToast) {
+    function PetBookMomentController($scope, $state, $stateParams, ionicMaterialInk, ionicMaterialMotion, $timeout, StorageService, StatusService, $cordovaToast, $ionicActionSheet) {
         var vm = this;
+
         vm.getLikes = getLikes; 
-        vm.updateLike = updateLike;
+        // vm.updateLike = updateLike;
+        vm.hasUserAlreadyVotedOnPost = hasUserAlreadyVotedOnPost;
         vm.isExpanded = false;
         vm.clickedLike = clickedLike;
         vm.checkFriendInfo = checkFriendInfo;
+        vm.getTimeSpan = getTimeSpan;
         $scope.likes = 0;
         vm.getComments = getComments;
         vm.addComment = addComment;
-
+        vm.hasRendered = false;
+        vm.hasMoreData = false; //for the infinite scroll
+        vm.noDataMsg = null;
         var user = StorageService.getCurrentUser().user;
         //console.log('user is: ', user);
         $scope.$watch('vm.posts', function(data, data2) {
-        if (data) {
-            //console.log('got data', data);
+        if (data && !vm.hasRendered) {
 
             $timeout(function() {
                 ionicMaterialMotion.fadeSlideIn({
                     selector: '.animate-fade-slide-in .item'
                 });
             }, 200);
+
             // Set Ink
             ionicMaterialInk.displayEffect();
+            vm.hasRendered = true;
         }
+        //< 25 records means we are on the last page and we can disable infinite scroll.
+        vm.hasMoreData =  (data && data.length) >= 25 ? true : false;
 
         });
 
@@ -68,12 +77,13 @@
             //console.log('enter myposts');
             vm.showProfileAvatar = false;
             vm.showPostAvatar = true;
+            vm.noDataMsg = 'You have not created any posts yet. Click on the plus button at the bottom right to get started.';
         } else {
             //console.log('enter moments');
             vm.showProfileAvatar = false;
             vm.showPostAvatar = true;
+            vm.noDataMsg = 'There are no moments within 10 miles of your location or your GPS is disabled.';
         }
-
 
         function getLikes(post,$event){
             if(post.likedBy && post.likedBy.length){
@@ -83,30 +93,25 @@
             }
         }
 
-        function updateLike(post){
-            if(!post.likedBy){
-                post.likedBy = [];
-                post.likedBy.push(user._id);
-                return true;
-            } else {
-                if(hasUserAlreadyVotedOnPost(post)){
-                    //console.log('you already voted');
-                    console.log('you already voted, you want to dislike it.');
-                    for(var i = post.likedBy.length; i--;) {
-                        if(post.likedBy[i] === user._id) {
-                            post.likedBy.splice(i, 1);
-                        }
-                    }
-                    //post.likeBy.splice(index, 1);
-                    return false;
-                } else {
-                    post.likedBy.push(user._id);
-                    return true;
+        function removeUserVoteOnClient(post){
+            for(var i = post.likedBy.length; i--;) {
+                if(post.likedBy[i] === user._id) {
+                    post.likedBy.splice(i, 1);
                 }
             }
         }
+        function addUserVoteOnClient(post){
+             if(!post.likedBy){
+                post.likedBy = [];
+             }
+             post.likedBy.push(user._id);
+        }
 
+        
         function hasUserAlreadyVotedOnPost(post) {
+            if(!post.likedBy){
+                return false;
+            }
             return _.find(post.likedBy, function(item) {
                 return item == user._id;
             });
@@ -115,43 +120,22 @@
         function clickedLike(post,$event) {
             //console.log('clicked like');
             var user = StorageService.getCurrentUser().user;
-            var buttonClasses = $event.currentTarget.className;
-            console.log(buttonClasses);
-            if (buttonClasses.indexOf('-outline') > 0) {
-              buttonClasses = buttonClasses.replace('-outline', '');
-            } else {
-              buttonClasses = buttonClasses.replace("heart", 'heart-outline');
-            }
-            $event.currentTarget.className = buttonClasses;
-            console.log(buttonClasses);
-            //updateLike(post);
-            //var promise = StatusService.addLike(post._id, user._id);
-            //console.log(post.likedBy);
-            if (updateLike(post)) {
-               var promise = StatusService.addLike(post._id, user._id);
-               promise.then(function(data) {
-                   console.log('successfully updated like');
-               }
-               );
-            } else {               
-               var promise = StatusService.minusLike(post._id, user._id);
-                //   var showError = $ionicPopup.show({
-                //   title: 'Error:',
-                //   template: 'You have already voted',
-                //   okText: '<i class="icon ion-checkmark-round"></i>',
-                // });
-                // showError.then(function(res) {
-                //   console.log('dialog shown');
-                //  });
-                var message = 'You have already voted!';
-                $cordovaToast.show(message, 'short', 'bottom').then(function(success) {
-                    console.log(message);
-                }, function(error) {
-                    console.log("The toast was not shown due to " + error);
+            
+            //find out if like button is now liked or disliked. 
+            if(hasUserAlreadyVotedOnPost(post)){
+                removeUserVoteOnClient(post);
+                StatusService.minusLike(post._id, user._id)
+                .then(function(data){
+                    console.log('removed user like', data);
                 });
-
+            } else {
+                addUserVoteOnClient(post);
+                StatusService.addLike(post._id, user._id)
+                 .then(function(data){
+                    console.log('added user like', data);
+                });
             }
-        };
+        }
 
         function checkFriendInfo(post){
            
@@ -175,9 +159,38 @@
          };
          
          function addComment(post){
+        		    
+		    $ionicActionSheet.show({
+		      titleText: '',
+		      buttons: [
+		        { text: '<i class="icon ion-share"></i> Add Comment' },
+		      ],
+		      
+//		      destructiveText: 'POST',
+		      cancelText: 'Cancel',
+		      cancel: function() {
+//		        console.log('CANCELLED');
+		      },
+		      buttonClicked: function(index) {
+		    	$state.go('app.newcomment',{
+		    		statusID: post._id,
+		    		userID: user._id
+		    	});
+//		        console.log('BUTTON CLICKED', index);
+		        return true;
+		      },
+//		      destructiveButtonClicked: function() {
+//		        console.log('DESTRUCT');
+//		        return true;
+//		      }
+		    });
         	 
-        	 // add a comment and save it
-        	 return 
+         };
+
+         function getTimeSpan(post){
+           var createdDate = moment(post.createdDate);
+           var currentDate = moment();
+           return createdDate.from(currentDate);
          };
 
         
