@@ -12,7 +12,7 @@
         var vm = $scope;
         vm.login = login;
         vm.register = register;
-
+        vm.changePword = changePword;
 
         $ionicSideMenuDelegate.canDragContent(false)
         $scope.$parent.clearFabs();
@@ -66,7 +66,12 @@
                 return false;
                 console.log("Passwords Match");
             }
-        }
+        };
+
+        //change password function
+        function changePword(){
+            
+        };
     }
 })();
 

@@ -143,6 +143,32 @@ angular.module('petBook', ['ionic',
             }
         }
     })
+
+    .state('app.changepassword', {
+        url: '/changepassword',
+        views: {
+            'menuContent': {
+                templateUrl: 'templates/change_password.html',
+                controller: 'RegisterCtrl',
+            },
+            'fabContent': {
+                template: ''
+            }
+        }
+    })
+
+    .state('app.forgotpassword', {
+        url: '/forgotpassword',
+        views: {
+            'menuContent': {
+                templateUrl: 'templates/forgot_password.html',
+                controller: 'LoginCtrl',
+            },
+            'fabContent': {
+                template: ''
+            }
+        }
+    })
     
     .state('app.register', {
         url: '/register',

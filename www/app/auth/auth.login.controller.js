@@ -12,6 +12,8 @@
         var vm = $scope;
         vm.login = login;
         vm.register = register;
+        vm.retrievePassword = retrievePassword;
+        vm.sendPassword = sendPassword;
         vm.foo = 'bar';
 
 
@@ -59,5 +61,17 @@
         function register() {
             $state.go('app.register');
         };
+
+        //forgot or change password
+
+        function retrievePassword(){
+            $state.go('app.forgotpassword');
+        };
+
+        //this is the function executed when a user fills in email and clicks "submit" on "forgot password" page
+        function sendPassword(){
+            
+        };
+
     }
 })();
