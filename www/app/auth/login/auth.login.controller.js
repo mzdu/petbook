@@ -63,7 +63,6 @@
         //forgot or change password
 
         function retrievePassword(){
-            console.log('ForgotPasswordCtrl');
             $state.go('app.forgotPassword');
         };
 

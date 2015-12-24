@@ -64,7 +64,6 @@
                 return true;
             } else {
                 return false;
-                console.log("Passwords Match");
             }
         };
 

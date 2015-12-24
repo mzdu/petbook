@@ -135,7 +135,7 @@ angular.module('petBook', ['ionic',
         url: '/login',
         views: {
             'menuContent': {
-                templateUrl: 'app/auth/auth.login.view.html',
+                templateUrl: 'app/auth/login/auth.login.view.html',
                 controller: 'LoginCtrl'
             },
             'fabContent': {
@@ -148,7 +148,7 @@ angular.module('petBook', ['ionic',
         url: '/changePassword',
         views: {
             'menuContent': {
-                templateUrl: 'app/auth/auth.changePassword.view.html',
+                templateUrl: 'app/auth/changePassword/auth.changePassword.view.html',
                 controller: 'ChangePasswordCtrl',
             },
             'fabContent': {
@@ -161,7 +161,7 @@ angular.module('petBook', ['ionic',
         url: '/forgotPassword',
         views: {
             'menuContent': {
-                templateUrl: 'app/auth/auth.forgotPassword.view.html',
+                templateUrl: 'app/auth/forgotPassword/auth.forgotPassword.view.html',
                 controller: 'ForgotPasswordCtrl',
             },
             'fabContent': {
@@ -174,7 +174,7 @@ angular.module('petBook', ['ionic',
         url: '/register',
         views: {
             'menuContent': {
-                templateUrl: 'app/auth/auth.register.view.html',
+                templateUrl: 'app/auth/register/auth.register.view.html',
                 controller: 'RegisterCtrl'
             },
             'fabContent': {
