@@ -23,7 +23,30 @@
         //forgot or change password
 
         function sendPassword(){
-            $state.go('app.changePassword');
+            console.log('vm.user = ', vm.user);
+            AuthService.changePassword(vm.user)
+            .then(function(result, error){
+                
+            })
+            .catch(sendPasswordError);
+            // $state.go('app.changePassword');
         };
+
+        function sendPasswordSuccess(result, error){
+            if(!error && result.success){
+                    //display success message
+                    console.log('succcess');
+                    
+                } else {
+                    
+                    //display error message
+                    console.log('error');
+                }
+        }
+
+        function sendPasswordError(response){
+            console.log('response is: ', response);
+            console.log('error');
+        }
     }
 })();

@@ -19,9 +19,10 @@
             register: function(form) {
                 return Restangular.all('register').post(form);
             },
-
+             // POST: /api/auth/forgotAndResetPassword
+            // sends temporary password to user's email
             forgotPassword: function(form) {
-                return Restangular.all('auth').all('forgotPassword').post(form);
+                return Restangular.all('auth').all('forgotAndResetPassword').post(form);
             },
             // POST: /api/auth/changepassword
             // change user password
