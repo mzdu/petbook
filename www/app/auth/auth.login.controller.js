@@ -13,8 +13,6 @@
         vm.login = login;
         vm.register = register;
         vm.retrievePassword = retrievePassword;
-        vm.sendPassword = sendPassword;
-        vm.foo = 'bar';
 
 
         $ionicSideMenuDelegate.canDragContent(false);
@@ -65,13 +63,10 @@
         //forgot or change password
 
         function retrievePassword(){
-            $state.go('app.forgotpassword');
+            console.log('ForgotPasswordCtrl');
+            $state.go('app.forgotPassword');
         };
 
-        //this is the function executed when a user fills in email and clicks "submit" on "forgot password" page
-        function sendPassword(){
-            
-        };
 
     }
 })();
