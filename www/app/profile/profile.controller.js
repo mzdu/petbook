@@ -5,10 +5,10 @@
         .module('petBook.profile.controller', [])
         .controller('ProfileCtrl', ProfileCtrl);
 
-    ProfileCtrl.$inject = ['$scope', '$stateParams', '$timeout', 'ionicMaterialMotion', 'ionicMaterialInk', 'StorageService', 'ProfileService', '$ionicPopup'];
+    ProfileCtrl.$inject = ['$scope', '$state', '$stateParams', '$timeout', 'ionicMaterialMotion', 'ionicMaterialInk', 'StorageService', 'ProfileService', '$ionicPopup'];
 
     /* @ngInject */
-	function ProfileCtrl($scope, $stateParams, $timeout, ionicMaterialMotion, ionicMaterialInk, StorageService, ProfileService, $ionicPopup) {
+	function ProfileCtrl($scope, $state, $stateParams, $timeout, ionicMaterialMotion, ionicMaterialInk, StorageService, ProfileService, $ionicPopup) {
     // Set Header
     $scope.$parent.showHeader();
     $scope.$parent.clearFabs();
@@ -20,6 +20,7 @@
     //console.log('scope user is ', $scope.user);
 
     $scope.field = $stateParams.field;
+    $scope.changePassword = changePassword;
     if ($scope.field === 'dob') {
 
         $scope.value = new Date($stateParams.value);
@@ -47,6 +48,10 @@
             startVelocity: 3000
         });
     }, 700);
+
+    function changePassword(){
+        $state.go('app.changePassword');
+    }
 
     // Set Ink
     ionicMaterialInk.displayEffect();

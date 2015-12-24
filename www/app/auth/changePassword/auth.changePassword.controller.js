@@ -58,6 +58,7 @@
             if (!error && result.success) {
                 //display success message
                 console.log('succcess');
+                $state.go('app.moments');
 
             } else {
                 //display error message

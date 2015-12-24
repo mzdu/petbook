@@ -31,8 +31,12 @@
                 // returns a list of users
                 console.log('user is: ', user);
                 if (!err && user.token) {
-                    StorageService.setCurrentUser(user);
-                    $state.go('app.moments');
+                    if(user.needsToChangePassword){
+                        $state.go('app.changePassword');
+                    } else {
+                        StorageService.setCurrentUser(user);
+                        $state.go('app.moments');
+                    }
                 } else {
                     console.log('error is: ', err);
                     $scope.error = err;

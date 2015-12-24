@@ -1,7 +1,7 @@
 <ion-view view-title="Profile">
     <ion-content ng-class="{expanded:$scope.isExpanded}">
         
-    <div class="list animate-fade-slide-in-right">
+    <!-- <div class="list animate-fade-slide-in-right"> -->
 
 
 <!--    <div class="item card-item"> -->
@@ -14,7 +14,7 @@
       
 
 
-    </div class="list">
+    <div class="animate-fade-slide-in-right">
 
 
       <div class="item item-divider" style="background-color:#E8E8E8;">
@@ -56,57 +56,13 @@
         <label>Bio: </label>
             <p style="white-space:normal;">{{user.pet.bio}}</p>
       </a>
+
+    <!--   <button type="button" class="button button-block button-assertive" ng-click="changePassword()">
+        Change Password
+      </button> -->
     </div>
 
-        <!-- <a ng-if="!editMode" class="item pet-profile-item" href="#">
-            <label>Name:</label>
-            <span>{{user.pet.name}}</span>
-          </a>
-        <div class="item pet-profile-item" ng-if='editMode'>
-            <label>Name: </label>
-            <input type="text" ng-model="user.pet.name" />
-        </div>
-        <a class="item pet-profile-item" ng-if="!editMode" href="#">
-            <label>Birthday: </label>
-            <span>{{user.pet.dob | date:'MM/dd/yyyy'}}</span>
-        </a>
-        <div class="item pet-profile-item" ng-if='editMode'>
-            <label>Birthday: </label>
-            <input type="date" ng-model="user.pet.dob" />
-            <datepicker>
-  <input ng-model="date" type="text"/>
-</datepicker>
-        </div>
-        <a class="item pet-profile-item" ng-if="!editMode" href="#">
-            <label>Sex: </label>
-            <span>{{user.pet.sex}}</span>
-        </a>
-
-        <div class="item item-input item-select pet-profile-item" ng-if='editMode'>
-            <label> Sex:</label>
-            <select ng-model="user.pet.sex">
-              <option selected>Male</option>
-              <option>Female</option>
-            </select>
-        </div>
-
-        <a class="item pet-profile-item" ng-if="!editMode" href="#">
-            <label>Breed: </label>
-            <span>{{user.pet.breed}}</span>
-        </a>
-         <div class="item pet-profile-item" ng-if='editMode'>
-            <label>Breed: </label>
-            <input type="text" ng-model="user.pet.breed" />
-        </div>
-        <a class="item pet-profile-item" ng-if="!editMode" href="#">
-            <label>Bio: </label>
-            <p style="white-space:normal;">{{user.pet.bio}}</p>
-        </a>
-         <div class="item pet-profile-item" ng-if='editMode'>
-            <label>Bio: </label>
-            <input type="text" ng-model="user.pet.bio" />
-        </div>
-        -->
+       
 <!-- mthemecolor -->
     </div>
     </ion-content>
