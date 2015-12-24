@@ -5,6 +5,7 @@
         .module('petBook.auth', [
             'petBook.auth.login.controller',
             'petBook.auth.register.controller',
-            'petBook.auth.forgotPassword.controller'
+            'petBook.auth.forgotPassword.controller',
+            'petBook.auth.changePassword.controller'
         ]);
 })();

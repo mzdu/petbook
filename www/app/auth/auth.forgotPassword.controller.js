@@ -9,8 +9,8 @@
 
     /* @ngInject */
     function ForgotPasswordCtrl($scope, $state, $timeout, $stateParams, StorageService, ionicMaterialInk, AuthService, $ionicSideMenuDelegate, $ionicLoading) {
-        var vm = this;
-        vm.retrievePassword = retrievePassword;
+        var vm = $scope;
+        vm.sendPassword = sendPassword;
 
         console.log('ForgotPasswordCtrl');
         $ionicSideMenuDelegate.canDragContent(false);
@@ -22,8 +22,8 @@
 
         //forgot or change password
 
-        function retrievePassword(){
-            $state.go('app.forgotpassword');
+        function sendPassword(){
+            $state.go('app.changePassword');
         };
     }
 })();
