@@ -1,40 +1,10 @@
 (function() {
     'use strict';
 
-    angular.module('petBook.services', [])
+    angular.module('petBook.services.utility.location', [])
 
-    .factory('AuthService', AuthService)
-    .factory('StorageService', StorageService)
-    .factory('ProfileService', ProfileService)
-    .factory('StatusService', StatusService)
     .factory('LocationService', LocationService);
 
-    function AuthService(Restangular) {
-
-        return {
- 
-            // POST: /api/login
-            // logs the user in
-            login: function(form) {
-                return Restangular.all('login').post(form);
-            },
-            // POST: /api/register
-            // registers the user
-            register: function(form) {
-                return Restangular.all('register').post(form);
-            },
-
-            forgotPassword: function(form) {
-                return Restangular.all('auth').all('forgotPassword').post(form);
-            },
-            // POST: /api/auth/changepassword
-            // change user password
-            changePassword: function(form) {
-                return Restangular.all('auth').customPOST(form, 'changePassword');
-            },
-        }; //end of return
-    };
-    
 
      function StorageService($localStorage, $state) {
         // console.log('in storage service');
@@ -82,41 +52,9 @@
              }
 
          }; //end of return
-     };  
+     };       
      
-     function StatusService(Restangular) {
-
-         return {
-             // GET: /status/:userID
-             // returns all posts from current user
-             getAll: function(userID) {
-                 return Restangular.all('status').one('', userID).get();
-             },
-              // Post: /status/:userID
-             // creates a status for user
-             add: function(id, status){
-                return Restangular.all('status').one('', id).customPOST(status);
-             },
-
-             getMoments: function(form){
-            	console.log('getMoments is running');
-                return Restangular.all('status').post(form);
-             },
-
-             addLike: function(statusID, userID){
-                return Restangular.all('status').one('', statusID).one('likes', userID).post();
-             },
-
-             minusLike: function(statusID, userID){
-                return Restangular.all('status').one('', statusID).one('disLikes', userID).post();  
-             },
-             addComment: function(statusID, userID, comment){
-                 return Restangular.all('status').one('', statusID).one('comment', userID).customPOST(comment);
-             },
-
-         }; //end of return
-     };  
-
+ 
 
 
 function LocationService($q, $localStorage, $cordovaGeolocation) {
