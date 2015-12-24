@@ -11,6 +11,7 @@ angular.module('petBook', ['ionic',
     'petBook.directives',
     'petBook.services',
     'petBook.auth',
+    'petBook.profile',
     'restangular',
     'ngStorage', 
     'ionic-material', 
@@ -187,7 +188,7 @@ angular.module('petBook', ['ionic',
         url: '/profile/:field/:value',
         views: {
             'menuContent': {
-                templateUrl: 'templates/profile.html',
+                templateUrl: 'app/profile/profile.view.html',
                 controller: 'ProfileCtrl'
             },
              'fabContent': {

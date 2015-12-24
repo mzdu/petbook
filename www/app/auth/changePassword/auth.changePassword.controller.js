@@ -20,7 +20,7 @@
         }, 0);
         ionicMaterialInk.displayEffect();
 
-        $scope.user = {};        
+        vm.user = {};        
         $scope.$watch('user.password2', function(newvalue) {
             $scope.passwordMismatch = validatePassword($scope.user.password, newvalue);
             //console.log('newvalue value is: ', newvalue);
@@ -33,7 +33,17 @@
 
         //Change or change password
         function changePassword(){
-            console.log('password clicked');
+            console.log('change password clicked');
+            var currentUser = StorageService.getCurrentUser().user;
+            console.log('currentUser = ', currentUser);
+            var userObj = {
+                username: currentUser.username,
+                newPass: vm.user.password,
+                oldPass: vm.user.oldPassword
+            }
+            AuthService.forgotPassword(userObj)
+            .then(forgotPasswordSuccess, forgotPasswordError)
+            .catch(forgotPasswordError);
         };
 
           function validatePassword(pw, nv) {
@@ -43,6 +53,21 @@
                 return false;
             }
         };
+
+         function forgotPasswordSuccess(result, error) {
+            if (!error && result.success) {
+                //display success message
+                console.log('succcess');
+
+            } else {
+                //display error message
+                console.log('error');
+            }
+        }
+
+        function forgotPasswordError(response) {
+            console.log('response is: ', response);
+        }
 
     }
 })();

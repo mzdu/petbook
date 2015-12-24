@@ -12,7 +12,6 @@
         var vm = $scope;
         vm.sendPassword = sendPassword;
 
-        console.log('ForgotPasswordCtrl');
         $ionicSideMenuDelegate.canDragContent(false);
         $scope.$parent.clearFabs();
         $timeout(function() {
@@ -20,32 +19,29 @@
         }, 0);
         ionicMaterialInk.displayEffect();
 
+        vm.user = {};
         //forgot or change password
 
-        function sendPassword(){
+        function sendPassword() {
             AuthService.forgotPassword(vm.user)
-            .then(function(result, error){
-                
-            })
-            .catch(sendPasswordError);
+                .then(sendPasswordSuccess, sendPasswordError)
+                .catch(sendPasswordError);
             // $state.go('app.changePassword');
         };
 
-        function sendPasswordSuccess(result, error){
-            if(!error && result.success){
-                    //display success message
-                    console.log('succcess');
-                    
-                } else {
-                    
-                    //display error message
-                    console.log('error');
-                }
+        function sendPasswordSuccess(result, error) {
+            if (!error && result.success) {
+                //display success message
+                console.log('succcess');
+
+            } else {
+                //display error message
+                console.log('error');
+            }
         }
 
-        function sendPasswordError(response){
+        function sendPasswordError(response) {
             console.log('response is: ', response);
-            console.log('error');
         }
     }
 })();
