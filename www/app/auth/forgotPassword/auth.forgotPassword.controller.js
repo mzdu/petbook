@@ -23,8 +23,7 @@
         //forgot or change password
 
         function sendPassword(){
-            console.log('vm.user = ', vm.user);
-            AuthService.changePassword(vm.user)
+            AuthService.forgotPassword(vm.user)
             .then(function(result, error){
                 
             })
