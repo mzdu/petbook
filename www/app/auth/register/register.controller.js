@@ -47,9 +47,9 @@
             AuthService.isUserNameUnique(userObj)
             .then(function(data){
                 if(data.unique){
-                    console.log('is unique');
+                    $scope.registerForm.username.$setValidity("duplicate", true);
                 } else {
-                    console.log('not unique');
+                    $scope.registerForm.username.$setValidity("duplicate", false);
                 }
             });
         }
@@ -61,9 +61,9 @@
             AuthService.isEmailUnique(userObj)
             .then(function(data){
                 if(data.unique){
-                    console.log('is unique');
+                    $scope.registerForm.email.$setValidity("duplicate", true);
                 } else {
-                    console.log('not unique');
+                    $scope.registerForm.email.$setValidity("duplicate", false);
                 }
             });
         }
