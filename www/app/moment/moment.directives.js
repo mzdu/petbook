@@ -24,7 +24,7 @@
                 nextPage: '&',
                 cardType: '@'
             },
-            templateUrl: 'templates/petbook_moment.html'
+            templateUrl: 'app/moment/moment.directive.view.html'
         };
         return directive;
 
@@ -49,6 +49,9 @@
         vm.hasRendered = false;
         vm.hasMoreData = false; //for the infinite scroll
         vm.noDataMsg = null;
+        vm.total = 10;
+        vm.increment = increment;
+
         var user = StorageService.getCurrentUser().user;
         //console.log('user is: ', user);
         $scope.$watch('vm.posts', function(data, data2) {
@@ -91,6 +94,10 @@
             } else {
                 return 0;
             }
+        }
+
+        function increment(){
+            vm.total += 10;
         }
 
         function removeUserVoteOnClient(post){

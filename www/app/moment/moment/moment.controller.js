@@ -29,10 +29,8 @@
 
                 moment.location = loc;
                 moment.rad = 10;
-                loadMoments();
-
-
-            }, function(error) {
+            })
+            .finally(function(){
                 loadMoments();
             });
 
@@ -49,6 +47,7 @@
         }
 
         function loadMoreData() {
+            console.log('load more data');
             moment.offSet = $scope.posts.length;
             loadMoments();
         }
@@ -60,6 +59,7 @@
                 // $scope.showInfiniteScroll = (results.length > 0) ? true : false;
                 if (!$scope.posts) {
                     $scope.posts = results;
+                    console.log('after filter: ', $scope.posts);
                 } else {
                     $timeout(function() {
                         _.each(results, function(item) {
