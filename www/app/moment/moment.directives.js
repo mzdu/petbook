@@ -195,7 +195,7 @@
                             // subTitle: 'Please use normal things',
                             scope: $scope,
                             buttons: [{
-                                text: 'Close'
+                                text: 'Quit'
                             }, {
                                 text: '<b>Ok</b>',
                                 type: 'button-positive',
@@ -240,16 +240,6 @@
                             console.log('Tapped!', res);
                         });
 
-                        $timeout(function() {
-                            myPopup.close(); //close the popup after 3 seconds for some reason
-                        }, 3000);
-
-
-                        // $state.go('app.newcomment', {
-                        //     statusID: post._id,
-                        //     userID: user._id
-                        // });
-                        //              console.log('BUTTON CLICKED', index);
                         return true;
                     },
                     //            destructiveButtonClicked: function() {
