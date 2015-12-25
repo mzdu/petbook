@@ -175,7 +175,7 @@ angular.module('petBook', ['ionic',
         url: '/register',
         views: {
             'menuContent': {
-                templateUrl: 'app/auth/register/auth.register.view.html',
+                templateUrl: 'app/auth/register/register.view.html',
                 controller: 'RegisterCtrl'
             },
             'fabContent': {

@@ -29,6 +29,16 @@
             changePassword: function(form) {
                 return Restangular.all('auth').customPOST(form, 'changePassword');
             },
+            // POST: /api/user/isEmailUnique
+            // check if email is unique
+            isEmailUnique: function(form){
+                return Restangular.all('user').customPOST(form, 'isEmailUnique');
+            },
+            // POST: /api/user/isUserNameUnique
+            // check if user name is unique
+            isUserNameUnique: function(form){
+                return Restangular.all('user').customPOST(form, 'isUserNameUnique');
+            }
         }; //end of return
     };
 
