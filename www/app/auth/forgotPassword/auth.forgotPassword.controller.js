@@ -5,7 +5,7 @@
         .module('petBook.auth.forgotPassword.controller', [])
         .controller('ForgotPasswordCtrl', ForgotPasswordCtrl);
 
-    ForgotPasswordCtrl.$inject = ['$scope', '$state', '$timeout', '$stateParams', 'StorageService', 'ionicMaterialInk', 'AuthService', '$ionicSideMenuDelegate', '$cordovaToast'];
+    ForgotPasswordCtrl.$inject = ['$scope', '$state', '$timeout', '$stateParams', 'StorageService', 'ionicMaterialInk', 'AuthService', '$ionicSideMenuDelegate', '$ionicLoading', '$cordovaToast'];
 
     /* @ngInject */
     function ForgotPasswordCtrl($scope, $state, $timeout, $stateParams, StorageService, ionicMaterialInk, AuthService, $ionicSideMenuDelegate, $ionicLoading, $cordovaToast) {
@@ -35,18 +35,17 @@
             if (!error && result.success) {
                 var successMessage = 'Please check your email for your temporary password';
                 //display success message
-                if($cordovaToast){
+                 vm.successMessage = successMessage;
+                    vm.errorMessage = '';
+
                     $cordovaToast
-                    .show(successMessage, 'long', 'center')
+                    .show(successMessage, 'long', 'top')
                     .then(function(success) {
                       $state.go('app.login')
                     }, function (error) {
                       // error
                     });
-                } else {
-                    vm.successMessage = successMessage;
-                    vm.errorMessage = '';
-                }
+               
 
             } else {
                 //display error message
