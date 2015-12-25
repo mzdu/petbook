@@ -8,7 +8,7 @@
 angular.module('petBook', ['ionic', 
     'ngCordova',
     'petBook.controllers',
-    'petBook.directives',
+    'petBook.moment',
     'petBook.services',
     'petBook.auth',
     'petBook.profile',

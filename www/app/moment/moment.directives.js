@@ -2,7 +2,7 @@
     'use strict';
 
     angular
-        .module('petBook.directives', [])
+        .module('petBook.moment.directives', [])
         .directive('petbookMoment', petbookMoment);
 
     petbookMoment.$inject = ['StorageService', 'StatusService', 'ionicMaterialInk', 'ionicMaterialMotion', '$timeout', '$cordovaToast'];
