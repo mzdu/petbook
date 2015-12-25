@@ -99,7 +99,7 @@
 
         function getHasMoreData(){
             if(vm.posts.length > vm.total){
-                vm.total += Math.min(10, vm.posts.length - vm.total);
+                vm.total += Math.min(15, vm.posts.length - vm.total);
                 vm.hasMoreData = true;
             } else {
                 vm.hasMoreData = false;
