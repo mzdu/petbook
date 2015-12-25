@@ -73,7 +73,7 @@ angular.module('petBook', ['ionic',
         url: '/moments',
         views: {
             'menuContent': {
-                templateUrl: 'templates/moments.html',
+                templateUrl: 'app/moment/moment/moment.view.html',
                 controller: 'MomentsCtrl'
             },
              'fabContent': {
@@ -214,6 +214,7 @@ angular.module('petBook', ['ionic',
         views: {
             'menuContent': {
                 templateUrl: 'templates/myposts.html',
+                templateUrl: 'app/moment/myPosts/myPosts.view.html',
                 controller: 'MyPostsCtrl'
             },
              'fabContent': {
