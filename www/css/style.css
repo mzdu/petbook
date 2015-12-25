@@ -170,6 +170,12 @@ p {
   background-color: #fff;
 }
 
+.success-text {
+  margin: 0 10px;
+  color:#000;
+  background-color: #fff;
+}
+
 .arrow_box {
     position: relative;
     background: lightgrey;

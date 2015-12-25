@@ -11,6 +11,7 @@ angular.module('petBook', ['ionic',
     'petBook.directives',
     'petBook.services',
     'petBook.auth',
+    'petBook.profile',
     'restangular',
     'ngStorage', 
     'ionic-material', 
@@ -44,9 +45,9 @@ angular.module('petBook', ['ionic',
         'Content-Type': 'application/json'
     });
 
-    RestangularProvider.setBaseUrl('https://petbookapi.herokuapp.com/api'); 
+    // RestangularProvider.setBaseUrl('https://petbookapi.herokuapp.com/api'); 
     // RestangularProvider.setBaseUrl('https://petbookprod.herokuapp.com/api'); 
-//    RestangularProvider.setBaseUrl('http://localhost:8080/api'); 
+   RestangularProvider.setBaseUrl('http://localhost:8080/api'); 
 
 
     
@@ -135,8 +136,34 @@ angular.module('petBook', ['ionic',
         url: '/login',
         views: {
             'menuContent': {
-                templateUrl: 'app/auth/auth.login.view.html',
-                controller: 'LoginCtrl',
+                templateUrl: 'app/auth/login/auth.login.view.html',
+                controller: 'LoginCtrl'
+            },
+            'fabContent': {
+                template: ''
+            }
+        }
+    })
+
+    .state('app.changePassword', {
+        url: '/changePassword',
+        views: {
+            'menuContent': {
+                templateUrl: 'app/auth/changePassword/auth.changePassword.view.html',
+                controller: 'ChangePasswordCtrl',
+            },
+            'fabContent': {
+                template: ''
+            }
+        }
+    })
+
+    .state('app.forgotPassword', {
+        url: '/forgotPassword',
+        views: {
+            'menuContent': {
+                templateUrl: 'app/auth/forgotPassword/auth.forgotPassword.view.html',
+                controller: 'ForgotPasswordCtrl',
             },
             'fabContent': {
                 template: ''
@@ -148,7 +175,7 @@ angular.module('petBook', ['ionic',
         url: '/register',
         views: {
             'menuContent': {
-                templateUrl: 'app/auth/auth.register.view.html',
+                templateUrl: 'app/auth/register/auth.register.view.html',
                 controller: 'RegisterCtrl'
             },
             'fabContent': {
@@ -161,7 +188,7 @@ angular.module('petBook', ['ionic',
         url: '/profile/:field/:value',
         views: {
             'menuContent': {
-                templateUrl: 'templates/profile.html',
+                templateUrl: 'app/profile/profile.view.html',
                 controller: 'ProfileCtrl'
             },
              'fabContent': {

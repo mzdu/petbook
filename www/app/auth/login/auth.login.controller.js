@@ -12,7 +12,7 @@
         var vm = $scope;
         vm.login = login;
         vm.register = register;
-        vm.foo = 'bar';
+        vm.retrievePassword = retrievePassword;
 
 
         $ionicSideMenuDelegate.canDragContent(false);
@@ -32,7 +32,11 @@
                 console.log('user is: ', user);
                 if (!err && user.token) {
                     StorageService.setCurrentUser(user);
-                    $state.go('app.moments');
+                    if(user.user.needsToChangePassword){
+                        $state.go('app.changePassword');
+                    } else {
+                        $state.go('app.moments');
+                    }
                 } else {
                     console.log('error is: ', err);
                     $scope.error = err;
@@ -59,5 +63,13 @@
         function register() {
             $state.go('app.register');
         };
+
+        //forgot or change password
+
+        function retrievePassword(){
+            $state.go('app.forgotPassword');
+        };
+
+
     }
 })();
