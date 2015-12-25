@@ -46,6 +46,8 @@
                 });
         }
 
+
+        //this is not in use
         function loadMoreData() {
             console.log('load more data');
             moment.offSet = $scope.posts.length;

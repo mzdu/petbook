@@ -37,7 +37,7 @@
         </div>
 
         <ion-infinite-scroll
-            on-infinite="vm.increment()"
+            on-infinite="vm.getHasMoreData()"
             ng-if="vm.hasMoreData"
             distance="1%">
           </ion-infinite-scroll>

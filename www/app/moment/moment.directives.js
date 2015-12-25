@@ -49,8 +49,8 @@
         vm.hasRendered = false;
         vm.hasMoreData = false; //for the infinite scroll
         vm.noDataMsg = null;
-        vm.total = 10;
-        vm.increment = increment;
+        vm.total = 0;
+        vm.getHasMoreData = getHasMoreData;
 
         var user = StorageService.getCurrentUser().user;
         //console.log('user is: ', user);
@@ -66,9 +66,10 @@
             // Set Ink
             ionicMaterialInk.displayEffect();
             vm.hasRendered = true;
+            getHasMoreData();
         }
         //< 25 records means we are on the last page and we can disable infinite scroll.
-        vm.hasMoreData =  (data && data.length) >= 25 ? true : false;
+        
 
         });
 
@@ -96,8 +97,16 @@
             }
         }
 
-        function increment(){
-            vm.total += 10;
+        function getHasMoreData(){
+            if(vm.posts.length > vm.total){
+                vm.total += Math.min(10, vm.posts.length - vm.total);
+                vm.hasMoreData = true;
+            } else {
+                vm.hasMoreData = false;
+            }
+            $scope.$broadcast('scroll.infiniteScrollComplete');
+            
+            
         }
 
         function removeUserVoteOnClient(post){
