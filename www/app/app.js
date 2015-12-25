@@ -8,7 +8,7 @@
 angular.module('petBook', ['ionic', 
     'ngCordova',
     'petBook.controllers',
-    'petBook.directives',
+    'petBook.moment',
     'petBook.services',
     'petBook.auth',
     'petBook.profile',
@@ -45,9 +45,9 @@ angular.module('petBook', ['ionic',
         'Content-Type': 'application/json'
     });
 
-    RestangularProvider.setBaseUrl('https://petbookapi.herokuapp.com/api'); 
+    // RestangularProvider.setBaseUrl('https://petbookapi.herokuapp.com/api'); 
     // RestangularProvider.setBaseUrl('https://petbookprod.herokuapp.com/api'); 
-   // RestangularProvider.setBaseUrl('http://localhost:8080/api'); 
+   RestangularProvider.setBaseUrl('http://localhost:8080/api'); 
 
 
     
@@ -73,7 +73,7 @@ angular.module('petBook', ['ionic',
         url: '/moments',
         views: {
             'menuContent': {
-                templateUrl: 'templates/moments.html',
+                templateUrl: 'app/moment/moment/moment.view.html',
                 controller: 'MomentsCtrl'
             },
              'fabContent': {
@@ -214,6 +214,7 @@ angular.module('petBook', ['ionic',
         views: {
             'menuContent': {
                 templateUrl: 'templates/myposts.html',
+                templateUrl: 'app/moment/myPosts/myPosts.view.html',
                 controller: 'MyPostsCtrl'
             },
              'fabContent': {

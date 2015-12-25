@@ -6,7 +6,7 @@
             </div>
         </div>
         
-        <div class="item card-item" ng-if="vm.posts.length" ng-repeat="post in vm.posts | orderBy: '-createdDate'" ng-class="{ 'in in done': vm.hasRendered }">
+        <div class="item card-item" ng-if="vm.posts.length" ng-repeat="post in vm.posts | orderBy: '-createdDate' | limitTo: vm.total" ng-class="{ 'in in done': vm.hasRendered }">
             <div class="card stable-bg ink ink-dark">
                 <div class="item item-avatar item-text-wrap" ng-class="{ 'in done': vm.hasRendered }">
 
@@ -37,28 +37,10 @@
         </div>
 
         <ion-infinite-scroll
-            on-infinite="vm.nextPage()"
+            on-infinite="vm.getHasMoreData()"
             ng-if="vm.hasMoreData"
             distance="1%">
           </ion-infinite-scroll>
 
-    <!--     <div class="item card-item" ng-repeat="post in vm.posts | orderBy: '-createdDate'">
-            <div ui-sref="" class="card stable-bg ink ink-dark">
-                  <img ng-if="vm.showPostAvatar" class = "slimmer" src="img/dog2.jpg">
-                    <h2 ng-if="vm.showPostAvatar" ng-click = "checkFriendInfo(post)">{{post._Owner.username}}</h2> 
-
-                <p class="wrap">
-          
-                    {{post.description}}
-                    <div class="card-footer text-right">
-                        <i class="icon ion-chatbubble positive larger"></i> 2
-                        <i class="icon ion-heart assertive larger" ng-click="clickedLike(post)"></i> {{vm.getLikes(post)}}
-                        <div class="pull-left">
-                            <i class="icon ion-clock"></i> {{post.createdDate | date:'MM/dd/yyyy'}}
-                        </div>
-                    </div>
-                
-                </p>
-            </div>
-        </div> -->
+    
 
