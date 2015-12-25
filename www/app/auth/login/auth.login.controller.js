@@ -31,10 +31,10 @@
                 // returns a list of users
                 console.log('user is: ', user);
                 if (!err && user.token) {
-                    if(user.needsToChangePassword){
+                    StorageService.setCurrentUser(user);
+                    if(user.user.needsToChangePassword){
                         $state.go('app.changePassword');
                     } else {
-                        StorageService.setCurrentUser(user);
                         $state.go('app.moments');
                     }
                 } else {

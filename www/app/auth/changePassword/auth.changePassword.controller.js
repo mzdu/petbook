@@ -41,7 +41,7 @@
                 newPass: vm.user.password,
                 oldPass: vm.user.oldPassword
             }
-            AuthService.forgotPassword(userObj)
+            AuthService.changePassword(userObj)
             .then(forgotPasswordSuccess, forgotPasswordError)
             .catch(forgotPasswordError);
         };
