@@ -13,6 +13,8 @@
         vm.login = login;
         vm.register = register;
         vm.changePword = changePword;
+        vm.userNameChange = userNameChange;
+        vm.emailChange = emailChange;
 
         $ionicSideMenuDelegate.canDragContent(false)
         $scope.$parent.clearFabs();
@@ -32,6 +34,39 @@
             $scope.passwordMismatch = validatePassword($scope.user.password2, newvalue);
             //console.log('newvalue value is: ', newvalue);
         });
+
+        // $scope.$watch('registerForm.email.$valid', function(newvalue) {
+        //     console.log('email is: ', newvalue);
+        //     //console.log('newvalue value is: ', newvalue);
+        // });
+
+        function userNameChange(userName){
+            var userObj = {
+                username: userName
+            };
+            AuthService.isUserNameUnique(userObj)
+            .then(function(data){
+                if(data.unique){
+                    $scope.registerForm.username.$setValidity("duplicate", true);
+                } else {
+                    $scope.registerForm.username.$setValidity("duplicate", false);
+                }
+            });
+        }
+
+        function emailChange(_email){
+            var userObj = {
+                email: _email
+            };
+            AuthService.isEmailUnique(userObj)
+            .then(function(data){
+                if(data.unique){
+                    $scope.registerForm.email.$setValidity("duplicate", true);
+                } else {
+                    $scope.registerForm.email.$setValidity("duplicate", false);
+                }
+            });
+        }
 
         function register() {
             //loading spinner

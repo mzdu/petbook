@@ -1,0 +1,36 @@
+<ion-view view-title="Home">
+    <div class="ionic login " style="background-image: url('img/landing.jpeg'); background-size: cover; background-repeat: no-repeat;">
+        <div class="hero no-header flat" style="height:30%">
+            <div class="content">
+                <img src="img/Logo2_with_type.png" style="width:35%" />
+            </div>
+        </div>
+        <form name="registerForm" novalidate>
+            <div class="list">
+                <md-input-container>
+                    <ion-md-input name="username" placeholder="Username" highlight-color="balanced" type="text" ng-model="user.username" ng-minlength="6" ng-blur="userNameChange(user.username)" required></ion-md-input>
+                </md-input-container>
+                <p class="help-text" ng-show="registerForm.username.$error.minlength" class="help-block">Username is at least 6 characters.</p>
+                <p class="help-text" ng-show="registerForm.username.$error.duplicate" class="help-block">Username is already taken</p>
+
+                <ion-md-input name="password" placeholder="Password" highlight-color="balanced" type="password" ng-model="user.password" ng-minlength="6" required></ion-md-input>
+                <p class="help-text" ng-show="registerForm.password.$error.minlength" class="help-block">Password is at least 6 characters.</p>
+                <ion-md-input placeholder="Confirm Password" highlight-color="balanced" type="password" ng-model="user.password2" required></ion-md-input>
+                <p class="help-text" ng-if="passwordMismatch">Please enter matching passwords</p>
+                <md-input-container>
+                    <ion-md-input name="email" placeholder="Email" highlight-color="balanced" type="email" ng-model="user.email" ng-blur="emailChange(user.email)" required></ion-md-input>
+                </md-input-container>
+                <p class="help-text" ng-show="registerForm.email.$error.duplicate" class="help-block">Email is already taken</p>
+            </div>
+            <div class="list error" ng-if="error">
+                <span>Invalid Credentials</span>
+            </div>
+            <div class="padding">
+                <button type="submit" ng-click="register()" ng-disabled="passwordMismatch || registerForm.$invalid" class="button button-block button-calm waves-effect waves-button waves-light">Signup</button>
+                <br>
+                <br>
+                <a href="#" class="calm" ng-click="login()"><b>Already have an account? Sign in.</b></a>
+            </div>
+        </form>
+    </div>
+</ion-view>
