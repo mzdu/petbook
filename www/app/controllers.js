@@ -188,7 +188,7 @@ angular.module('petBook.controllers', [])
     }
 })
 
-.controller('EditProfileCtrl', function($scope, $state, $stateParams, ProfileService, StorageService, $ionicLoading, $cordovaImagePicker, $ionicPlatform, $cordovaFileTransfer) {
+.controller('EditProfileCtrl', function($scope, $state, $stateParams, ProfileService, StorageService, $ionicLoading, $cordovaImagePicker, $ionicPlatform, UploadService) {
     $scope.$parent.showHeader();
     $scope.$parent.clearFabs();
     $scope.isExpanded = false;
@@ -212,7 +212,7 @@ angular.module('petBook.controllers', [])
         $scope.value = $stateParams.value;
     }
     $scope.pet = {};
-    
+
 
     $scope.pet[$scope.field] = $scope.value;
 
@@ -242,34 +242,43 @@ angular.module('petBook.controllers', [])
 
     $scope.cancel = function() {
         $scope.pet = {};
-        $scope.user.avatar='';
+        $scope.user.avatar = '';
         $state.go('app.profile');
     }
 
     //upload selected avatar image to AWS; not finished yet
-    $scope.upload = function(){
-        var options = {
-            fileKey: "avatar",
-            fileName: "avatar",
-            chunkedMode: false,
-            mimeType: "image/png"
-        };
-        //$cordovaFileTransfer.upload("http://192.168.56.1:1337/file/upload", "img/care1.png", options)
+    $scope.upload = function() {
+            var options = {
+                fileKey: "avatar",
+                fileName: "avatar",
+                chunkedMode: false,
+                mimeType: "image/png"
+            };
+            //$cordovaFileTransfer.upload("http://192.168.56.1:1337/file/upload", "img/care1.png", options)
+            UploadService.upload($scope.user.avatar)
+                .then(function(result) {
+                    
+                    // Success!
+                }, function(err) {
+                    // Error
+                }, function(progress) {
+                    // constant progress updates
+                });
 
-    }
-    //console.log('in edit profile ctrl');
+        }
+        //console.log('in edit profile ctrl');
 
     //choose a photo for avatar; the avatar's uri is in $scope.user.avatar
-    $scope.selectImage = function(){
+    $scope.selectImage = function() {
         // Image picker will load images according to these settings
         var options = {
             maximumImagesCount: 1, // Max number of selected images
             width: 800,
             height: 800,
-            quality: 80            // Higher is better
+            quality: 80 // Higher is better
         };
-     
-        $cordovaImagePicker.getPictures(options).then(function (results) {
+
+        $cordovaImagePicker.getPictures(options).then(function(results) {
             // Loop through acquired images; if multiple images
             /*for (var i = 0; i < results.length; i++) {
                 console.log('Image URI: ' + results[i]);   // Print image URI
@@ -278,9 +287,9 @@ angular.module('petBook.controllers', [])
             $scope.user.avatar = results[0];
             //the following is for testing local images
             //$scope.user.avatar = "img/arya.jpg";
-            console.log('Image URI: '+results[0]);
+            console.log('Image URI: ' + results[0]);
         }, function(error) {
-            console.log('Error: ' + JSON.stringify(error));    // In case of error
+            console.log('Error: ' + JSON.stringify(error)); // In case of error
         });
     }
 })
@@ -313,151 +322,162 @@ angular.module('petBook.controllers', [])
     $scope.$parent.setExpanded(false);
     $scope.$parent.setHeaderFab(false);
     $scope.showPopup = function() {
-            $state.go('app.newpost');
-        }
-      
-})
-
-.controller('NewPostCtrl',function($scope,StorageService,StatusService,$state, LocationService, $ionicPopup, $ionicLoading){
-    $scope.$parent.showHeader();
-    $scope.$parent.clearFabs();
-    $scope.isExpanded = false;
-    $scope.$parent.setExpanded(false);
-    $scope.$parent.setHeaderFab(false);
-    $scope.data = {};
-    $scope.user = StorageService.getCurrentUser().user;
-    
-    $scope.choiceList = [
-    { text: "playmates!", value: "playmates!" },
-    { text: "medical advice.", value: "medical advice." },
-    { text: "to take a shower.", value: "to take a shower." },
-    { text: "a walk.", value: "a walk." },
-    { text: "dog sitting/boarding.", value: "dog sitting/boarding." },
-    { text: "other:", value: "other" }
-    ];
-
-     LocationService.getCurrentLocation().then(function(loc){
-        $scope.location = loc;
-        console.log('location is: ', loc);
-    });
-
-    $scope.addPost = function(){
-        $scope.data.userInput = "";
-        if($scope.data.choice != "other" && $scope.data.choice != undefined){
-            $scope.data.userInput = "My dog needs " + $scope.data.choice;
-        }
-        if($scope.data.post != undefined){
-            if($scope.data.userInput != "") {
-                $scope.data.userInput = $scope.data.userInput + " ";
-            }
-            $scope.data.userInput = $scope.data.userInput + $scope.data.post;
-        }
-
-        if( ($scope.data.choice == "other" || $scope.data.choice == undefined) && $scope.data.post == undefined){
-            var alertPopup = $ionicPopup.alert({
-             title: 'Alert',
-             template: 'You need to select a choice or enter some text.'
-            });
-            alertPopup.then(function(res) {
-             console.log('Try select or enter again.');
-            });
-        }else{
-            //console.log("data is ",$scope.data);
-            $scope.showLoading($ionicLoading);
-            
-            var status = {
-                description: $scope.data.userInput,
-                likes: 0,
-                location: $scope.location //hard coded
-            }
-            var promise = StatusService.add($scope.user._id, status);
-
-            promise.then(function(data, error) {
-                if (!error) {
-                    console.log('added data is: ', data);
-                    console.log('wish successfully added');
-                    //$state.reload();
-                    $state.go('app.myposts');
-
-                } else {
-                    console.log('error adding wish');
-                }
-            }, function(response) {
-                console.log('response error ', response);
-            })
-            .finally(function($ionicLoading) {
-                //hide the loading
-                $scope.hideLoading($ionicLoading);
-             });
-        }
-
+        $state.go('app.newpost');
     }
 
 })
+
+.controller('NewPostCtrl', function($scope, StorageService, StatusService, $state, LocationService, $ionicPopup, $ionicLoading) {
+        $scope.$parent.showHeader();
+        $scope.$parent.clearFabs();
+        $scope.isExpanded = false;
+        $scope.$parent.setExpanded(false);
+        $scope.$parent.setHeaderFab(false);
+        $scope.data = {};
+        $scope.user = StorageService.getCurrentUser().user;
+
+        $scope.choiceList = [{
+            text: "playmates!",
+            value: "playmates!"
+        }, {
+            text: "medical advice.",
+            value: "medical advice."
+        }, {
+            text: "to take a shower.",
+            value: "to take a shower."
+        }, {
+            text: "a walk.",
+            value: "a walk."
+        }, {
+            text: "dog sitting/boarding.",
+            value: "dog sitting/boarding."
+        }, {
+            text: "other:",
+            value: "other"
+        }];
+
+        LocationService.getCurrentLocation().then(function(loc) {
+            $scope.location = loc;
+            console.log('location is: ', loc);
+        });
+
+        $scope.addPost = function() {
+            $scope.data.userInput = "";
+            if ($scope.data.choice != "other" && $scope.data.choice != undefined) {
+                $scope.data.userInput = "My dog needs " + $scope.data.choice;
+            }
+            if ($scope.data.post != undefined) {
+                if ($scope.data.userInput != "") {
+                    $scope.data.userInput = $scope.data.userInput + " ";
+                }
+                $scope.data.userInput = $scope.data.userInput + $scope.data.post;
+            }
+
+            if (($scope.data.choice == "other" || $scope.data.choice == undefined) && $scope.data.post == undefined) {
+                var alertPopup = $ionicPopup.alert({
+                    title: 'Alert',
+                    template: 'You need to select a choice or enter some text.'
+                });
+                alertPopup.then(function(res) {
+                    console.log('Try select or enter again.');
+                });
+            } else {
+                //console.log("data is ",$scope.data);
+                $scope.showLoading($ionicLoading);
+
+                var status = {
+                    description: $scope.data.userInput,
+                    likes: 0,
+                    location: $scope.location //hard coded
+                }
+                var promise = StatusService.add($scope.user._id, status);
+
+                promise.then(function(data, error) {
+                        if (!error) {
+                            console.log('added data is: ', data);
+                            console.log('wish successfully added');
+                            //$state.reload();
+                            $state.go('app.myposts');
+
+                        } else {
+                            console.log('error adding wish');
+                        }
+                    }, function(response) {
+                        console.log('response error ', response);
+                    })
+                    .finally(function($ionicLoading) {
+                        //hide the loading
+                        $scope.hideLoading($ionicLoading);
+                    });
+            }
+
+        }
+
+    })
     /*.controller('PetsNearbyCtrl', ['$scope', function ($scope) {
         
     }])
     */
-.controller('NewCommentCtrl',function($scope,$stateParams,StorageService,StatusService,$state, LocationService, $ionicPopup, $ionicLoading){
-    $scope.$parent.showHeader();
-    $scope.$parent.clearFabs();
-    $scope.isExpanded = false;
-    $scope.$parent.setExpanded(false);
-    $scope.$parent.setHeaderFab(false);
-    $scope.data = {};
-    $scope.user = StorageService.getCurrentUser().user;
-    
+    .controller('NewCommentCtrl', function($scope, $stateParams, StorageService, StatusService, $state, LocationService, $ionicPopup, $ionicLoading) {
+        $scope.$parent.showHeader();
+        $scope.$parent.clearFabs();
+        $scope.isExpanded = false;
+        $scope.$parent.setExpanded(false);
+        $scope.$parent.setHeaderFab(false);
+        $scope.data = {};
+        $scope.user = StorageService.getCurrentUser().user;
 
-    $scope.addComment = function(){
-    	
-//    	console.log("in add comment");
-    	
-//        $scope.data.comment = "";
-        
-        var userComment = $scope.data.comment;
-//        console.log("userComment message is");
-//        console.log(userComment);
-        
-        //console.log("data is ",$scope.data);
-//        $scope.showLoading($ionicLoading);
-        
-        var comment = {
-            comment: userComment
-        }
-        
-        var userID = $stateParams.userID;
-        var statusID = $stateParams.statusID;
 
-//        console.log("scope userID is");
-//        console.log(userID, statusID);        
-        
-        var promise = StatusService.addComment(statusID, userID, comment);
-//        promise.then(function(data, error) {
-//            if (!error) {
-//                console.log('added data is: ', data);
-//                console.log('wish successfully added');
-//                //$state.reload();
-//                $state.go('app.myposts');
-//
-//            } else {
-//                console.log('error adding wish');
-//            }
-//        });
-        
-        promise.then(function(data, error) {
-            if (data) {
-//                $scope.user = data;
-            	console.log('addcomment success');
-            	$state.go('app.moments');
+        $scope.addComment = function() {
+
+            //      console.log("in add comment");
+
+            //        $scope.data.comment = "";
+
+            var userComment = $scope.data.comment;
+            //        console.log("userComment message is");
+            //        console.log(userComment);
+
+            //console.log("data is ",$scope.data);
+            //        $scope.showLoading($ionicLoading);
+
+            var comment = {
+                comment: userComment
             }
-            
-        });
-    }
 
-})
+            var userID = $stateParams.userID;
+            var statusID = $stateParams.statusID;
 
-    .controller('AboutCtrl', function($scope) {
+            //        console.log("scope userID is");
+            //        console.log(userID, statusID);        
+
+            var promise = StatusService.addComment(statusID, userID, comment);
+            //        promise.then(function(data, error) {
+            //            if (!error) {
+            //                console.log('added data is: ', data);
+            //                console.log('wish successfully added');
+            //                //$state.reload();
+            //                $state.go('app.myposts');
+            //
+            //            } else {
+            //                console.log('error adding wish');
+            //            }
+            //        });
+
+            promise.then(function(data, error) {
+                if (data) {
+                    //                $scope.user = data;
+                    console.log('addcomment success');
+                    $state.go('app.moments');
+                }
+
+            });
+        }
 
     })
+
+.controller('AboutCtrl', function($scope) {
+
+})
 
 ;
