@@ -220,6 +220,8 @@ angular.module('petBook.controllers', [])
     console.log('$scope.field = ', $scope.field);    
     console.log('the value is: ', $scope.value);*/
 
+    $scope.isInBrowser = isInBrowser;
+
     $scope.save = function(pet) {
         var user = StorageService.getCurrentUser().user;
         pet._id = user._id;
@@ -246,31 +248,67 @@ angular.module('petBook.controllers', [])
         $state.go('app.profile');
     }
 
-    //upload selected avatar image to AWS; not finished yet
+    function isInBrowser() {
+            console.log('$cordovaImagePicker = ', $cordovaImagePicker);
+            var result = !$cordovaImagePicker;
+            console.log(result);
+            return result;
+        }
+        //upload selected avatar image to AWS; not finished yet
     $scope.upload = function() {
-            var options = {
-                fileKey: "avatar",
-                fileName: "avatar",
-                chunkedMode: false,
-                mimeType: "image/png"
-            };
-            //$cordovaFileTransfer.upload("http://192.168.56.1:1337/file/upload", "img/care1.png", options)
-            UploadService.upload($scope.user.avatar)
+        var options = {
+            fileKey: "avatar",
+            fileName: "avatar",
+            chunkedMode: false,
+            mimeType: "image/png"
+        };
+        //$cordovaFileTransfer.upload("http://192.168.56.1:1337/file/upload", "img/care1.png", options)
+        UploadService.upload($scope.user.avatar)
+            .then(function(result) {
+
+                // Success!
+            }, function(err) {
+                // Error
+            }, function(progress) {
+                // constant progress updates
+            });
+
+    }
+
+    $scope.uploadFile = function() {
+        var fileChooser = document.getElementById('file-chooser');
+        // angular.element('#file-chooser');
+
+        console.log('fileChooser = ', fileChooser);
+        var fileTest = fileChooser.files[0];
+        if (fileTest) {
+            // results.innerHTML = '';
+            console.log('fileTest is: ', fileTest);
+            UploadService.getS3(fileTest)
                 .then(function(result) {
-                    
+                    console.log('result is: ', result);
                     // Success!
                 }, function(err) {
                     // Error
+                    console.log('err is: ', err);
                 }, function(progress) {
                     // constant progress updates
                 });
 
+        } else {
+            // results.innerHTML = 'Nothing to upload.';
+            alert('error has occured');
         }
         //console.log('in edit profile ctrl');
+    }
 
     //choose a photo for avatar; the avatar's uri is in $scope.user.avatar
     $scope.selectImage = function() {
         // Image picker will load images according to these settings
+
+        if (!$cordovaImagePicker) {
+
+        }
         var options = {
             maximumImagesCount: 1, // Max number of selected images
             width: 800,
