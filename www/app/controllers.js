@@ -288,6 +288,13 @@ angular.module('petBook.controllers', [])
                 .then(function(result) {
                     console.log('result is: ', result);
                     // Success!
+                    UploadService.uploadS3(result.signed_request)
+                    .then(function(data){
+                        console.log('uploaded data is: ', data);
+                    },
+                    function(error){
+                        console.log('error is: ', error);
+                    });
                 }, function(err) {
                     // Error
                     console.log('err is: ', err);

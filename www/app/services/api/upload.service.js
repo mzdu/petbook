@@ -5,61 +5,75 @@
 
     .factory('UploadService', UploadService);
 
-    function UploadService($cordovaFileTransfer, apiLocal, Restangular, $q) {
+    function UploadService($cordovaFileTransfer, apiLocal, Restangular, $q, $http) {
 
-        var AWS_ACCESS_KEY = 'AKIAJQB2DVDLK4DDGSYA';
-        var AWS_SECRET_KEY = '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';
-        var S3_BUCKET = 'petbookpics';
+            var AWS_ACCESS_KEY = 'AKIAJQB2DVDLK4DDGSYA';
+            var AWS_SECRET_KEY = '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';
+            var S3_BUCKET = 'petbookpics';
 
-        AWS.config.update({
-            accessKeyId: AWS_ACCESS_KEY,
-            secretAccessKey: AWS_SECRET_KEY
-        });
+            AWS.config.update({
+                accessKeyId: AWS_ACCESS_KEY,
+                secretAccessKey: AWS_SECRET_KEY
+            });
 
-        AWS.config.update({
-            region: 'us-west-2',
-            signatureVersion: 'v4'
-        });
-        var s3 = new AWS.S3();
+            AWS.config.update({
+                region: 'us-west-2',
+                signatureVersion: 'v4'
+            });
+            var s3 = new AWS.S3();
 
 
-        return {
-            // GET: /Upload/:userID
-            // returns all posts from current user
-            upload: function(file) {
-                var serverPath = apiLocal + '/uploadFile'
-                var options = {};
-                return $cordovaFileTransfer.upload(serverPath, file, options)
-            },
+            return {
+                // GET: /Upload/:userID
+                // returns all posts from current user
+                upload: function(file) {
+                    var serverPath = apiLocal + '/uploadFile'
+                    var options = {};
+                    return $cordovaFileTransfer.upload(serverPath, file, options)
+                },
 
-            getS3: function(file) {
-                // return Restangular.one('pet', userID).get(); 
-                // return Restangular.all('uploadFile').post(form);
-                var defer = $q.defer();
-                console.log('name is: ', file);
-                var s3_params = {
-                    Bucket: S3_BUCKET,
-                    Key: file.name,
-                    Expires: 60,
-                    ContentType: file.type,
-                    ACL: 'public-read'
-                };
-                s3.getSignedUrl('putObject', s3_params, function(err, data) {
-                            if (err) {
-                                console.log(err);
-                                defer.reject(err);
-                            } else {
-                                var return_data = {
-                                    signed_request: data,
-                                    url: 'https://' + S3_BUCKET + '.s3.amazonaws.com/' + file.name
-                                };
-                                // res.write(JSON.stringify(return_data));
-                                defer.resolve(return_data);
-                            } //end else
-                        }); //end getSigned
-                        return defer.promise;
-                    } // end getS3
-            }//end of return
+                getS3: function(file) {
+                    // return Restangular.one('pet', userID).get(); 
+                    // return Restangular.all('uploadFile').post(form);
+                    var defer = $q.defer();
+                    console.log('name is: ', file);
+                    var s3_params = {
+                        Bucket: S3_BUCKET,
+                        Key: file.name,
+                        Expires: 60,
+                        ContentType: file.type,
+                        ACL: 'public-read'
+                    };
+                    s3.getSignedUrl('putObject', s3_params, function(err, data) {
+                        if (err) {
+                            console.log(err);
+                            defer.reject(err);
+                        } else {
+                            console.log('data is: ', data);
+                            var return_data = {
+                                signed_request: data,
+                                url: 'https://' + S3_BUCKET + '.s3.amazonaws.com/' + file.name
+                            };
+                            // res.write(JSON.stringify(return_data));
+                            defer.resolve(return_data);
+                        } //end else
+                    }); //end getSigned
+                    return defer.promise;
+                }, // end getS3
+
+                uploadS3: function(url) {
+
+                        return $http({
+                            method: 'PUT',
+                            url: url,
+                            headers: {
+                                'x-amz-acl': 'public-read'
+                            }
+                        });
+
+                  
+                    } // end uploadS3
+            } //end of return
 
         } //end uploadService
 
