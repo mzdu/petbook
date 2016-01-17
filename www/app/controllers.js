@@ -94,7 +94,14 @@ angular.module('petBook.controllers', [])
             fabs[0].remove();
         }
     };
-
+    
+    //show user notifications
+    $scope.showNotifications = function() {
+    	
+        console.log("in show notifications");
+        
+    };
+    	
     $scope.logout = function() {
         /*StorageService.resetCurrentUser();
         $state.go('app.login');*/
@@ -125,6 +132,7 @@ angular.module('petBook.controllers', [])
     $scope.hideLoading = function() {
         $ionicLoading.hide();
     };
+
 })
 
 .controller('IntroCtrl', function($scope, $stateParams, $timeout, ionicMaterialInk, ionicMaterialMotion) {
