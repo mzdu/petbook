@@ -220,7 +220,6 @@ angular.module('petBook.controllers', [])
     console.log('$scope.field = ', $scope.field);    
     console.log('the value is: ', $scope.value);*/
 
-    $scope.isInBrowser = isInBrowser;
 
     $scope.save = function(pet) {
         var user = StorageService.getCurrentUser().user;
