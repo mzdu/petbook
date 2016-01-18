@@ -188,7 +188,7 @@ angular.module('petBook.controllers', [])
     }
 })
 
-.controller('EditProfileCtrl', function($scope, $state, $stateParams, ProfileService, StorageService, $ionicLoading, $cordovaImagePicker, $ionicPlatform, $cordovaFileTransfer) {
+.controller('EditProfileCtrl', function($scope, $state, $stateParams, ProfileService, StorageService, $ionicLoading, $cordovaCamera, $ionicPlatform, $cordovaFileTransfer) {
     $scope.$parent.showHeader();
     $scope.$parent.clearFabs();
     $scope.isExpanded = false;
@@ -260,27 +260,46 @@ angular.module('petBook.controllers', [])
     //console.log('in edit profile ctrl');
 
     //choose a photo for avatar; the avatar's uri is in $scope.user.avatar
-    $scope.selectImage = function(){
-        // Image picker will load images according to these settings
+    $scope.selectPhoto = function(){
         var options = {
-            maximumImagesCount: 1, // Max number of selected images
-            width: 800,
-            height: 800,
-            quality: 80            // Higher is better
+          quality: 50,
+          destinationType: Camera.DestinationType.DATA_URL,
+          sourceType: Camera.PictureSourceType.PHOTOLIBRARY,
+          allowEdit: true,
+          encodingType: Camera.EncodingType.JPEG,
+          targetWidth: 100,
+          targetHeight: 100,
+          popoverOptions: CameraPopoverOptions,
+          saveToPhotoAlbum: false,
+          correctOrientation:true
         };
-     
-        $cordovaImagePicker.getPictures(options).then(function (results) {
-            // Loop through acquired images; if multiple images
-            /*for (var i = 0; i < results.length; i++) {
-                console.log('Image URI: ' + results[i]);   // Print image URI
-            }*/
-            //$scope.user.avatar = 'http://www.google.com/imgres?imgurl=http://animalia-life.com/data_images/dog/dog7.jpg&imgrefurl=http://animalia-life.com/dogs.html&h=2317&w=2121&tbnid=Q-QQDJH26K8rsM:&tbnh=186&tbnw=170&usg=__VEQGqVYJwWqvFCni6PQlaSmjXaw=&docid=QIa83ScG5OU-uM&itg=1';
-            $scope.user.avatar = results[0];
-            //the following is for testing local images
-            //$scope.user.avatar = "img/arya.jpg";
-            console.log('Image URI: '+results[0]);
-        }, function(error) {
-            console.log('Error: ' + JSON.stringify(error));    // In case of error
+        $cordovaCamera.getPicture(options).then(function(imageData) {
+          var image = document.getElementById('avatarimg');
+          image.src = "data:image/jpeg;base64," + imageData;
+        }, function(err) {
+          // error
+        });
+        
+    }
+
+    $scope.takePhoto = function(){
+        var options = {
+          quality: 50,
+          destinationType: Camera.DestinationType.DATA_URL,
+          sourceType: Camera.PictureSourceType.CAMERA,
+          allowEdit: true,
+          encodingType: Camera.EncodingType.JPEG,
+          targetWidth: 100,
+          targetHeight: 100,
+          popoverOptions: CameraPopoverOptions,
+          saveToPhotoAlbum: false,
+          correctOrientation:true
+        };
+        $cordovaCamera.getPicture(options).then(function(imageData) {
+          var image = document.getElementById('avatarimg');
+          image.src = "data:image/jpeg;base64," + imageData;
+        }, function(err) {
+          // error
         });
     }
 })
@@ -326,6 +345,7 @@ angular.module('petBook.controllers', [])
     $scope.$parent.setHeaderFab(false);
     $scope.data = {};
     $scope.user = StorageService.getCurrentUser().user;
+
     
     $scope.choiceList = [
     { text: "playmates!", value: "playmates!" },
@@ -343,6 +363,7 @@ angular.module('petBook.controllers', [])
 
     $scope.addPost = function(){
         $scope.data.userInput = "";
+
         if($scope.data.choice != "other" && $scope.data.choice != undefined){
             $scope.data.userInput = "My dog needs " + $scope.data.choice;
         }
