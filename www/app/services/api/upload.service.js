@@ -5,7 +5,7 @@
 
     .factory('UploadService', UploadService);
 
-    function UploadService($cordovaFileTransfer, apiLocal, Restangular, $q, $http) {
+    function UploadService($cordovaFileTransfer, apiLocal, Restangular, $q, $http, stringService, StorageService) {
 
             var AWS_ACCESS_KEY = 'AKIAJQB2DVDLK4DDGSYA';
             var AWS_SECRET_KEY = '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';
@@ -24,15 +24,20 @@
 
 
             return {
-                // GET: /Upload/:userID
-                // returns all posts from current user
-                upload: function(file) {
-                    var serverPath = apiLocal + '/uploadFile'
-                    var options = {};
-                    return $cordovaFileTransfer.upload(serverPath, file, options)
-                },
+                upload: upload,
+                getS3: upload,
+                uploadS3: uploadS3,
+                uploadS3URI: uploadS3URI
+            };
+            // GET: /Upload/:userID
+            // returns all posts from current user
+            function upload(file) {
+                var serverPath = apiLocal + '/uploadFile'
+                var options = {};
+                return $cordovaFileTransfer.upload(serverPath, file, options)
+            }
 
-                getS3: function(file) {
+            function getS3(file) {
                     // return Restangular.one('pet', userID).get(); 
                     // return Restangular.all('uploadFile').post(form);
                     var defer = $q.defer();
@@ -43,7 +48,7 @@
                         ContentType: file.type,
                         ACL: 'public-read'
                     };
-                    s3.getSignedUrl('putObject', s3_params, function(err, data) {
+                    s3.getSignedUrl('putObject', function s3_params(err, data) {
                         if (err) {
                             console.log(err);
                             defer.reject(err);
@@ -58,32 +63,88 @@
                         } //end else
                     }); //end getSigned
                     return defer.promise;
-                }, // end getS3
+                } // end getS3
 
-                uploadS3: function(file) {
+            function uploadS3(file) {
 
-                        var defer = $q.defer();
-                        var s3_params = {
-                            Bucket: S3_BUCKET,
-                            Key: file.name,
-                            Body: file,
-                            ContentType: file.type
-                        };
+                    var defer = $q.defer();
+                    var s3_params = {
+                        Bucket: S3_BUCKET,
+                        Key: file.name,
+                        Body: file,
+                        ContentType: file.type
+                    };
 
-                        s3.upload(s3_params, function(err, data) {
-                            if (err) {
-                                console.log(err);
-                                defer.reject(err);
-                            } else {
-                                console.log('data is: ', data);
-                                defer.resolve(data);
-                            } //end else
-                        }); //end of s3.upload
+                    s3.upload(s3_params, function(err, data) {
+                        if (err) {
+                            console.log(err);
+                            defer.reject(err);
+                        } else {
+                            console.log('data is: ', data);
+                            defer.resolve(data);
+                        } //end else
+                    }); //end of s3.upload
 
-                        return defer.promise;
-                    } // end uploadS3
+                    return defer.promise;
+                } // end uploadS3
 
+            function uploadS3URI(uri) {
+                var imgData = this.getImgData(imageData); // or just hardcode {extension: "jpg", type: "image/jpeg"} if you only want jpg
+                var key = getRandomUserKey() + imgData.extension; // bucket path after BUCKET_NAME
+
+                var params = {
+                    Key: key,
+                    Body: imageData,
+                    ContentEncoding: 'base64',
+                    ContentType: imgData.type
+                };
+
+                var defer = $q.defer();
+                var s3_params = {
+                    Bucket: S3_BUCKET,
+                    Key: key,
+                    Body: imgData.file,
+                    ContentType: imgData.type
+                };
+
+
+                s3.upload(s3_params, function(err, data) {
+                    if (err) {
+                        console.log(err);
+                        defer.reject(err);
+                    } else {
+                        console.log('data is: ', data);
+                        defer.resolve(data);
+                    } //end else
+                }); //end of s3.upload
+
+                return defer.promise;
+            }
+
+            //helpers
+            function getImgData(img) {
+                var extension = 'jpg';
+                var type = 'image/jpeg';
+                var base64result = img.split(',')[0];
+                if (base64result.indexOf("png") > -1) {
+                    extension = 'png';
+                    type = 'image/png';
                 }
+
+                return {
+                    extension: extension,
+                    type: type,
+                    file: 'data:' + type + ';base64,' + img,
+                };
+            } //end getImgData
+
+            function getRandomUserKey(){
+                var username = StorageService.getCurrentUser().user.username;
+                return username + stringService.makeID(5); //combines username with random string to prevent duplicates
+            }
+
+
+
 
         } //end uploadService
 

@@ -6,5 +6,6 @@
             'petBook.services.utility.location',
             'petBook.services.utility.storage',
             'petBook.services.utility.toast'
+            'petBook.services.utility.string'
         ]);
 })();
