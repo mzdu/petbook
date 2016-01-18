@@ -188,7 +188,7 @@ angular.module('petBook.controllers', [])
     }
 })
 
-.controller('EditProfileCtrl', function($scope, $state, $stateParams, ProfileService, StorageService, $ionicLoading, $cordovaImagePicker, $ionicPlatform, UploadService, toastService) {
+.controller('EditProfileCtrl', function($scope, $state, $stateParams, ProfileService, StorageService, $ionicLoading, $cordovaCamera, $ionicPlatform, $cordovaFileTransfer) {
     $scope.$parent.showHeader();
     $scope.$parent.clearFabs();
     $scope.isExpanded = false;
@@ -248,12 +248,7 @@ angular.module('petBook.controllers', [])
         $state.go('app.profile');
     }
 
-    function isInBrowser() {
-            console.log('$cordovaImagePicker = ', $cordovaImagePicker);
-            var result = !$cordovaImagePicker;
-            console.log(result);
-            return result;
-        }
+
         //upload selected avatar image to AWS; not finished yet
     $scope.upload = function() {
         // var options = {
@@ -321,48 +316,47 @@ angular.module('petBook.controllers', [])
     }
 
     //choose a photo for avatar; the avatar's uri is in $scope.user.avatar
-    $scope.selectImage = function() {
-            // Image picker will load images according to these settings
 
+    $scope.selectPhoto = function(){
+        var options = {
+          quality: 50,
+          destinationType: Camera.DestinationType.DATA_URL,
+          sourceType: Camera.PictureSourceType.PHOTOLIBRARY,
+          allowEdit: true,
+          encodingType: Camera.EncodingType.JPEG,
+          targetWidth: 100,
+          targetHeight: 100,
+          popoverOptions: CameraPopoverOptions,
+          saveToPhotoAlbum: false,
+          correctOrientation:true
+        };
+        $cordovaCamera.getPicture(options).then(function(imageData) {
+          var image = document.getElementById('avatarimg');
+          image.src = "data:image/jpeg;base64," + imageData;
+        }, function(err) {
+          // error
+        });
+        
+    }
 
-            var options = {
-                maximumImagesCount: 1, // Max number of selected images
-                width: 800,
-                height: 800,
-                quality: 80 // Higher is better
-            };
-
-            $cordovaImagePicker.getPictures(options).then(function(results) {
-                // Loop through acquired images; if multiple images
-                /*for (var i = 0; i < results.length; i++) {
-                    console.log('Image URI: ' + results[i]);   // Print image URI
-                }*/
-                //$scope.user.avatar = 'http://www.google.com/imgres?imgurl=http://animalia-life.com/data_images/dog/dog7.jpg&imgrefurl=http://animalia-life.com/dogs.html&h=2317&w=2121&tbnid=Q-QQDJH26K8rsM:&tbnh=186&tbnw=170&usg=__VEQGqVYJwWqvFCni6PQlaSmjXaw=&docid=QIa83ScG5OU-uM&itg=1';
-                $scope.user.avatar = results[0];
-                $scope.user.blob = dataURItoBlob(results[0]);
-                //the following is for testing local images
-                //$scope.user.avatar = "img/arya.jpg";
-                toastService.showToast(results[0] | json)
-                .then(function(){
-                    console.log("test");
-                });
-
-            }, function(error) {
-                toastService.showToast(error | json)
-                .then(function(){
-                    console.log("error");
-                })
-            });
-        } //end selectImage
-
-    function dataURItoBlob(dataURI) {
-        var binary = atob(dataURI.split(',')[1]);
-        var array = [];
-        for (var i = 0; i < binary.length; i++) {
-            array.push(binary.charCodeAt(i));
-        }
-        return new Blob([new Uint8Array(array)], {
-            type: 'image/jpeg'
+    $scope.takePhoto = function(){
+        var options = {
+          quality: 50,
+          destinationType: Camera.DestinationType.DATA_URL,
+          sourceType: Camera.PictureSourceType.CAMERA,
+          allowEdit: true,
+          encodingType: Camera.EncodingType.JPEG,
+          targetWidth: 100,
+          targetHeight: 100,
+          popoverOptions: CameraPopoverOptions,
+          saveToPhotoAlbum: false,
+          correctOrientation:true
+        };
+        $cordovaCamera.getPicture(options).then(function(imageData) {
+          var image = document.getElementById('avatarimg');
+          image.src = "data:image/jpeg;base64," + imageData;
+        }, function(err) {
+          // error
         });
     } //end dataURItoBlob
 })
@@ -438,6 +432,7 @@ angular.module('petBook.controllers', [])
             $scope.data.userInput = "";
             if ($scope.data.choice != "other" && $scope.data.choice != undefined) {
                 $scope.data.userInput = "My dog needs " + $scope.data.choice;
+
             }
             if ($scope.data.post != undefined) {
                 if ($scope.data.userInput != "") {

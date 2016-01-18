@@ -4,8 +4,9 @@
             <div class="list">
                 <!-- avatar -->
                 <div ng-if="field === 'avatar'">
-                    <button ng-if="!isInBrowser()" class="button button-full button-calm" ng-click="selectImage()">
-                        Select Photo
+
+                    <button class="button button-full button-calm" ng-click="takePhoto()">
+                        Take Photo
                     </button>
                     <!-- <input type="file" class="button button-full button-calm" id="file-chooser" />  -->
                    
@@ -15,9 +16,11 @@
                    <a class="item item-avatar">
                      <img src="{{user.avatar}}">
                    </a>
-                   
+                   <button class="button button-full button-calm" ng-click="selectPhoto()">
+                        Choose From Photos
+                    </button>
                    <div class="item item-body">
-                    <img class="full-image avatar-bigger" ng-src="{{user.avatar}}">
+                    <img name = "avatarimg" class="full-image avatar-bigger" ng-src="{{user.avatar}}">
                     </div>
                 </div>
                 <!-- name -->
