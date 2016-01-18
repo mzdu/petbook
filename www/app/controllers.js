@@ -188,7 +188,7 @@ angular.module('petBook.controllers', [])
     }
 })
 
-.controller('EditProfileCtrl', function($scope, $state, $stateParams, ProfileService, StorageService, $ionicLoading, $cordovaCamera, $ionicPlatform, $cordovaFileTransfer) {
+.controller('EditProfileCtrl', function($scope, $state, $stateParams, ProfileService, StorageService, $ionicLoading, $cordovaCamera, $ionicPlatform, UploadService) {
     $scope.$parent.showHeader();
     $scope.$parent.clearFabs();
     $scope.isExpanded = false;
@@ -251,22 +251,6 @@ angular.module('petBook.controllers', [])
 
         //upload selected avatar image to AWS; not finished yet
     $scope.upload = function() {
-        // var options = {
-        //     fileKey: "avatar",
-        //     fileName: "avatar",
-        //     chunkedMode: false,
-        //     mimeType: "image/png"
-        // };
-        //$cordovaFileTransfer.upload("http://192.168.56.1:1337/file/upload", "img/care1.png", options)
-
-        // UploadService.uploadS3(fileTest)
-        //            .then(function(data){
-        //                console.log('uploaded data is: ', data);
-        //            },
-        //            function(error){
-        //                console.log('error is: ', error);
-        //            });
-
         UploadService.uploadS3($scope.user.blob)
             .then(function(result) {
 
@@ -330,13 +314,17 @@ angular.module('petBook.controllers', [])
           saveToPhotoAlbum: false,
           correctOrientation:true
         };
-        $cordovaCamera.getPicture(options).then(function(imageData) {
-          var image = document.getElementById('avatarimg');
-          image.src = "data:image/jpeg;base64," + imageData;
-        }, function(err) {
-          // error
+        $cordovaCamera.getPicture(options)
+        .then(function(imageData) {
+          // var image = document.getElementById('avatarimg');
+          // image.src = "data:image/jpeg;base64," + imageData;
+          UploadService.uploadS3URI(imageData)
+          .then(function(result){
+            console.log('result is: ', result);
+          },function(error){
+            console.log('error is: ', error);
+          });
         });
-        
     }
 
     $scope.takePhoto = function(){
@@ -352,13 +340,18 @@ angular.module('petBook.controllers', [])
           saveToPhotoAlbum: false,
           correctOrientation:true
         };
-        $cordovaCamera.getPicture(options).then(function(imageData) {
-          var image = document.getElementById('avatarimg');
-          image.src = "data:image/jpeg;base64," + imageData;
-        }, function(err) {
-          // error
+        $cordovaCamera.getPicture(options)
+        .then(function(imageData) {
+          // var image = document.getElementById('avatarimg');
+          // image.src = "data:image/jpeg;base64," + imageData;
+          UploadService.uploadS3URI(imageData)
+          .then(function(result){
+            console.log('result is: ', result);
+          },function(error){
+            console.log('error is: ', error);
+          });
         });
-    } //end dataURItoBlob
+    } //end takePhoto
 })
 
 
