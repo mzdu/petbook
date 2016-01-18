@@ -36,7 +36,6 @@
                     // return Restangular.one('pet', userID).get(); 
                     // return Restangular.all('uploadFile').post(form);
                     var defer = $q.defer();
-                    console.log('name is: ', file);
                     var s3_params = {
                         Bucket: S3_BUCKET,
                         Key: file.name,
@@ -61,19 +60,30 @@
                     return defer.promise;
                 }, // end getS3
 
-                uploadS3: function(url) {
+                uploadS3: function(file) {
 
-                        return $http({
-                            method: 'PUT',
-                            url: url,
-                            headers: {
-                                'x-amz-acl': 'public-read'
-                            }
-                        });
+                        var defer = $q.defer();
+                        var s3_params = {
+                            Bucket: S3_BUCKET,
+                            Key: file.name,
+                            Body: file,
+                            ContentType: file.type
+                        };
 
-                  
+                        s3.upload(s3_params, function(err, data) {
+                            if (err) {
+                                console.log(err);
+                                defer.reject(err);
+                            } else {
+                                console.log('data is: ', data);
+                                defer.resolve(data);
+                            } //end else
+                        }); //end of s3.upload
+
+                        return defer.promise;
                     } // end uploadS3
-            } //end of return
+
+                }
 
         } //end uploadService
 

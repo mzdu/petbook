@@ -188,7 +188,7 @@ angular.module('petBook.controllers', [])
     }
 })
 
-.controller('EditProfileCtrl', function($scope, $state, $stateParams, ProfileService, StorageService, $ionicLoading, $cordovaImagePicker, $ionicPlatform, UploadService) {
+.controller('EditProfileCtrl', function($scope, $state, $stateParams, ProfileService, StorageService, $ionicLoading, $cordovaImagePicker, $ionicPlatform, UploadService, toastService) {
     $scope.$parent.showHeader();
     $scope.$parent.clearFabs();
     $scope.isExpanded = false;
@@ -256,21 +256,32 @@ angular.module('petBook.controllers', [])
         }
         //upload selected avatar image to AWS; not finished yet
     $scope.upload = function() {
-        var options = {
-            fileKey: "avatar",
-            fileName: "avatar",
-            chunkedMode: false,
-            mimeType: "image/png"
-        };
+        // var options = {
+        //     fileKey: "avatar",
+        //     fileName: "avatar",
+        //     chunkedMode: false,
+        //     mimeType: "image/png"
+        // };
         //$cordovaFileTransfer.upload("http://192.168.56.1:1337/file/upload", "img/care1.png", options)
-        UploadService.upload($scope.user.avatar)
+
+        // UploadService.uploadS3(fileTest)
+        //            .then(function(data){
+        //                console.log('uploaded data is: ', data);
+        //            },
+        //            function(error){
+        //                console.log('error is: ', error);
+        //            });
+
+        UploadService.uploadS3($scope.user.blob)
             .then(function(result) {
 
                 // Success!
+                console.log('uploaded data is: ', data);
             }, function(err) {
                 // Error
             }, function(progress) {
                 // constant progress updates
+                console.log('error is: ', error);
             });
 
     }
@@ -288,13 +299,13 @@ angular.module('petBook.controllers', [])
                 .then(function(result) {
                     console.log('result is: ', result);
                     // Success!
-                    UploadService.uploadS3(result.signed_request)
-                    .then(function(data){
-                        console.log('uploaded data is: ', data);
-                    },
-                    function(error){
-                        console.log('error is: ', error);
-                    });
+                    UploadService.uploadS3(result.signed_request, fileTest)
+                        .then(function(data) {
+                                console.log('uploaded data is: ', data);
+                            },
+                            function(error) {
+                                console.log('error is: ', error);
+                            });
                 }, function(err) {
                     // Error
                     console.log('err is: ', err);
@@ -311,32 +322,49 @@ angular.module('petBook.controllers', [])
 
     //choose a photo for avatar; the avatar's uri is in $scope.user.avatar
     $scope.selectImage = function() {
-        // Image picker will load images according to these settings
+            // Image picker will load images according to these settings
 
-        if (!$cordovaImagePicker) {
 
+            var options = {
+                maximumImagesCount: 1, // Max number of selected images
+                width: 800,
+                height: 800,
+                quality: 80 // Higher is better
+            };
+
+            $cordovaImagePicker.getPictures(options).then(function(results) {
+                // Loop through acquired images; if multiple images
+                /*for (var i = 0; i < results.length; i++) {
+                    console.log('Image URI: ' + results[i]);   // Print image URI
+                }*/
+                //$scope.user.avatar = 'http://www.google.com/imgres?imgurl=http://animalia-life.com/data_images/dog/dog7.jpg&imgrefurl=http://animalia-life.com/dogs.html&h=2317&w=2121&tbnid=Q-QQDJH26K8rsM:&tbnh=186&tbnw=170&usg=__VEQGqVYJwWqvFCni6PQlaSmjXaw=&docid=QIa83ScG5OU-uM&itg=1';
+                $scope.user.avatar = results[0];
+                $scope.user.blob = dataURItoBlob(results[0]);
+                //the following is for testing local images
+                //$scope.user.avatar = "img/arya.jpg";
+                toastService.showToast(results[0] | json)
+                .then(function(){
+                    console.log("test");
+                });
+
+            }, function(error) {
+                toastService.showToast(error | json)
+                .then(function(){
+                    console.log("error");
+                })
+            });
+        } //end selectImage
+
+    function dataURItoBlob(dataURI) {
+        var binary = atob(dataURI.split(',')[1]);
+        var array = [];
+        for (var i = 0; i < binary.length; i++) {
+            array.push(binary.charCodeAt(i));
         }
-        var options = {
-            maximumImagesCount: 1, // Max number of selected images
-            width: 800,
-            height: 800,
-            quality: 80 // Higher is better
-        };
-
-        $cordovaImagePicker.getPictures(options).then(function(results) {
-            // Loop through acquired images; if multiple images
-            /*for (var i = 0; i < results.length; i++) {
-                console.log('Image URI: ' + results[i]);   // Print image URI
-            }*/
-            //$scope.user.avatar = 'http://www.google.com/imgres?imgurl=http://animalia-life.com/data_images/dog/dog7.jpg&imgrefurl=http://animalia-life.com/dogs.html&h=2317&w=2121&tbnid=Q-QQDJH26K8rsM:&tbnh=186&tbnw=170&usg=__VEQGqVYJwWqvFCni6PQlaSmjXaw=&docid=QIa83ScG5OU-uM&itg=1';
-            $scope.user.avatar = results[0];
-            //the following is for testing local images
-            //$scope.user.avatar = "img/arya.jpg";
-            console.log('Image URI: ' + results[0]);
-        }, function(error) {
-            console.log('Error: ' + JSON.stringify(error)); // In case of error
+        return new Blob([new Uint8Array(array)], {
+            type: 'image/jpeg'
         });
-    }
+    } //end dataURItoBlob
 })
 
 

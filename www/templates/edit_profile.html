@@ -4,19 +4,18 @@
             <div class="list">
                 <!-- avatar -->
                 <div ng-if="field === 'avatar'">
-                   <!--  <button ng-if="!isInBrowser()" class="button button-full button-calm" ng-click="selectImage()">
+                    <button ng-if="!isInBrowser()" class="button button-full button-calm" ng-click="selectImage()">
                         Select Photo
-                    </button> -->
-                    <input type="file" class="button button-full button-calm" id="file-chooser" /> 
+                    </button>
+                    <!-- <input type="file" class="button button-full button-calm" id="file-chooser" />  -->
                    
 
-                   <!--<img ng-show="image" ng-src="{{user.avatar}}"/> -->
-                   <!--<p>Your photo: {{user.avatar}}</p>
+                   <p>Blob: {{user.blob | json}}</p>
                    
                    <a class="item item-avatar">
                      <img src="{{user.avatar}}">
                    </a>
-                   -->
+                   
                    <div class="item item-body">
                     <img class="full-image avatar-bigger" ng-src="{{user.avatar}}">
                     </div>
@@ -55,7 +54,7 @@
                     Save
                 </button>
 
-                <button class="button button-full button-calm" ng-click="uploadFile()" ng-if="field === 'avatar'">
+                <button class="button button-full button-calm" ng-click="upload()" ng-if="field === 'avatar'">
                     Save
                 </button>
 
