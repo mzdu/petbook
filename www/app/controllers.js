@@ -188,7 +188,7 @@ angular.module('petBook.controllers', [])
     }
 })
 
-.controller('EditProfileCtrl', function($scope, $state, $stateParams, ProfileService, StorageService, $ionicLoading, $cordovaCamera, $ionicPlatform, UploadService) {
+.controller('EditProfileCtrl', function($scope, $state, $stateParams, ProfileService, StorageService, $ionicLoading, $cordovaCamera, $ionicPlatform, UploadService, notificationService) {
     $scope.$parent.showHeader();
     $scope.$parent.clearFabs();
     $scope.isExpanded = false;
@@ -216,6 +216,11 @@ angular.module('petBook.controllers', [])
 
     $scope.pet[$scope.field] = $scope.value;
 
+    notificationService.showDialog('test, text')
+        .then(function(success) {
+            console.log('success is: ', success);
+        });
+
     /*console.log('scope.pet is: ', $scope.pet);
     console.log('$scope.field = ', $scope.field);    
     console.log('the value is: ', $scope.value);*/
@@ -224,6 +229,7 @@ angular.module('petBook.controllers', [])
     $scope.save = function(pet) {
         var user = StorageService.getCurrentUser().user;
         pet._id = user._id;
+        pet.photoUrl = $scope.user.avatar || pet.photoUrl;
         var promise = ProfileService.update(pet);
         $scope.showLoading($ionicLoading);
         promise.then(function(response) {
@@ -248,19 +254,23 @@ angular.module('petBook.controllers', [])
     }
 
 
-        //upload selected avatar image to AWS; not finished yet
+    //upload selected avatar image to AWS; not finished yet
     $scope.upload = function() {
-        UploadService.uploadS3($scope.user.blob)
-            .then(function(result) {
 
-                // Success!
-                console.log('uploaded data is: ', data);
-            }, function(err) {
-                // Error
-            }, function(progress) {
-                // constant progress updates
+        UploadService.uploadS3Data($scope.user.avatar)
+            .then(function(result) {
+                console.log('result is: ', result);
+                notificationService.showDialog(result)
+                    .then(function(res) {
+                        console.log('dialog completed');
+                    });
+            }, function(error) {
                 console.log('error is: ', error);
-            });
+                notificationService.showDialog(error)
+                    .then(function(res) {
+                        console.log('dialog completed');
+                    });
+            }); //end of upload
 
     }
 
@@ -272,24 +282,14 @@ angular.module('petBook.controllers', [])
         var fileTest = fileChooser.files[0];
         if (fileTest) {
             // results.innerHTML = '';
+
             console.log('fileTest is: ', fileTest);
-            UploadService.getS3(fileTest)
-                .then(function(result) {
-                    console.log('result is: ', result);
-                    // Success!
-                    UploadService.uploadS3(result.signed_request, fileTest)
-                        .then(function(data) {
-                                console.log('uploaded data is: ', data);
-                            },
-                            function(error) {
-                                console.log('error is: ', error);
-                            });
-                }, function(err) {
-                    // Error
-                    console.log('err is: ', err);
-                }, function(progress) {
-                    // constant progress updates
-                });
+            UploadService.uploadS3Data(fileTest)
+            .then(function(result) {
+                console.log('result is: ', result);
+            }, function(error) {
+                console.log('error is: ', error);
+            }); //end of uploadS3Data
 
         } else {
             // results.innerHTML = 'Nothing to upload.';
@@ -300,57 +300,64 @@ angular.module('petBook.controllers', [])
 
     //choose a photo for avatar; the avatar's uri is in $scope.user.avatar
 
-    $scope.selectPhoto = function(){
-        var options = {
-          quality: 50,
-          destinationType: Camera.DestinationType.DATA_URL,
-          sourceType: Camera.PictureSourceType.PHOTOLIBRARY,
-          allowEdit: true,
-          encodingType: Camera.EncodingType.JPEG,
-          targetWidth: 100,
-          targetHeight: 100,
-          popoverOptions: CameraPopoverOptions,
-          saveToPhotoAlbum: false,
-          correctOrientation:true
-        };
-        $cordovaCamera.getPicture(options)
-        .then(function(imageData) {
-          // var image = document.getElementById('avatarimg');
-          // image.src = "data:image/jpeg;base64," + imageData;
-          UploadService.uploadS3URI(imageData)
-          .then(function(result){
-            console.log('result is: ', result);
-          },function(error){
-            console.log('error is: ', error);
-          });
+    $scope.selectPhoto = function() {
+        document.addEventListener("deviceready", function() {
+            var options = {
+                destinationType: Camera.DestinationType.DATA_URL,
+                sourceType: Camera.PictureSourceType.PHOTOLIBRARY,
+            };
+            $cordovaCamera.getPicture(options)
+                .then(function(imageData) {
+                    // var image = document.getElementById('avatarimg');
+                    // image.src = "data:image/jpeg;base64," + imageData;
+                    // imageData;
+                    // Success!
+                    UploadService.uploadS3Data(imageData)
+                        .then(uploadSuccess, uploadError)
+                        .catch(uploadError);
+                }); //end getPictures
+
         });
+    } //end selectPhoto
+
+    //  destinationType: Camera.DestinationType.DATA_URL, // this needs to be DATA_URL 
+    // sourceType: Camera.PictureSourceType.PHOTOLIBRARY /
+
+
+    $scope.takePhoto = function() {
+            var options = {
+                quality: 50,
+                destinationType: Camera.DestinationType.DATA_URL,
+                sourceType: Camera.PictureSourceType.CAMERA,
+                allowEdit: true,
+                encodingType: Camera.EncodingType.JPEG,
+                targetWidth: 100,
+                targetHeight: 100,
+                popoverOptions: CameraPopoverOptions,
+                saveToPhotoAlbum: false,
+                correctOrientation: true
+            };
+            $cordovaCamera.getPicture(options)
+                .then(function(imageData) {
+                    $scope.user.avatar = imageData;
+                });
+        } //end takePhoto
+
+    function uploadSuccess(result) {
+        console.log('result is: ', result);
+        notificationService.showDialog(result)
+            .then(function(res) {
+                console.log('dialog completed');
+            });
     }
 
-    $scope.takePhoto = function(){
-        var options = {
-          quality: 50,
-          destinationType: Camera.DestinationType.DATA_URL,
-          sourceType: Camera.PictureSourceType.CAMERA,
-          allowEdit: true,
-          encodingType: Camera.EncodingType.JPEG,
-          targetWidth: 100,
-          targetHeight: 100,
-          popoverOptions: CameraPopoverOptions,
-          saveToPhotoAlbum: false,
-          correctOrientation:true
-        };
-        $cordovaCamera.getPicture(options)
-        .then(function(imageData) {
-          // var image = document.getElementById('avatarimg');
-          // image.src = "data:image/jpeg;base64," + imageData;
-          UploadService.uploadS3URI(imageData)
-          .then(function(result){
-            console.log('result is: ', result);
-          },function(error){
-            console.log('error is: ', error);
-          });
-        });
-    } //end takePhoto
+    function uploadError(error) {
+        console.log('error is: ', error);
+        notificationService.showDialog(error)
+            .then(function(res) {
+                console.log('dialog completed');
+            });
+    }
 })
 
 

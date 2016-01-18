@@ -5,7 +5,7 @@
 
     .factory('UploadService', UploadService);
 
-    function UploadService($cordovaFileTransfer, apiLocal, Restangular, $q, $http, stringService, StorageService) {
+    function UploadService($cordovaFileTransfer, apiLocal, Restangular, $q, $http, stringService, StorageService, notificationService) {
 
             var AWS_ACCESS_KEY = 'AKIAJQB2DVDLK4DDGSYA';
             var AWS_SECRET_KEY = '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';
@@ -27,7 +27,7 @@
                 upload: upload,
                 getS3: upload,
                 uploadS3: uploadS3,
-                uploadS3URI: uploadS3URI
+                uploadS3Data: uploadS3Data
             };
             // GET: /Upload/:userID
             // returns all posts from current user
@@ -88,9 +88,18 @@
                     return defer.promise;
                 } // end uploadS3
 
-            function uploadS3URI(uri) {
-                var imgData = this.getImgData(imageData); // or just hardcode {extension: "jpg", type: "image/jpeg"} if you only want jpg
-                var key = getRandomUserKey() + imgData.extension; // bucket path after BUCKET_NAME
+            function uploadS3Data(imageData) {
+                var imgData = getImgData(imageData); // or just hardcode {extension: "jpg", type: "image/jpeg"} if you only want jpg
+                var key = getRandomUserKey() + '.' + imgData.extension; // bucket path after BUCKET_NAME
+
+                notificationService.showDialog('imgData', angular.toJson(imgData))
+                    .then(function(res) {
+                        console.log('dialoag completed');
+                        notificationService.showDialog('key', key)
+                            .then(function(res) {
+                                console.log('dialoag completed');
+                            });
+                    });
 
                 var params = {
                     Key: key,
@@ -123,22 +132,22 @@
 
             //helpers
             function getImgData(img) {
-                var extension = 'jpg';
-                var type = 'image/jpeg';
-                var base64result = img.split(',')[0];
-                if (base64result.indexOf("png") > -1) {
-                    extension = 'png';
-                    type = 'image/png';
-                }
+                    var extension = 'jpg';
+                    var type = 'image/jpeg';
+                    var base64result = img.split(',')[0];
+                    if (base64result.indexOf("png") > -1) {
+                        extension = 'png';
+                        type = 'image/png';
+                    }
 
-                return {
-                    extension: extension,
-                    type: type,
-                    file: 'data:' + type + ';base64,' + img,
-                };
-            } //end getImgData
+                    return {
+                        extension: extension,
+                        type: type,
+                        file: 'data:' + type + ';base64,' + img,
+                    };
+                } //end getImgData
 
-            function getRandomUserKey(){
+            function getRandomUserKey() {
                 var username = StorageService.getCurrentUser().user.username;
                 return username + stringService.makeID(5); //combines username with random string to prevent duplicates
             }

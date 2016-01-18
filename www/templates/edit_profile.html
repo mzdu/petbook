@@ -8,10 +8,10 @@
                     <button class="button button-full button-calm" ng-click="takePhoto()">
                         Take Photo
                     </button>
-                    <!-- <input type="file" class="button button-full button-calm" id="file-chooser" />  -->
+                    <input type="file" class="button button-full button-calm" id="file-chooser" /> 
                    
 
-                   <p>Blob: {{user.blob | json}}</p>
+                   <p>Blob: {{user.avatar | json}}</p>
                    
                    <a class="item item-avatar">
                      <img ng-src="{{user.avatar}}">
@@ -19,9 +19,9 @@
                    <button class="button button-full button-calm" ng-click="selectPhoto()">
                         Choose From Photos
                     </button>
-                   <div class="item item-body">
+                  <!--  <div class="item item-body">
                     <img name = "avatarimg" class="full-image avatar-bigger" ng-src="{{user.avatar}}">
-                    </div>
+                    </div> -->
                 </div>
                 <!-- name -->
                 <label class="item item-input" ng-if="field === 'name'">
@@ -53,9 +53,9 @@
                 </label>
             </div>
             <div class="buttons">
-                <button class="button button-full button-calm" ng-click="save(pet)" ng-if="field !== 'avatar'">
+            <!--     <button class="button button-full button-calm" ng-click="save(pet)">
                     Save
-                </button>
+                </button> -->
 
                 <button class="button button-full button-calm" ng-click="upload()" ng-if="field === 'avatar'">
                     Save
