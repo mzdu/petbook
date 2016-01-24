@@ -92,37 +92,29 @@
                 var imgData = getImgData(imageData); // or just hardcode {extension: "jpg", type: "image/jpeg"} if you only want jpg
                 var key = getRandomUserKey() + '.' + imgData.extension; // bucket path after BUCKET_NAME
 
-                notificationService.showDialog('imgData', angular.toJson(imgData))
-                    .then(function(res) {
-                        console.log('dialoag completed');
-                        notificationService.showDialog('key', key)
-                            .then(function(res) {
-                                console.log('dialoag completed');
-                            });
-                    });
-
-                var params = {
-                    Key: key,
-                    Body: imageData,
-                    ContentEncoding: 'base64',
-                    ContentType: imgData.type
-                };
+                // notificationService.showDialog('imgData', angular.toJson(imgData))
+                //     .then(function(res) {
+                //         console.log('dialoag completed');
+                //         notificationService.showDialog('key', key)
+                //             .then(function(res) {
+                //                 console.log('dialoag completed');
+                //             });
+                //     });
 
                 var defer = $q.defer();
                 var s3_params = {
                     Bucket: S3_BUCKET,
+                    ContentEncoding: 'base64',
                     Key: key,
                     Body: imgData.file,
                     ContentType: imgData.type
                 };
 
 
-                s3.upload(s3_params, function(err, data) {
+                s3.putObject(s3_params, function(err, data) {
                     if (err) {
-                        console.log(err);
                         defer.reject(err);
                     } else {
-                        console.log('data is: ', data);
                         defer.resolve(data);
                     } //end else
                 }); //end of s3.upload
@@ -143,7 +135,7 @@
                     return {
                         extension: extension,
                         type: type,
-                        file: 'data:' + type + ';base64,' + img,
+                        file: new Buffer(img.replace(/^data:image\/\w+;base64,/, ""),'base64')
                     };
                 } //end getImgData
 

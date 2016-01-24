@@ -278,23 +278,24 @@ angular.module('petBook.controllers', [])
         var fileChooser = document.getElementById('file-chooser');
         // angular.element('#file-chooser');
 
-        console.log('fileChooser = ', fileChooser);
+        console.log('fileChooser.files[0] = ', fileChooser.files[0]);
         var fileTest = fileChooser.files[0];
-        if (fileTest) {
-            // results.innerHTML = '';
+        $scope.fileTest = fileTest;
+        // if (fileTest) {
+        //     // results.innerHTML = '';
 
-            console.log('fileTest is: ', fileTest);
-            UploadService.uploadS3Data(fileTest)
-            .then(function(result) {
-                console.log('result is: ', result);
-            }, function(error) {
-                console.log('error is: ', error);
-            }); //end of uploadS3Data
+        //     console.log('fileTest is: ', fileTest);
+        //     UploadService.uploadS3Data(fileTest)
+        //     .then(function(result) {
+        //         console.log('result is: ', result);
+        //     }, function(error) {
+        //         console.log('error is: ', error);
+        //     }); //end of uploadS3Data
 
-        } else {
-            // results.innerHTML = 'Nothing to upload.';
-            alert('error has occured');
-        }
+        // } else {
+        //     // results.innerHTML = 'Nothing to upload.';
+        //     alert('error has occured');
+        // }
         //console.log('in edit profile ctrl');
     }
 
@@ -302,19 +303,20 @@ angular.module('petBook.controllers', [])
 
     $scope.selectPhoto = function() {
         document.addEventListener("deviceready", function() {
+            console.log('device ready');
             var options = {
-                destinationType: Camera.DestinationType.DATA_URL,
+                destinationType: Camera.DestinationType.FILE_URI,
                 sourceType: Camera.PictureSourceType.PHOTOLIBRARY,
             };
             $cordovaCamera.getPicture(options)
                 .then(function(imageData) {
-                    // var image = document.getElementById('avatarimg');
-                    // image.src = "data:image/jpeg;base64," + imageData;
-                    // imageData;
-                    // Success!
-                    UploadService.uploadS3Data(imageData)
+                    $scope.user.avatar = imageData;
+
+
+                    UploadService.uploadS3Data('data:image/jpeg;base64,' + imageData)
                         .then(uploadSuccess, uploadError)
                         .catch(uploadError);
+                    // $scope.user.blob = imageData;
                 }); //end getPictures
 
         });
@@ -345,7 +347,8 @@ angular.module('petBook.controllers', [])
 
     function uploadSuccess(result) {
         console.log('result is: ', result);
-        notificationService.showDialog(result)
+        $scope.user.avatar = result.Location;
+        notificationService.showDialog('upload success', angular.toJson(result))
             .then(function(res) {
                 console.log('dialog completed');
             });
@@ -353,7 +356,7 @@ angular.module('petBook.controllers', [])
 
     function uploadError(error) {
         console.log('error is: ', error);
-        notificationService.showDialog(error)
+        notificationService.showDialog('upload error', angular.toJson(error))
             .then(function(res) {
                 console.log('dialog completed');
             });

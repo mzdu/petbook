@@ -1,10 +1,10 @@
-<?xml version='1.0' encoding='utf-8'?>
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <widget id="com.ionicframework.sample374926" version="0.0.4" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
-    <name>Petbook</name>
-    <description>
+  <name>Petbook</name>
+  <description>
         Connect with pets and pet lovers near you!
     </description>
-    <author email="davidhe@fastmail.com" href="http://ionicframework.com/">
+  <author email="davidhe@fastmail.com" href="http://ionicframework.com/">
       Petbook Team
     </author>
   <content src="index.html"/>
@@ -17,8 +17,8 @@
   <preference name="SplashScreenDelay" value="3000"/>
   <feature name="StatusBar">
     <param name="ios-package" value="CDVStatusBar" onload="true"/>
-    <param name="android-package" value="org.apache.cordova.GeoBroker" />
-    <param name="android-package" value="org.apache.cordova.geolocation.GeoBroker" />
+    <param name="android-package" value="org.apache.cordova.GeoBroker"/>
+    <param name="android-package" value="org.apache.cordova.geolocation.GeoBroker"/>
   </feature>
   <platform name="android">
     <icon src="resources/android/icon/drawable-ldpi-icon.png" density="ldpi"/>
