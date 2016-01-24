@@ -197,6 +197,7 @@ angular.module('petBook.controllers', [])
 
     $scope.user = StorageService.getCurrentUser().user;
     $scope.user.avatar = '';
+    $scope.file = {};
 
     $scope.leftButtons = [{
         type: 'button-positive',
@@ -216,16 +217,27 @@ angular.module('petBook.controllers', [])
 
     $scope.pet[$scope.field] = $scope.value;
 
-    notificationService.showDialog('test, text')
-        .then(function(success) {
-            console.log('success is: ', success);
-        });
+    // notificationService.showDialog('test, text')
+    //     .then(function(success) {
+    //         console.log('success is: ', success);
+    //     });
 
     /*console.log('scope.pet is: ', $scope.pet);
     console.log('$scope.field = ', $scope.field);    
     console.log('the value is: ', $scope.value);*/
 
+    $scope.$watch('pet.file', function(newVal){
+        if(newVal){
+            console.log('file is: ', newVal);
+             UploadService.uploadS3(newVal)
+            .then(function(result) {
+                console.log('result is: ', result);
+            }, function(error) {
+                console.log('error is: ', error);
+            }); //end of uploadS3Data
 
+        }
+    })
     $scope.save = function(pet) {
         var user = StorageService.getCurrentUser().user;
         pet._id = user._id;

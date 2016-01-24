@@ -5,10 +5,10 @@
         .module('petBook.global.fileUpload.directive', [])
         .directive('fileUpload', fileUpload);
 
-    fileUpload.$inject = ['dependencies'];
+    fileUpload.$inject = [];
 
     /* @ngInject */
-    function fileUpload(dependencies) {
+    function fileUpload() {
         // Usage:
         //
         // Creates:
@@ -20,7 +20,8 @@
             link: link,
             restrict: 'A',
             scope: {
-            }
+            },
+            require:"ngModel"
         };
         return directive;
 
@@ -30,6 +31,7 @@
                 var file = files[0];
 
                 ngModel.$setViewValue(file);
+                console.log('file is: ', file);
                 $scope.$apply();
             });
         }
