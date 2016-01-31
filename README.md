@@ -68,5 +68,5 @@ To run the project on Ionic View:
 * Download and run Ionic View on your mobile device [Link](http://view.ionic.io/)
 * Find the petbook app via id: ec3b247c 
 
-
+### Liscence
 Copyright (c) 2016 Hedukor [http://www.hedukor.com](http://www.hedukor.com/)
