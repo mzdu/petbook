@@ -96,7 +96,7 @@ angular.module('petBook.controllers', [])
     };
     
     //show user notification popover
-    $scope.popover = $ionicPopover.fromTemplateUrl('templates/popover.html', {
+    $scope.popover = $ionicPopover.fromTemplateUrl('templates/notificationHolder.html', {
         scope: $scope
     }).then(function(popover) {
         $scope.popover = popover;
