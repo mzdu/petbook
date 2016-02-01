@@ -25,9 +25,10 @@
 
             return {
                 upload: upload,
-                getS3: upload,
+                getS3: getS3,
                 uploadS3: uploadS3,
-                uploadS3Data: uploadS3Data
+                uploadS3Data: uploadS3Data,
+                uploadS3Uri: uploadS3Uri,
             };
             // GET: /Upload/:userID
             // returns all posts from current user
@@ -40,15 +41,20 @@
             function getS3(file) {
                     // return Restangular.one('pet', userID).get(); 
                     // return Restangular.all('uploadFile').post(form);
+
+                    var key = file.split('/').pop();
+                    console.log('key is: ', key);
+                    // getRandomUserKey() + '.jpg';
+                    console.log('file is: ', file);
                     var defer = $q.defer();
                     var s3_params = {
                         Bucket: S3_BUCKET,
-                        Key: file.name,
-                        Expires: 60,
-                        ContentType: file.type,
-                        ACL: 'public-read'
+                        Key: key,
+                        Expires: 60
+                        // ContentType: 'image/jpeg',
+                        // ACL: 'public-read'
                     };
-                    s3.getSignedUrl('putObject', function s3_params(err, data) {
+                    s3.getSignedUrl('putObject', s3_params, function(err, data) {
                         if (err) {
                             console.log(err);
                             defer.reject(err);
@@ -56,7 +62,7 @@
                             console.log('data is: ', data);
                             var return_data = {
                                 signed_request: data,
-                                url: 'https://' + S3_BUCKET + '.s3.amazonaws.com/' + file.name
+                                url: 'https://' + S3_BUCKET + '.s3.amazonaws.com/' + key
                             };
                             // res.write(JSON.stringify(return_data));
                             defer.resolve(return_data);
@@ -65,7 +71,7 @@
                     return defer.promise;
                 } // end getS3
 
-            function uploadS3(file) {
+            function uploadS3(file) { //for uploading file
 
                     var defer = $q.defer();
                     var s3_params = {
@@ -88,37 +94,71 @@
                     return defer.promise;
                 } // end uploadS3
 
-            function uploadS3Data(imageData) {
-                var imgData = getImgData(imageData); // or just hardcode {extension: "jpg", type: "image/jpeg"} if you only want jpg
-                var key = getRandomUserKey() + '.' + imgData.extension; // bucket path after BUCKET_NAME
 
-                // notificationService.showDialog('imgData', angular.toJson(imgData))
-                //     .then(function(res) {
-                //         console.log('dialoag completed');
-                //         notificationService.showDialog('key', key)
-                //             .then(function(res) {
-                //                 console.log('dialoag completed');
-                //             });
-                //     });
+            function uploadS3Uri(uri) { //for uploading image data
+
+                var defer = $q.defer();
+                console.log('before encode');
+                window.plugins.Base64.encodeFile(uri, function(base64) {
+                    console.log('encoded file');
+                    var key = getRandomUserKey() + '.jpg'; // bucket path after BUCKET_NAME
+
+                    var s3_params = {
+                        Bucket: S3_BUCKET,
+                        Key: key,
+                        Body: base64,
+                        ContentType: 'image/jpeg'
+                    };
+
+                    s3.upload(s3_params, function(err, data) {
+                        if (err) {
+                            console.log(err);
+                            defer.reject(err);
+                        } else {
+                            console.log('data is: ', data);
+                            defer.resolve(data);
+                        } //end else
+                    }); //end of s3.upload
+                    return defer.promise;
+                });
+
+            }
+
+             // "key": fileName,
+             //        "AWSAccessKeyId": data.awsKey,
+             //        "acl": "public-read",
+             //        "policy": data.policy,
+             //        "signature": data.signature,
+             //        "Content-Type": "image/jpeg"
+
+
+            function uploadS3Data(imageData) {
+                // var imgData = getImgData(imageData); // or just hardcode {extension: "jpg", type: "image/jpeg"} if you only want jpg
+                // var key = getRandomUserKey() + '.' + imgData.extension; // bucket path after BUCKET_NAME
+                // imageData = imageData.replace(", ", "");
+                var key = getRandomUserKey() + '.jpg'
 
                 var defer = $q.defer();
                 var s3_params = {
+                    ACL: 'public-read',
                     Bucket: S3_BUCKET,
-                    ContentEncoding: 'base64',
+                    // ContentEncoding: 'base64',
                     Key: key,
-                    Body: imgData.file,
-                    ContentType: imgData.type
+                    // Body: imgData.file,
+                    Body: imageData,
+                    // ContentType: imgData.type
+                    ContentType: 'image/jpeg'
                 };
 
 
-                s3.putObject(s3_params, function(err, data) {
+                s3.upload(s3_params, function(err, data) {
+                    // s3.putObject(s3_params, function(err, data) {
                     if (err) {
                         defer.reject(err);
                     } else {
                         defer.resolve(data);
                     } //end else
                 }); //end of s3.upload
-
                 return defer.promise;
             }
 
@@ -135,7 +175,7 @@
                     return {
                         extension: extension,
                         type: type,
-                        file: new Buffer(img.replace(/^data:image\/\w+;base64,/, ""),'base64')
+                        file: new Buffer(img.replace(/^data:image\/\w+;base64,/, ""), 'base64')
                     };
                 } //end getImgData
 

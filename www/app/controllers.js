@@ -314,22 +314,58 @@ angular.module('petBook.controllers', [])
     //choose a photo for avatar; the avatar's uri is in $scope.user.avatar
 
     $scope.selectPhoto = function() {
+        console.log('select photo');
         document.addEventListener("deviceready", function() {
             console.log('device ready');
             var options = {
                 destinationType: Camera.DestinationType.FILE_URI,
                 sourceType: Camera.PictureSourceType.PHOTOLIBRARY,
+                quality : 75,
+                targetWidth: 500,
+                targetHeight: 500
             };
             $cordovaCamera.getPicture(options)
-                .then(function(imageData) {
-                    $scope.user.avatar = imageData;
+                .then(function(imageUri) {
+                    $scope.user.avatar = imageUri;
+                    console.log('got picture');
 
+                    // UploadService.uploadS3Dat ca('data:image/jpeg;base64,' + imageUri)
+                      var options = new FileUploadOptions();
+                        options.chunkedMode = false;
+                        options.httpMethod = 'PUT';
+                        options.headers = {
+                            'Content-Type': 'image/jpeg'
+                            // 'X-Amz-Acl': 'public-read-write',
+                            // 'x-amz-server-side-encryption': 'aws:kms'
+                        };
 
-                    UploadService.uploadS3Data('data:image/jpeg;base64,' + imageData)
-                        .then(uploadSuccess, uploadError)
-                        .catch(uploadError);
-                    // $scope.user.blob = imageData;
+                    UploadService.getS3(imageUri)
+                    .then(function success(result){
+                        var signed_request = result.signed_request;
+                        console.log('signed_request is: ', signed_request);
+                          var ft = new FileTransfer();
+                        ft.upload(imageUri, signed_request, function () {
+                            $scope.$apply(function () {
+                                console.log('success!');
+                            });
+                        }, function (error) {
+                            console.log('error is: ', angular.toJson(error));
+                            $scope.$apply(function () {
+                                console.log('failure!');
+                            });
+                        }, options, true);
+
+                    }, function error(result){
+                        console.log('error is: ', angular.toJson(result));
+                    });
+
+                    // UploadService.uploadS3Data(imageUri)
+                    //     .then(uploadSuccess, uploadError)
+                    //     .catch(uploadError);
+                    // $scope.user.blob = imageUri;
                 }); //end getPictures
+
+        
 
         });
     } //end selectPhoto

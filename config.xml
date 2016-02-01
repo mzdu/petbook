@@ -1,7 +1,7 @@
-<?xml version='1.0' encoding='utf-8'?>
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <widget id="com.ionicframework.sample374926" version="0.0.5" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
-    <name>Petbook</name>
-    <description>
+  <name>Petbook</name>
+  <description>
         Connect with pets and pet lovers near you!
     </description>
   <author email="davidhe@fastmail.com" href="http://ionicframework.com/">
