@@ -226,15 +226,15 @@ angular.module('petBook.controllers', [])
     console.log('$scope.field = ', $scope.field);    
     console.log('the value is: ', $scope.value);*/
 
-    $scope.$watch('pet.file', function(newVal){
-        if(newVal){
+    $scope.$watch('pet.file', function(newVal) {
+        if (newVal) {
             console.log('file is: ', newVal);
-             UploadService.uploadS3(newVal)
-            .then(function(result) {
-                console.log('result is: ', result);
-            }, function(error) {
-                console.log('error is: ', error);
-            }); //end of uploadS3Data
+            UploadService.uploadS3(newVal)
+                .then(function(result) {
+                    console.log('result is: ', result);
+                }, function(error) {
+                    console.log('error is: ', error);
+                }); //end of uploadS3Data
 
         }
     })
@@ -286,89 +286,30 @@ angular.module('petBook.controllers', [])
 
     }
 
-    $scope.uploadFile = function() {
-        var fileChooser = document.getElementById('file-chooser');
-        // angular.element('#file-chooser');
 
-        console.log('fileChooser.files[0] = ', fileChooser.files[0]);
-        var fileTest = fileChooser.files[0];
-        $scope.fileTest = fileTest;
-        // if (fileTest) {
-        //     // results.innerHTML = '';
-
-        //     console.log('fileTest is: ', fileTest);
-        //     UploadService.uploadS3Data(fileTest)
-        //     .then(function(result) {
-        //         console.log('result is: ', result);
-        //     }, function(error) {
-        //         console.log('error is: ', error);
-        //     }); //end of uploadS3Data
-
-        // } else {
-        //     // results.innerHTML = 'Nothing to upload.';
-        //     alert('error has occured');
-        // }
-        //console.log('in edit profile ctrl');
-    }
-
-    //choose a photo for avatar; the avatar's uri is in $scope.user.avatar
 
     $scope.selectPhoto = function() {
-        console.log('select photo');
-        document.addEventListener("deviceready", function() {
-            console.log('device ready');
-            var options = {
-                destinationType: Camera.DestinationType.FILE_URI,
-                sourceType: Camera.PictureSourceType.PHOTOLIBRARY,
-                quality : 75,
-                targetWidth: 500,
-                targetHeight: 500
-            };
-            $cordovaCamera.getPicture(options)
-                .then(function(imageUri) {
-                    $scope.user.avatar = imageUri;
-                    console.log('got picture');
+            console.log('select photo');
+            document.addEventListener("deviceready", function() {
+                console.log('device ready');
+                var options = {
+                    destinationType: Camera.DestinationType.FILE_URI,
+                    sourceType: Camera.PictureSourceType.PHOTOLIBRARY,
+                    quality: 75,
+                    targetWidth: 500,
+                    targetHeight: 500
+                };
+                $cordovaCamera.getPicture(options)
+                    .then(function(imageUri) {
+                        $scope.user.avatar = imageUri;
+                        console.log('got picture');
+                        uploadHelper(imageUri);
+                    }); //end getPictures
 
-                    // UploadService.uploadS3Dat ca('data:image/jpeg;base64,' + imageUri)
-                      var options = new FileUploadOptions();
-                        options.chunkedMode = false;
-                        options.httpMethod = 'PUT';
-                        options.headers = {
-                            'Content-Type': 'image/jpeg'
-                            // 'X-Amz-Acl': 'public-read-write',
-                            // 'x-amz-server-side-encryption': 'aws:kms'
-                        };
 
-                    UploadService.getS3(imageUri)
-                    .then(function success(result){
-                        var signed_request = result.signed_request;
-                        console.log('signed_request is: ', signed_request);
-                          var ft = new FileTransfer();
-                        ft.upload(imageUri, signed_request, function () {
-                            $scope.$apply(function () {
-                                console.log('success!');
-                            });
-                        }, function (error) {
-                            console.log('error is: ', angular.toJson(error));
-                            $scope.$apply(function () {
-                                console.log('failure!');
-                            });
-                        }, options, true);
 
-                    }, function error(result){
-                        console.log('error is: ', angular.toJson(result));
-                    });
-
-                    // UploadService.uploadS3Data(imageUri)
-                    //     .then(uploadSuccess, uploadError)
-                    //     .catch(uploadError);
-                    // $scope.user.blob = imageUri;
-                }); //end getPictures
-
-        
-
-        });
-    } //end selectPhoto
+            });
+        } //end selectPhoto
 
     //  destinationType: Camera.DestinationType.DATA_URL, // this needs to be DATA_URL 
     // sourceType: Camera.PictureSourceType.PHOTOLIBRARY /
@@ -377,7 +318,7 @@ angular.module('petBook.controllers', [])
     $scope.takePhoto = function() {
             var options = {
                 quality: 50,
-                destinationType: Camera.DestinationType.DATA_URL,
+                destinationType: Camera.DestinationType.FILE_URI,
                 sourceType: Camera.PictureSourceType.CAMERA,
                 allowEdit: true,
                 encodingType: Camera.EncodingType.JPEG,
@@ -388,10 +329,44 @@ angular.module('petBook.controllers', [])
                 correctOrientation: true
             };
             $cordovaCamera.getPicture(options)
-                .then(function(imageData) {
-                    $scope.user.avatar = imageData;
+                .then(function(imageUri) {
+                    $scope.user.avatar = imageUri;
+                    uploadHelper(imageUri);
                 });
         } //end takePhoto
+
+
+    function uploadHelper(imageUri) {
+        var options = new FileUploadOptions();
+        options.chunkedMode = false;
+        options.httpMethod = 'PUT';
+        options.headers = {
+            'Content-Type': 'image/jpeg'
+        };
+
+        UploadService.getS3(imageUri)
+            .then(function success(s3Result) {
+                var signed_request = s3Result.signed_request;
+                console.log('signed_request is: ', signed_request);
+                var ft = new FileTransfer();
+                ft.upload(imageUri, signed_request, function(uploadResult) {
+                    $scope.$apply(function() {
+                        console.log('success!');
+                        $scope.user.avatar = s3Result.url;
+
+                    });
+                }, function(error) {
+                    console.log('error is: ', angular.toJson(error));
+                    $scope.$apply(function() {
+                        console.log('failure!');
+                    });
+                }, options, true);
+
+            }, function error(result) {
+                console.log('error is: ', angular.toJson(result));
+            });
+
+    }
 
     function uploadSuccess(result) {
         console.log('result is: ', result);
