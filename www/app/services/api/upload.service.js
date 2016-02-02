@@ -29,21 +29,17 @@
             };
             // GET: /Upload/:userID
             // returns all posts from current user
-           
 
-            function getS3(file) {
 
-                    var key = file.split('/').pop();
+            function getS3(imageUri) {
+
+                    var key = getFileName(imageUri);
                     console.log('key is: ', key);
-                    // getRandomUserKey() + '.jpg';
-                    console.log('file is: ', file);
                     var defer = $q.defer();
                     var s3_params = {
                         Bucket: S3_BUCKET,
                         Key: key,
                         Expires: 60
-                        // ContentType: 'image/jpeg',
-                        // ACL: 'public-read'
                     };
                     s3.getSignedUrl('putObject', s3_params, function(err, data) {
                         if (err) {
@@ -67,7 +63,7 @@
                 options.chunkedMode = false;
                 options.httpMethod = 'PUT';
                 options.headers = {
-                    'Content-Type': 'image/jpeg'
+                    'Content-Type': getImgType(imageUri)
                 };
 
                 var defer = $q.defer();
@@ -75,66 +71,34 @@
                 var ft = new FileTransfer();
                 ft.upload(imageUri, signed_request, function(uploadResult) {
                     // $scope.$apply(function() {
-                        console.log('success!');
-                        defer.resolve(uploadResult);
+                    console.log('success!');
+                    defer.resolve(uploadResult);
                     // });
                 }, function(error) {
                     // $scope.$apply(function() {
-                        defer.reject(error);
-                        // console.log('failure!');
+                    defer.reject(error);
+                    // console.log('failure!');
                     // });
                 }, options, true);
 
                 return defer.promise;
             }
 
-        
-            function uploadS3Data(imageData) {
-                // var imgData = getImgData(imageData); // or just hardcode {extension: "jpg", type: "image/jpeg"} if you only want jpg
-                // var key = getRandomUserKey() + '.' + imgData.extension; // bucket path after BUCKET_NAME
-                // imageData = imageData.replace(", ", "");
-                var key = getRandomUserKey() + '.jpg'
-
-                var defer = $q.defer();
-                var s3_params = {
-                    ACL: 'public-read',
-                    Bucket: S3_BUCKET,
-                    // ContentEncoding: 'base64',
-                    Key: key,
-                    // Body: imgData.file,
-                    Body: imageData,
-                    // ContentType: imgData.type
-                    ContentType: 'image/jpeg'
-                };
-
-
-                s3.upload(s3_params, function(err, data) {
-                    // s3.putObject(s3_params, function(err, data) {
-                    if (err) {
-                        defer.reject(err);
-                    } else {
-                        defer.resolve(data);
-                    } //end else
-                }); //end of s3.upload
-                return defer.promise;
-            }
 
             //helpers
-            function getImgData(img) {
-                    var extension = 'jpg';
-                    var type = 'image/jpeg';
-                    var base64result = img.split(',')[0];
-                    if (base64result.indexOf("png") > -1) {
-                        extension = 'png';
-                        type = 'image/png';
-                    }
 
-                    return {
-                        extension: extension,
-                        type: type,
-                        file: new Buffer(img.replace(/^data:image\/\w+;base64,/, ""), 'base64')
-                    };
-                } //end getImgData
+            function getFileName(uri) {
+                return uri.split('/').pop();
+            }
+
+            function getImgType(uri) {
+                var fileName = getFileName(uri);
+                if (fileName && fileName.split('.')[1] === 'png') {
+                    return 'image/png';
+                } else {
+                    return 'image/jpeg';
+                }
+            } //end getImgData
 
             function getRandomUserKey() {
                 var username = StorageService.getCurrentUser().user.username;
