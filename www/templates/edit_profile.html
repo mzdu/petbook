@@ -3,7 +3,7 @@
         <form name="profileEdit">
             <div class="list">
                 <!-- avatar -->
-                <div ng-if="field === 'avatar'">
+                <div ng-if="field === 'photoUrl'">
 
                     <button class="button button-full button-calm" ng-click="takePhoto()">
                         Take Photo
@@ -13,7 +13,7 @@
                         Choose From Photos
                     </button>
                    <div class="item item-body">
-                    <img name = "avatarimg" class="full-image avatar-bigger" ng-src="{{user.avatar}}">
+                    <img name = "avatarimg" class="full-image avatar-bigger" ng-src="{{pet.photoUrl}}">
                     </div>
                 </div>
                 <!-- name -->

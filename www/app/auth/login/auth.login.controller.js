@@ -23,12 +23,12 @@
         ionicMaterialInk.displayEffect();
 
         function login() {
+            // $state.go('app.moments');
+            
             // Start showing the progress
             $scope.showLoading($ionicLoading);
             var promise = AuthService.login($scope.user);
             promise.then(function(user, err) {
-                // console.log('user is: ', user);
-                // returns a list of users
                 console.log('user is: ', user);
                 if (!err && user.token) {
                     StorageService.setCurrentUser(user);

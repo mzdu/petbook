@@ -241,7 +241,7 @@ angular.module('petBook.controllers', [])
     $scope.save = function(pet) {
         var user = StorageService.getCurrentUser().user;
         pet._id = user._id;
-        pet.photoUrl = $scope.user.avatar || pet.photoUrl;
+        // pet.photoUrl = $scope.user.avatar || pet.photoUrl;
         var promise = ProfileService.update(pet);
         $scope.showLoading($ionicLoading);
         promise.then(function(response) {
@@ -301,9 +301,9 @@ angular.module('petBook.controllers', [])
                 };
                 $cordovaCamera.getPicture(options)
                     .then(function(imageUri) {
-                        $scope.user.avatar = imageUri;
-                        console.log('got picture');
-                        uploadHelper(imageUri);
+                        $scope.pet.photoUrl = imageUri;
+                        console.log('got picture', imageUri);
+                        // uploadHelper(imageUri);
                     }); //end getPictures
 
 
@@ -330,8 +330,9 @@ angular.module('petBook.controllers', [])
             };
             $cordovaCamera.getPicture(options)
                 .then(function(imageUri) {
-                    $scope.user.avatar = imageUri;
-                    uploadHelper(imageUri);
+                    $scope.pet.photoUrl = imageUri;
+                    console.log('got picture', imageUri);
+                    // uploadHelper(imageUri);
                 });
         } //end takePhoto
 
