@@ -217,15 +217,6 @@ angular.module('petBook.controllers', [])
 
     $scope.pet[$scope.field] = $scope.value;
 
-    // notificationService.showDialog('test, text')
-    //     .then(function(success) {
-    //         console.log('success is: ', success);
-    //     });
-
-    /*console.log('scope.pet is: ', $scope.pet);
-    console.log('$scope.field = ', $scope.field);    
-    console.log('the value is: ', $scope.value);*/
-
     $scope.$watch('pet.file', function(newVal) {
         if (newVal) {
             console.log('file is: ', newVal);
@@ -241,7 +232,6 @@ angular.module('petBook.controllers', [])
     $scope.save = function(pet) {
         var user = StorageService.getCurrentUser().user;
         pet._id = user._id;
-        // pet.photoUrl = $scope.user.avatar || pet.photoUrl;
         var promise = ProfileService.update(pet);
         $scope.showLoading($ionicLoading);
         promise.then(function(response) {
@@ -311,19 +301,15 @@ angular.module('petBook.controllers', [])
             });
         } //end selectPhoto
 
-    //  destinationType: Camera.DestinationType.DATA_URL, // this needs to be DATA_URL 
-    // sourceType: Camera.PictureSourceType.PHOTOLIBRARY /
-
-
     $scope.takePhoto = function() {
             var options = {
-                quality: 50,
+                quality: 75,
                 destinationType: Camera.DestinationType.FILE_URI,
                 sourceType: Camera.PictureSourceType.CAMERA,
                 allowEdit: true,
                 encodingType: Camera.EncodingType.JPEG,
-                targetWidth: 100,
-                targetHeight: 100,
+                targetWidth: 500,
+                targetHeight: 500,
                 popoverOptions: CameraPopoverOptions,
                 saveToPhotoAlbum: false,
                 correctOrientation: true
