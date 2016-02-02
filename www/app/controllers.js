@@ -303,7 +303,7 @@ angular.module('petBook.controllers', [])
                     .then(function(imageUri) {
                         $scope.pet.photoUrl = imageUri;
                         console.log('got picture', imageUri);
-                        // uploadHelper(imageUri);
+                        uploadHelper(imageUri);
                     }); //end getPictures
 
 
@@ -332,7 +332,7 @@ angular.module('petBook.controllers', [])
                 .then(function(imageUri) {
                     $scope.pet.photoUrl = imageUri;
                     console.log('got picture', imageUri);
-                    // uploadHelper(imageUri);
+                    uploadHelper(imageUri);
                 });
         } //end takePhoto
 
@@ -353,7 +353,7 @@ angular.module('petBook.controllers', [])
                 ft.upload(imageUri, signed_request, function(uploadResult) {
                     $scope.$apply(function() {
                         console.log('success!');
-                        $scope.user.avatar = s3Result.url;
+                        $scope.pet.photoUrl = s3Result.url;
 
                     });
                 }, function(error) {
@@ -367,23 +367,6 @@ angular.module('petBook.controllers', [])
                 console.log('error is: ', angular.toJson(result));
             });
 
-    }
-
-    function uploadSuccess(result) {
-        console.log('result is: ', result);
-        $scope.user.avatar = result.Location;
-        notificationService.showDialog('upload success', angular.toJson(result))
-            .then(function(res) {
-                console.log('dialog completed');
-            });
-    }
-
-    function uploadError(error) {
-        console.log('error is: ', error);
-        notificationService.showDialog('upload error', angular.toJson(error))
-            .then(function(res) {
-                console.log('dialog completed');
-            });
     }
 })
 
