@@ -25,7 +25,7 @@
 
             return {
                 getS3: getS3,
-                uploadS3Uri: uploadS3Uri,
+                uploadSignedS3: uploadSignedS3,
             };
             // GET: /Upload/:userID
             // returns all posts from current user
@@ -62,33 +62,30 @@
                 } // end getS3
 
 
-            function uploadS3Uri(uri) { //for uploading image data
+            function uploadSignedS3(imageUri, signed_request) { //for uploading image data
+                var options = new FileUploadOptions();
+                options.chunkedMode = false;
+                options.httpMethod = 'PUT';
+                options.headers = {
+                    'Content-Type': 'image/jpeg'
+                };
 
                 var defer = $q.defer();
-                console.log('before encode');
-                window.plugins.Base64.encodeFile(uri, function(base64) {
-                    console.log('encoded file');
-                    var key = getRandomUserKey() + '.jpg'; // bucket path after BUCKET_NAME
 
-                    var s3_params = {
-                        Bucket: S3_BUCKET,
-                        Key: key,
-                        Body: base64,
-                        ContentType: 'image/jpeg'
-                    };
+                var ft = new FileTransfer();
+                ft.upload(imageUri, signed_request, function(uploadResult) {
+                    // $scope.$apply(function() {
+                        console.log('success!');
+                        defer.resolve(uploadResult);
+                    // });
+                }, function(error) {
+                    // $scope.$apply(function() {
+                        defer.reject(error);
+                        // console.log('failure!');
+                    // });
+                }, options, true);
 
-                    s3.upload(s3_params, function(err, data) {
-                        if (err) {
-                            console.log(err);
-                            defer.reject(err);
-                        } else {
-                            console.log('data is: ', data);
-                            defer.resolve(data);
-                        } //end else
-                    }); //end of s3.upload
-                    return defer.promise;
-                });
-
+                return defer.promise;
             }
 
         

@@ -197,7 +197,6 @@ angular.module('petBook.controllers', [])
 
     $scope.user = StorageService.getCurrentUser().user;
     $scope.user.avatar = '';
-    $scope.file = {};
 
     $scope.leftButtons = [{
         type: 'button-positive',
@@ -217,18 +216,6 @@ angular.module('petBook.controllers', [])
 
     $scope.pet[$scope.field] = $scope.value;
 
-    $scope.$watch('pet.file', function(newVal) {
-        if (newVal) {
-            console.log('file is: ', newVal);
-            UploadService.uploadS3(newVal)
-                .then(function(result) {
-                    console.log('result is: ', result);
-                }, function(error) {
-                    console.log('error is: ', error);
-                }); //end of uploadS3Data
-
-        }
-    })
     $scope.save = function(pet) {
         var user = StorageService.getCurrentUser().user;
         pet._id = user._id;
@@ -250,33 +237,8 @@ angular.module('petBook.controllers', [])
     }
 
     $scope.cancel = function() {
-        $scope.pet = {};
-        $scope.user.avatar = '';
         $state.go('app.profile');
     }
-
-
-    //upload selected avatar image to AWS; not finished yet
-    $scope.upload = function() {
-
-        UploadService.uploadS3Data($scope.user.avatar)
-            .then(function(result) {
-                console.log('result is: ', result);
-                notificationService.showDialog(result)
-                    .then(function(res) {
-                        console.log('dialog completed');
-                    });
-            }, function(error) {
-                console.log('error is: ', error);
-                notificationService.showDialog(error)
-                    .then(function(res) {
-                        console.log('dialog completed');
-                    });
-            }); //end of upload
-
-    }
-
-
 
     $scope.selectPhoto = function() {
             console.log('select photo');
@@ -324,30 +286,16 @@ angular.module('petBook.controllers', [])
 
 
     function uploadHelper(imageUri) {
-        var options = new FileUploadOptions();
-        options.chunkedMode = false;
-        options.httpMethod = 'PUT';
-        options.headers = {
-            'Content-Type': 'image/jpeg'
-        };
-
         UploadService.getS3(imageUri)
             .then(function success(s3Result) {
                 var signed_request = s3Result.signed_request;
                 console.log('signed_request is: ', signed_request);
-                var ft = new FileTransfer();
-                ft.upload(imageUri, signed_request, function(uploadResult) {
-                    $scope.$apply(function() {
-                        console.log('success!');
-                        $scope.pet.photoUrl = s3Result.url;
-
-                    });
-                }, function(error) {
-                    console.log('error is: ', angular.toJson(error));
-                    $scope.$apply(function() {
-                        console.log('failure!');
-                    });
-                }, options, true);
+                UploadService.uploadSignedS3(imageUri, signed_request)
+                .then(function success(uploadResult){
+                    $scope.pet.photoUrl = s3Result.url;
+                }, function failure(error){
+                    console.log('failure is: ', angular.toJson(error));
+                });
 
             }, function error(result) {
                 console.log('error is: ', angular.toJson(result));
