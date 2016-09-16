@@ -23,7 +23,7 @@
                         </div>
 
                         <div class="arrow_box" ng-click="vm.addComment(post)" ng-repeat="comment in vm.getComments(post)">
-                            <div><a href="#/app/friendinfo/{{comment.commentBy._id}}">{{comment.commentBy.username}}</a>: {{comment.comment}}  <span class="pull-right"><i class="icon ion-clock"></i> &nbsp;{{vm.getTimeSpan(comment)}}</span></div>
+                            <div><a href="#/app/friendinfo/{{comment.commentBy._id}}">{{comment.commentBy.username}}</a>: {{comment.comment}}  <!-- <span class="pull-right"><i class="icon ion-clock"></i> &nbsp;{{vm.getTimeSpan(comment)}}</span> --></div>
                            
                         </div>
                     </div>

@@ -94,7 +94,39 @@ angular.module('petBook.controllers', [])
             fabs[0].remove();
         }
     };
+    
+    //show user notification popover
+    $scope.popover = $ionicPopover.fromTemplateUrl('templates/notificationHolder.html', {
+        scope: $scope
+    }).then(function(popover) {
+        $scope.popover = popover;
+    });
+   
+    $scope.openPopover = function($event) {
+//    		  console.log('in controller now');
+       $scope.popover.show($event);
+    };
 
+    $scope.closePopover = function() {
+       $scope.popover.hide();
+    };
+
+    //Cleanup the popover when we're done with it!
+    $scope.$on('$destroy', function() {
+       $scope.popover.remove();
+    });
+
+    // Execute action on hide popover
+    $scope.$on('popover.hidden', function() {
+       // Execute action
+    });
+
+    // Execute action on remove popover
+    $scope.$on('popover.removed', function() {
+       // Execute action
+    });    	
+
+    	
     $scope.logout = function() {
         /*StorageService.resetCurrentUser();
         $state.go('app.login');*/
@@ -125,6 +157,7 @@ angular.module('petBook.controllers', [])
     $scope.hideLoading = function() {
         $ionicLoading.hide();
     };
+
 })
 
 .controller('IntroCtrl', function($scope, $stateParams, $timeout, ionicMaterialInk, ionicMaterialMotion) {
